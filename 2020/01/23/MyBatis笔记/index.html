@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MyBatis笔记 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MyBatis笔记SSM框架系列之一 MyBatiswhat MyBatis 本是apache的一个开源项目iBatis, 2010年由apache software foundation 迁移到了google code，并且改名为MyBatis 。2013年11月迁移到Github。  MyBatis是支持定制化 SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis 避免了几乎所有的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis笔记">
+<meta property="og:url" content="http://yoursite.com/2020/01/23/MyBatis%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MyBatis笔记SSM框架系列之一 MyBatiswhat MyBatis 本是apache的一个开源项目iBatis, 2010年由apache software foundation 迁移到了google code，并且改名为MyBatis 。2013年11月迁移到Github。  MyBatis是支持定制化 SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis 避免了几乎所有的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/MyBatis%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis4.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis5.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/UC%E6%88%AA%E5%9B%BE20190918194909.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis.5.3.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis.5.8.3.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis.6.b.i.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis.6.b.i.1.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/mybatis.7.1.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-22_18-02-01_%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4_351ep18xu.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-22_18-02-44_%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4_45ep18xu.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-24_16-55-10.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-25_19-12-48_%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4_334ep19xu.png">
+<meta property="article:published_time" content="2020-01-23T15:18:43.000Z">
+<meta property="article:modified_time" content="2020-01-23T15:19:29.552Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="ssm">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="mybatis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/ZephXu07/IMG/raw/master/MyBatis%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MyBatis笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/23/MyBatis%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-01-23T15:18:43.000Z" itemprop="datePublished">2020-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MyBatis笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MyBatis笔记"><a href="#MyBatis笔记" class="headerlink" title="MyBatis笔记"></a>MyBatis笔记</h1><h2 id="SSM框架系列之一-MyBatis"><a href="#SSM框架系列之一-MyBatis" class="headerlink" title="SSM框架系列之一 MyBatis"></a>SSM框架系列之一 MyBatis</h2><h2 id="what"><a href="#what" class="headerlink" title="what"></a>what</h2><p> MyBatis 本是apache的一个开源项目iBatis, 2010年由apache software foundation 迁移到了google code，并且改名为MyBatis 。2013年11月迁移到Github。</p>
+<p> MyBatis是支持定制化 SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以对配置和原生Map使用简单的 XML 或注解，将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。（专业语言，抄的……）</p>
+<p> 总而言之MyBatis是一个轻量级简化数据库操作的框架。</p>
+<h2 id="why-using-MyBatis"><a href="#why-using-MyBatis" class="headerlink" title="why using MyBatis"></a>why using MyBatis</h2><p><em>解决JDBC存在的问题和简化数据库操作</em>：</p>
+<ul>
+<li><p>可以通过主配置文件配置连接池解决频繁创建、释放数据库连接造成的性能影响</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  使用jdbc的事务          --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/ssm_mybatis?serverTimezone=Asia/Shanghai"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"10709991"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态SQL解决JDBC中硬编码问题</p>
+</li>
+<li><ul>
+<li>Where条件改变</li>
+<li>占位符位置变化</li>
+<li>mapper.xml 文件书写</li>
+</ul>
+</li>
+<li><p>可通过包装类方便的获取数据库查询结果集对象</p>
+</li>
+<li><p>使Dao层业务逻辑和数据库访问分离更易维护和测试</p>
+</li>
+</ul>
+<h2 id="learn-what"><a href="#learn-what" class="headerlink" title="learn what"></a>learn what</h2><ul>
+<li>了解MyBatis架构；</li>
+<li>掌握MyBatis框架搭建、配置</li>
+<li>使用MyBatis完成对数据库的增、删、改、查操作</li>
+<li>掌握Mapper代理开发</li>
+<li>掌握输入和输出映射</li>
+<li>掌握多表关联查询</li>
+<li>掌握动态SQL编写SQL语句</li>
+<li>使用MyBatis Generator工具快速生成Bean、Interface、mapper.xml</li>
+<li>掌握MyBatis+Spring开发(需要部分Spring知识)</li>
+</ul>
+<h1 id="开始学习MyBatis-框架"><a href="#开始学习MyBatis-框架" class="headerlink" title="开始学习MyBatis 框架"></a>开始学习MyBatis 框架</h1><h2 id="part1-MyBatis架构图："><a href="#part1-MyBatis架构图：" class="headerlink" title="part1 MyBatis架构图："></a>part1 MyBatis架构图：</h2><p><img src="https://github.com/ZephXu07/IMG/raw/master/MyBatis%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="架构图"></p>
+<ul>
+<li>顶部算入口</li>
+<li>SqlMapConfig.xml主配置文件</li>
+<li>Mapper.xml对应一张表，几张对应几个xml文件</li>
+<li>SqlSessionFactory是上述配置文件通过SqlSessionFactoryBuilder创建的</li>
+<li>实线是初步学习关注的，虚线为后续深入学习需要关注的</li>
+</ul>
+<h2 id="part2-HelloMyBatis：搭建MyBatis-HelloWorld项目"><a href="#part2-HelloMyBatis：搭建MyBatis-HelloWorld项目" class="headerlink" title="part2 HelloMyBatis：搭建MyBatis HelloWorld项目"></a>part2 HelloMyBatis：搭建MyBatis HelloWorld项目</h2><p>1、 下载MyBatis、创建项目、导包；</p>
+<p>2、 创建测试用例，测试数据库、测试Bean对象；</p>
+<p>3、 创建sqlMapConfig.xml主配置文件；</p>
+<ul>
+<li>导入主配置文件头：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">configuration</span></span></span><br><span class="line"><span class="meta">PUBLIC <span class="meta-string">"-//mybatis.org//DTD Config 3.0//EN"</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">"http://mybatis.org/dtd/mybatis-3-config.dtd"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4、 创建Mapper.xml映射文件；</p>
+<ul>
+<li>导入Mapper文件头：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span></span></span><br><span class="line"><span class="meta">PUBLIC <span class="meta-string">"-//mybatis.org//DTD Mapper 3.0//EN"</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>5、 导入约束；</p>
+<h2 id="part3-使用MyBatis对表进行增、删、改、查操作"><a href="#part3-使用MyBatis对表进行增、删、改、查操作" class="headerlink" title="part3 使用MyBatis对表进行增、删、改、查操作"></a>part3 使用MyBatis对表进行增、删、改、查操作</h2><p><strong>SqlSession对象对数据库有增加、修改、删除都需要commit!</strong></p>
+<p>1、 通过ID去查询一个用户</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis.png" alt="1"></p>
+<ul>
+<li>需要一个UserMapper接口，方法名，返回值，参数的需要一致。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取配置文件</span></span><br><span class="line">   String resource = <span class="string">"sqlMapConfig.xml"</span>;</span><br><span class="line">   InputStream is = Resources.getResourceAsStream(resource);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//需要sqlSessionFactoryBuilder</span></span><br><span class="line">    SqlSessionFactoryBuilder saab = <span class="keyword">new</span> SqlSessionFactoryBuilder();</span><br><span class="line">       </span><br><span class="line">    <span class="comment">//创建sqlSessionFactory</span></span><br><span class="line">    SqlSessionFactory ssf = saab.build(is);</span><br><span class="line">       </span><br><span class="line">    <span class="comment">//生产一个sqlSession</span></span><br><span class="line">    SqlSession ss = ssf.openSession();</span><br><span class="line">       </span><br><span class="line">    <span class="comment">//操作数据库</span></span><br><span class="line">    <span class="comment">//参1：sql，参2：sql语句中参数</span></span><br><span class="line">    User user = ss.selectOne(<span class="string">"com.zephxu.bean.UserMapper.selectUserById"</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserById"</span> <span class="attr">parameterType</span>=<span class="string">"Integer"</span> <span class="attr">resultType</span>=<span class="string">"com.zephxu.bean.User"</span>&gt;</span></span><br><span class="line">        select * from user where u_id = #&#123;id&#125;<span class="comment">&lt;!--mapper中间为sql语句--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>#{id}占位符，即?</li>
+<li>log4j.properties文件应只有一份且存在于src\main\resources\下且不在其他子文件下。</li>
+</ul>
+<p>2、 通过用户名模糊查找匹配的用户列表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;User&gt; userList = ss.selectList(<span class="string">"com.zephxu.bean.UserMapper.selectUserByName"</span>, <span class="string">"c"</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserByName"</span> <span class="attr">parameterType</span>=<span class="string">"String"</span> <span class="attr">resultType</span>=<span class="string">"com.zephxu.bean.User"</span>&gt;</span><span class="comment">&lt;!--其他同上--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--         select * from user where u_username like '%$&#123;value&#125;%'--&gt;</span></span><br><span class="line">        select * from user where u_username like "%"#&#123;name&#125;"%"</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>${value}：字符串拼接符，容易导致sql注入，如1 = 1，避免使用。</li>
+<li>#{value}：占位符，预处理，即PreparedStatement，可以防止sql注入，尽量使用。</li>
+</ul>
+<p>3、 完成添加用户</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">User user = <span class="keyword">new</span> User(<span class="number">50</span>, <span class="string">"xz"</span>, <span class="string">"1079991"</span>, <span class="string">"1"</span>, <span class="keyword">new</span> Date(), <span class="number">2</span>);</span><br><span class="line">ss.insert(<span class="string">"com.zephxu.bean.UserMapper.insertUser"</span>, user);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BUG：Cannot add or update a child row: a foreign key constraint fails (<code>ssm_mybatis</code>.<code>user</code>, CONSTRAINT <code>FK_user_cid</code> FOREIGN KEY (<code>u_cid</code>) REFERENCES <code>country</code> (<code>c_id</code>))<ul>
+<li>这个表某字段与其他表某字段有外键连接时，此时数据应为另一个表已存在数据。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertUser"</span> <span class="attr">parameterType</span>=<span class="string">"com.zephxu.bean.User"</span>&gt;</span></span><br><span class="line">        INSERT into user values (#&#123;u_id&#125;, #&#123;u_username&#125;, #&#123;u_password&#125;, #&#123;u_sex&#125;, #&#123;u_createTime&#125;, #&#123;u_cid&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>4、 修改用户</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss.update(<span class="string">"com.zephxu.bean.UserMapper.updateUser"</span>, user);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateUser"</span> <span class="attr">parameterType</span>=<span class="string">"com.zephxu.bean.User"</span>&gt;</span></span><br><span class="line">        update user set u_username = #&#123;u_username&#125; where u_id = #&#123;u_id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>同上</li>
+</ul>
+<p>5、 根据id删除用户</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss.delete(<span class="string">"com.zephxu.bean.UserMapper.deleteUserById"</span>, <span class="number">90</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"deleteUserById"</span> <span class="attr">parameterType</span>=<span class="string">"Integer"</span>&gt;</span></span><br><span class="line">        delete from user where u_id = #&#123;u_id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>同上</li>
+</ul>
+<p>6、 使用MyBatis 开发Dao层并测试；</p>
+<p>7、 小结1：Jdbc与MyBatis开发的区别(MyBatis的优点)，回顾MyBatis开发流程；</p>
+<h2 id="part4-MyBatis-Mapper动态代理开发4-1-4原则-1注意-："><a href="#part4-MyBatis-Mapper动态代理开发4-1-4原则-1注意-：" class="headerlink" title="part4 MyBatis Mapper动态代理开发4+1 (4原则+1注意)："></a>part4 <strong>MyBatis Mapper动态代理开发4+1 (4原则+1注意)：</strong></h2><p>1、 接口方法名需要与mapper.xml的要调用的sql语句的id一致；</p>
+<p>2、 接口的形参类型需要与mapper.xml parameterType一致；</p>
+<p>3、 接口的返回值需要与mapper.xml resultType一致；</p>
+<p>4、 mapper.xml中namespace要与接口的全包名一致；</p>
+<p>5、 注意mapper动态代理开发中，根据返回值类型来自动选择；</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis4.png" alt="4"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis5.png" alt="5"></p>
+<ul>
+<li>上两图对应1-4点</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//读取配置文件</span></span><br><span class="line">        String resource = <span class="string">"sqlMapConfig.xml"</span>;</span><br><span class="line">        InputStream is = Resources.getResourceAsStream(resource);</span><br><span class="line">        <span class="comment">//创建sqlSessionFactory</span></span><br><span class="line">        SqlSessionFactory ssf = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(is);</span><br><span class="line">        <span class="comment">//生产一个sqlSession</span></span><br><span class="line">        SqlSession ss = ssf.openSession();</span><br><span class="line">        UserMapper userMapper = ss.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        User user = userMapper.selectUserById(<span class="number">99</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>倒数三行是动态代理原理，获得UserMapper唯一的模板去创建一个对象，但现在如何从未实现的UserMapper接口和一个相关的UserMapper.xml文件创建未知，可能Mybatis中已有具体方法从接口及相关xml文件生成具有具体实现方法的代理类。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User user = ss.selectOne(<span class="string">"com.zephxu.mapper.UserMapper.selectUserById"</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">userMapper.insertUser(user);</span><br><span class="line">   user.setU_username(<span class="string">"王yang"</span>);</span><br><span class="line">   userMapper.updateUserById(user);</span><br><span class="line">   List&lt;User&gt; userList = userMapper.selectUserByName(<span class="string">"王"</span>);</span><br><span class="line">   <span class="keyword">for</span> (User u:userList) &#123;</span><br><span class="line">   	System.out.println(u);</span><br><span class="line">   &#125;</span><br><span class="line">   userMapper.deleteUserById(<span class="number">88</span>);</span><br></pre></td></tr></table></figure>
+
+<p>相比之下虽代码多了，但其实更加好理解，一个UserMapper的对象，其有各种各样的方法，只需要调用，而不需要通过参数方式”com.zephxu.mapper.UserMapper.selectUserById”进行调用。</p>
+<h2 id="part5-主配置文件SqlMapConfig-xml说明：（注意顺序）"><a href="#part5-主配置文件SqlMapConfig-xml说明：（注意顺序）" class="headerlink" title="part5 主配置文件SqlMapConfig.xml说明：（注意顺序）"></a>part5 主配置文件SqlMapConfig.xml说明：（注意顺序）</h2><p><strong>（加粗为前期学习重点）</strong></p>
+<p>1、 <strong>properties（读取配置文件）</strong></p>
+<ul>
+<li><p>不使用时：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/ssm_mybatis?serverTimezone=Asia/Shanghai"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"10709991"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用时将包内的映射器接口实现全部注册为映射器：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/UC%E6%88%AA%E5%9B%BE20190918194909.png" alt="00"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"db.properties"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driver&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果属性在不只一个地方进行了配置，那么 MyBatis 将按照下面的顺序来加载：<ul>
+<li>在 properties 元素体内指定的属性首先被读取。</li>
+</ul>
+</li>
+<li>然后根据 properties 元素中的 resource 属性读取类路径下属性文件或根据 url 属性指定的路径读取属性文件，并覆盖已读取的同名属性。<ul>
+<li>最后读取作为方法参数传递的属性，并覆盖已读取的同名属性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>2、 settings（全局配置参数）</p>
+<p>3、 <strong>typeAliases（类型别名）</strong></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis.5.3.png" alt="5.3"></p>
+<ul>
+<li><p>别名可用于此处，省略包名。</p>
+</li>
+<li><p><code>&lt;typeAliases&gt;&lt;/typeAliases&gt;</code>中有两种用法：</p>
+<ol>
+<li>单独： <code>&lt;typeAlias type=&quot;com.zephxu.bean.User&quot; alias=&quot;User&quot;/&gt;</code></li>
+<li>（推荐）包：<code>&lt;package name=&quot;com.zephxu.bean&quot;/&gt;</code></li>
+</ol>
+<ul>
+<li><p><code>resultType=&quot;User&quot;</code></p>
+</li>
+<li><p><code>resultType=&quot;user&quot;</code></p>
+</li>
+<li><p>大小写均可。</p>
+<p> BUG：</p>
+<ul>
+<li>Cause: org.apache.ibatis.builder.BuilderException: Error creating document instance. Cause: org.xml.sax.SAXParseException; lineNumber: 57; columnNumber: 17; 元素类型为 “configuration” 的内容必须匹配 “(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorFactory?,plugins?,environments?,databaseIdProvider?,mappers?)”。</li>
+<li>原因：<code>&lt;configuration&gt;</code>标签中的小标签需要符合一定顺序：</li>
+<li>properties–settings–typeAliases–typeHandlers–objectFactory–objectWrapperFactory–reflectorFactory–plugins–environments–databaseIdProvider–mappers**</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>4、 typeHandlers（类型处理器）</p>
+<p>5、 objectFactory（对象工厂）</p>
+<p>6、 plugins（插件）</p>
+<p>7、 environments（环境集合属性对象，与Spring框架整合后Say Good Bye）</p>
+<p> a) environment（环境子属性对象）</p>
+<p> b) transactionManager（事务管理）</p>
+<p> c) dataSource（数据源）</p>
+<p>8、 <strong>mappers（配置映射器位置）</strong>(1-3单独，4包)</p>
+<p> （1）使用相对于类路径的资源引用</p>
+<p><code>&lt;mapper resource=&quot;mapper/UserMapper.xml&quot;/&gt;</code></p>
+<p> （2）使用完全限定资源定位符（URL）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">url</span>=<span class="string">"file:///D:\IDEAWorkSpace\ssm_MyBatis\src\main\resources\mapper\UserMapper.xml"</span>/&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--"file:///" + 绝对路径--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p> （3）使用映射器接口实现类的完全限定类名</p>
+<p> <code>&lt;mapper class=&quot;com.zephxu.mapper.UserMapper&quot;/&gt;</code></p>
+<p> <strong>注意：把同名xml文件复制到接口同个包下，且在resource目录下的包名需要完全一致，编译后在target目录下才会在同一包内。<a href="https://zephxu07.github.io/2019/09/27/Spring-Learning-Notes/#3%E3%80%81-%E5%9C%A8service%E4%B8%AD%E5%8A%A0%E5%85%A5%E4%BA%8B%E5%8A%A1%EF%BC%9A%E5%88%A9%E7%94%A8Spring-aop%E4%BA%8B%E5%8A%A1%E8%A7%A3%E5%86%B3%E8%BD%AC%E8%B4%A6%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%EF%BC%9B" target="_blank" rel="noopener">或者此BUG对应的解决方法</a></strong></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis.5.8.3.png" alt="5.8.3"></p>
+<p> （4）将包内的映射器接口实现全部注册为映射器</p>
+<p> <strong>规则同3，但是为一整个包为单位</strong></p>
+<h2 id="part6-MyBatis输入和输出映射"><a href="#part6-MyBatis输入和输出映射" class="headerlink" title="part6 MyBatis输入和输出映射"></a>part6 MyBatis输入和输出映射</h2><p>1、 输入映射parameterType；</p>
+<p> a) 基本类型；</p>
+<p> b) 自定义对象；</p>
+<p> c) 自定义包装类：本对象之外额外的信息。</p>
+<p>2、 输出映射resultType、resultMap；<strong>不能同时使用！！！</strong></p>
+<p> a) resultType：bean包中类中属性名需完全一致才能自动映射。</p>
+<p> i. 基本类型；</p>
+<p> ii. 自定义对象；</p>
+<p> iii. 集合；</p>
+<p><strong>BUG</strong> : <code>select count(*) from user</code></p>
+<p><strong>count后面没有空格！！！</strong></p>
+<p>b) resultMap；</p>
+<p> i. bean对象字段与数据表字段不匹配，如下；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Integer id;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> String capital;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis.6.b.i.png" alt="6.b.i"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis.6.b.i.1.png" alt="6.i.1"></p>
+<p><strong>注意：单表查询时<code>&lt;resultMap&gt;</code>中不能用id标签，需要用reslut标签，特别是java/com/zephxu/mapper中的mapper.xml文件</strong></p>
+<p> ii. 自定义包装类；</p>
+<p> iii. 关联查询；</p>
+<h2 id="part7-MyBatis关联查询"><a href="#part7-MyBatis关联查询" class="headerlink" title="part7 MyBatis关联查询"></a>part7 MyBatis关联查询</h2><ol>
+<li>一对一；</li>
+<li>一对多；<ul>
+<li><strong>多表查询中resultMap中建议主键时用id，而其他字段使用result，提升性能。</strong></li>
+<li><strong>单表查询中bean对象字段与数据表字段匹配时可以不用映射，但多表关联查询需要。</strong></li>
+</ul>
+</li>
+</ol>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/mybatis.7.1.png" alt="7.1"></p>
+<p>1 . 一对一：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"uservolist"</span> <span class="attr">type</span>=<span class="string">"UserVo"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"u_id"</span> <span class="attr">column</span>=<span class="string">"u_id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"u_username"</span> <span class="attr">column</span>=<span class="string">"u_username"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"u_sex"</span> <span class="attr">column</span>=<span class="string">"u_sex"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--多表查询中resultMap中建议主键时用id，而其他字段使用result--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--一对一的关系，上为主表，下为辅表，使用&lt;association&gt;标签--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"country"</span> <span class="attr">javaType</span>=<span class="string">"Country"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"c_id"</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--单表查询中bean对象字段与数据表字段匹配时可以不用映射，但多表关联查询需要--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"c_countryname"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"capital"</span> <span class="attr">column</span>=<span class="string">"c_capital"</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--同上--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectAllUserVo"</span> <span class="attr">resultMap</span>=<span class="string">"uservolist"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            u.`u_id`, u.`u_username`, u.`u_sex`,c.`c_id`, c.`c_countryname` , c.`c_capital`</span><br><span class="line">                from user u</span><br><span class="line">                    left join country c</span><br><span class="line">                        on u.`u_cid`=c.`c_id`</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.一对多</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"countryVo"</span> <span class="attr">type</span>=<span class="string">"CountryVo"</span>&gt;</span></span><br><span class="line">    	<span class="comment">&lt;!--id、result使用同上--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"c_id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"c_countryname"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"capital"</span> <span class="attr">column</span>=<span class="string">"c_capital"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--一对多关系使用collection--&gt;</span></span><br><span class="line">        &lt;collection property="userList" &lt;!--一对多中的多对应的泛型集合--&gt; ofType="User"&lt;!--泛型集合中的数据类型--&gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"u_id"</span> <span class="attr">column</span>=<span class="string">"u_id"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"u_username"</span> <span class="attr">column</span>=<span class="string">"u_username"</span>/&gt;</span></span><br><span class="line">    		<span class="comment">&lt;!--id、result使用同上--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectAllCountryVo"</span> <span class="attr">resultMap</span>=<span class="string">"countryVo"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            c.`c_id`, c.`c_countryname`, c.`c_capital`,</span><br><span class="line">                u.`u_id`, u.`u_username`</span><br><span class="line">                    from country c</span><br><span class="line">                        left join</span><br><span class="line">                            user u on</span><br><span class="line">                                u.`u_cid`=c.`c_id`</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="part8MyBatis动态sql：更方便的拼接sql语句！"><a href="#part8MyBatis动态sql：更方便的拼接sql语句！" class="headerlink" title="part8MyBatis动态sql：更方便的拼接sql语句！"></a>part8MyBatis动态sql：更方便的拼接sql语句！</h2><p>1、 if标签 - 多条件查询，获取用户列表；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserListByUser"</span> <span class="attr">parameterType</span>=<span class="string">"User"</span> <span class="attr">resultType</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">        select * from user</span><br><span class="line">            where</span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_sex != null and u_sex != ''"</span>&gt;</span></span><br><span class="line">                    u_sex = #&#123;u_sex&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_username != null and u_username != ''"</span>&gt;</span></span><br><span class="line">                    and u_username like "%"#&#123;u_username&#125;"%"</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_cid != null"</span>&gt;</span></span><br><span class="line">                    and u_cid = #&#123;u_cid&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：可能因为某个if出现sql语句错误，如</strong></p>
+<p> <strong><code>select * from user where and u_username like &quot;%&quot;?&quot;%&quot;</code></strong></p>
+<p>解决方法如2。</p>
+<p>2、 where标签 - 解决if标签拼接字符串AND符号问题；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserListByUser"</span> <span class="attr">parameterType</span>=<span class="string">"User"</span> <span class="attr">resultType</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">        select * from user</span><br><span class="line">            <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_sex != null and u_sex != ''"</span>&gt;</span></span><br><span class="line">                    u_sex = #&#123;u_sex&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_username != null and u_username != ''"</span>&gt;</span></span><br><span class="line">                    and u_username like "%"#&#123;u_username&#125;"%"</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_cid != null"</span>&gt;</span></span><br><span class="line">                    and u_cid = #&#123;u_cid&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;/<span class="name">where</span>&gt;</span><span class="comment">&lt;!--&lt;where&gt;标签可智能去除开头的and符号--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3、 trim标签 - 定制where标签的规则</p>
+<ul>
+<li><p><code>&lt;trim prefix=&quot;WHERE&quot; prefixOverrides=&quot;AND&quot;&gt;</code> 代替 <code>&lt;where&gt;</code></p>
+</li>
+<li><p>prefix（suffix）替换前缀的where ，prefixOverrides（suffixOverrides）自动去掉开头的and，此外还有其他如下：</p>
+</li>
+</ul>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-22_18-02-01_%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4_351ep18xu.png" alt="0"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-22_18-02-44_%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4_45ep18xu.png" alt="3"></p>
+<p>4、 set标签 - 解决更新数据表时字符串拼接逗号”,”问题；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateSetUser"</span> <span class="attr">parameterType</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">        update user</span><br><span class="line">            <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_username != null and u_username != ''"</span>&gt;</span></span><br><span class="line">                    u_username = #&#123;u_username&#125;,</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_password != null and u_password != ''"</span>&gt;</span></span><br><span class="line">                    u_password = #&#123;u_password&#125;,</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"u_sex != null and u_sex != ''"</span>&gt;</span></span><br><span class="line">                    u_sex = #&#123;u_sex&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">                where u_id = #&#123;u_id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>&lt;set&gt;</code>标签代替set，来处理<code>&lt;if&gt;</code>标签可能由于’,’造成的sql语句错误，且’,’可放置前面或后面，不似<code>&lt;where&gt;</code>标签只能处理前缀and！</strong></p>
+<p>5、 foreach标签 – 如果需要使用IN查询多条相同数据，可以使用foreach遍历；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserListByIds"</span> <span class="attr">resultType</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">        select * from user where u_id in (1, 7, 18, 99);</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>SQL语句如上，使用<code>&lt;foreach&gt;</code>标签后如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserListByIds"</span> <span class="attr">resultType</span>=<span class="string">"User"</span>&gt;</span></span><br><span class="line">        select *</span><br><span class="line">            from user</span><br><span class="line">                where u_id in <span class="comment">&lt;!--(1, 7, 18, 99);--&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"array"</span> <span class="attr">item</span>=<span class="string">"id"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--使用标签后拼接为 "(1,7,18,99)" --&gt;</span></span><br><span class="line">                        #&#123;id&#125;</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>List&lt;User&gt; selectUserListByIds(Integer[] integers);</code></p>
+<p> <strong>参数为<code>Integer[] integers</code> 则<code>&lt;collecction&gt;</code>参数为”array”。</strong></p>
+</li>
+<li><p><code>List&lt;User&gt; selectUserListByIdList(List&lt;Integer&gt; idList);</code></p>
+<p> <strong>参数为<code>List&lt;Integer&gt; idList</code>则<code>&lt;collection&gt;</code>参数为”list”。</strong></p>
+</li>
+<li><p><code>List&lt;User&gt; selectUserListByUserVo(UserVo uv);</code></p>
+<p> <strong>参数<code>UserVo uv</code>则<code>&lt;collection&gt;</code>参数为包装类中的属性”idList”。</strong></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-24_16-55-10.png" alt="包装类信息"></p>
+</li>
+</ul>
+<p>6、 sql标签 – 可以提取重复sql语句片段；</p>
+<ul>
+<li>定义：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"mySelect"</span>&gt;</span></span><br><span class="line">        select * from user</span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"mySelect"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="part9-MyBatis-Generator（MBG）："><a href="#part9-MyBatis-Generator（MBG）：" class="headerlink" title="part9 MyBatis Generator（MBG）："></a>part9 MyBatis Generator（MBG）：</h2><ul>
+<li><p>作用：根据数据库表自动生成Bean对象、Java接口及SqlMapper.xml配置文件；</p>
+</li>
+<li><p><a href="http://www.mybatis.org/generator/" target="_blank" rel="noopener">官方文档</a></p>
+</li>
+<li><p><a href="https://github.com/mybatis/generator/releases" target="_blank" rel="noopener">下载地址</a></p>
+</li>
+</ul>
+<p>1、 搭建MBG项目；</p>
+<p>a) 下载MBG核心包；</p>
+<p>b) 创建java项目；</p>
+<p>c) 从官方文档获取配置表、实例代码；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">generatorConfiguration</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" /&gt;--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--配置数据库的包，maven已导入，注释掉--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">"MyGenarator"</span> <span class="attr">targetRuntime</span>=<span class="string">"MyBatis3"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suppressAllComments"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--取消注释，当为true--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suppressDate"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--取消时间戳，当为true--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">&lt;!--数据库连接信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">connectionURL</span>=<span class="string">"jdbc:mysql://localhost:3306/ssm_mybatis?serverTimezone=Asia/Shanghai"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">userId</span>=<span class="string">"root"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">password</span>=<span class="string">"10709991"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--java JDBC数据类型转换，具体看https://mybatis.org/generator/configreference/javaTypeResolver.html--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaTypeResolver</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"forceBigDecimals"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--重点：javaModelGenerator Bean配置</span></span><br><span class="line"><span class="comment">			targetPackage：输入包名，输出路径</span></span><br><span class="line"><span class="comment">			targetProject：输出项目位置，相对路径，不需要写项目名，从src下开始--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"com.zephxu.bean"</span> <span class="attr">targetProject</span>=<span class="string">"src\main\java"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--是否开启子包名称，即是否在包名后边加scheme名称--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"trimStrings"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--在Set中加入.trim--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--mappper.xml文件配置--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"com.zephxu.mapper"</span>  <span class="attr">targetProject</span>=<span class="string">"src\main\java"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--targetPackage，targetProject同上--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--java接口配置--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">type</span>=<span class="string">"XMLMAPPER"</span> <span class="attr">targetPackage</span>=<span class="string">"com.zephxu.mapper"</span>  <span class="attr">targetProject</span>=<span class="string">"src\main\java"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--数据库：根据数据库中的表来生成--&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--     &lt;table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" &gt;</span></span><br><span class="line"><span class="comment">            &lt;property name="useActualColumnNames" value="true"/&gt;</span></span><br><span class="line"><span class="comment">            &lt;generatedKey column="ID" sqlStatement="DB2" identity="true" /&gt;</span></span><br><span class="line"><span class="comment">            &lt;columnOverride column="DATE_FIELD" property="startDate" /&gt;</span></span><br><span class="line"><span class="comment">            &lt;ignoreColumn column="FRED" /&gt;</span></span><br><span class="line"><span class="comment">            &lt;columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /&gt;</span></span><br><span class="line"><span class="comment">        &lt;/table&gt; --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--过于复杂，简单如下--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">"user"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">"country"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述标签中在MYSQL中trim用法：</p>
+<ul>
+<li><strong>重要知识点都在上面xml文档的注释中！</strong></li>
+</ul>
+<p>d) 导入依赖包；</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/Snipaste_2019-09-25_19-12-48_%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4_334ep19xu.png" alt="依赖包"></p>
+<ul>
+<li><ul>
+<li><p>git使用出现BUG：**error: failed to push some refs to……</p>
+</li>
+<li><p><strong>解决方法：git pull –rebase origin master</strong></p>
+<p> <strong>git push -u origin master</strong></p>
+</li>
+<li><p>详解：</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>2、 MBG配置以及根据数据库表生成所需文件（Bean、Interface、Mapper.xml）；</p>
+<p>3、 使用自动生成的文件操作数据库：根据生成的Mapper类、UserExample类中特有的属性或方法去操作数据库，具体看方法。</p>
+<h2 id="part10、Mybatis-Spring-整合开发"><a href="#part10、Mybatis-Spring-整合开发" class="headerlink" title="part10、Mybatis + Spring 整合开发"></a>part10、Mybatis + Spring 整合开发</h2><h3 id="1、目的："><a href="#1、目的：" class="headerlink" title="1、目的："></a>1、目的：</h3><p>a) 使用Spring容器用单例模式管理Mybatis的sqlSessionFactory；</p>
+<p>b) 使用Spring管理连接池、数据源等；</p>
+<p>c) 将Dao/Mapper动态代理对象注入到Spring容器中，使用时直接获取；</p>
+<h3 id="2、-Mybatis和Spring框架整合；"><a href="#2、-Mybatis和Spring框架整合；" class="headerlink" title="2、 Mybatis和Spring框架整合；"></a>2、 Mybatis和Spring框架整合；</h3><p>a) 导入所需的包；</p>
+<p>b) 创建Mybatis主配置文件sqlMapConfig.xml；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">configuration</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//mybatis.org//DTD Config 3.0//EN"</span> <span class="meta-string">"http://mybatis.org/dtd/mybatis-3-config.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置别名--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.zephxu.bean"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>c) 创建Spring主配置文件applicationContext.xml (以下是spring框架xml的头，需要导入约束)；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context/spring-context.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/tx</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/tx/spring-tx.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--数据源--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"db.properties"</span>/&gt;</span><span class="comment">&lt;!--读取配置文件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>&gt;</span><span class="comment">&lt;!--配置DataSource--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driverClass&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.jdbcUrl&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.user&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>d) 配置C3P0连接池；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--数据源--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"db.properties"</span>/&gt;</span><span class="comment">&lt;!--读取配置文件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>&gt;</span><span class="comment">&lt;!--配置DataSource--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driverClass&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.jdbcUrl&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.user&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>e) 读取db.properties；</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">jdbc.driverClass</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="meta">jdbc.jdbcUrl</span>=<span class="string">jdbc:mysql://localhost:3306/ssm_spring?serverTimezone=Asia/Shanghai</span></span><br><span class="line"><span class="meta">jdbc.user</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">jdbc.password</span>=<span class="string">10709991</span></span><br></pre></td></tr></table></figure>
+
+<p>f) 配置sqlSessionFactory；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--mybatis--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置数据源--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--告知Spring MyBatis的核心配置文件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:sqlMapConfig.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>g) 测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">        SqlSessionFactoryBean sqlSessionFactoryBean = ac.getBean(SqlSessionFactoryBean<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">System.out.println(sqlSessionFactoryBean);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、-Dao式开发；"><a href="#3、-Dao式开发；" class="headerlink" title="3、 Dao式开发；"></a>3、 Dao式开发；</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- userDao --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDaoImpl"</span> <span class="attr">class</span>=<span class="string">"com.sikiedu.dao.UserDaoImpl"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 将工厂注入到dao的父类 sqlSessionFactory --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactoryBean"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、-Mapper动态代理开发；"><a href="#4、-Mapper动态代理开发；" class="headerlink" title="4、 Mapper动态代理开发；"></a>4、 Mapper动态代理开发；</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mapper动态代理开发 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userMapper"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperFactoryBean"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 注入 sqlSessionFactory --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactoryBean"</span>/&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 配置接口 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperInterface"</span> <span class="attr">value</span>=<span class="string">"com.sikiedu.mapper.UserMapper"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、-Mapper动态扫描开发：不需要配置多个接口；"><a href="#5、-Mapper动态扫描开发：不需要配置多个接口；" class="headerlink" title="5、 Mapper动态扫描开发：不需要配置多个接口；"></a>5、 Mapper动态扫描开发：不需要配置多个接口；</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mapper动态扫描开发 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperScannerConfigurer"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"basePackage"</span> <span class="attr">value</span>=<span class="string">"com.sikiedu.mapper"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="part11、未完待续……"><a href="#part11、未完待续……" class="headerlink" title="part11、未完待续……"></a>part11、未完待续……</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/23/MyBatis%E7%AC%94%E8%AE%B0/" data-id="ck5qwc9ot000jbgj2c0xehjde" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssm/" rel="tag">ssm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/23/Hexo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hexo从零搭建博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/23/%E6%9D%82%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">杂记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/" rel="tag">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/" rel="tag">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssm/" rel="tag">ssm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/ssm/" style="font-size: 15px;">ssm</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/23/Spring-Learning-Notes/">Spring-Learning-Notes</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/23/ssm%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B/">ssm框架简介</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/23/maven%E7%AC%94%E8%AE%B0/">maven笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/23/Hugo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">Hugo从零搭建博客</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/23/Hexo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">Hexo从零搭建博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
