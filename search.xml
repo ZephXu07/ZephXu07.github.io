@@ -1,57 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux Notes</title>
-    <url>/2020/02/14/Linux-Notes/</url>
-    <content><![CDATA[<h1 id="一、初识"><a href="#一、初识" class="headerlink" title="一、初识"></a>一、初识</h1><h3 id="1、Linux用途"><a href="#1、Linux用途" class="headerlink" title="1、Linux用途"></a>1、Linux用途</h3><p>免费的，开源的，主要用于服务器领域，性能稳定，安全。大多数企业使用的都是Linux系统。</p>
-<p>Linux一般用来做服务器端的操作系统。</p>
-<a id="more"></a>
-
-<p><a href="http://www.sikiedu.com/course/345/material/29127/download" target="_blank" rel="noopener">siki学院资料</a></p>
-<p><a href="https://www.bilibili.com/video/av71383568" target="_blank" rel="noopener">siki学院视频</a></p>
-<h3 id="2、什么是操作系统"><a href="#2、什么是操作系统" class="headerlink" title="2、什么是操作系统"></a>2、什么是操作系统</h3><p>操作系统=我们开机之后进入的操作环境就是Windows操作系统 </p>
-<p>电脑 = 硬件 + 操作系统（软件） </p>
-<p>硬件=鼠标 键盘 显示屏 耳机 CPU 主板 内存卡 声卡，等肉眼可以看见，手可以摸得到的东西</p>
-<p><strong>操作系统是我们玩电脑的时候的中介。 我们用硬件 鼠标键盘 显示器 操作系统负责收集你在键盘和鼠标上做的什么事情，然后显示给显示器，或者保存到硬盘上。</strong></p>
-<p><strong>操作系统分类</strong></p>
-<p>桌面、服务器、手机、嵌入式 </p>
-<p>桌面操作系统：给大众使用的 Windows MacOS Linux Windows xp windows 7 windows10</p>
-<p>服务器操作系统：其实服务器就是我们平时使用的电脑主机</p>
-<p>Linux</p>
-<p> Windows Server 2008 2010 2018 </p>
-<p>Mac OS Server</p>
-<p>手机（iPad）操作系统 （基于Linux）Android iOS<br>嵌入式操作系统（手机、游戏机，汽车、MP3、MP4、智能家具、人工智能软件…） Linux</p>
-<p>操作系统不止Windows这一种，还有MacOS、Linux 手机上也是硬件和操作系统的结合 Android iOS 我们使用的软件（QQ 浏览器 播放器 等）的运行环境就是操作系统。我们使用编程语言开发的软<br>件，就是运行在操作系统上的，Windows和MacOS一般家用，我们可以叫做客户端，客户端操作系统。 Linux一般运行在服务器端，所以Linux可以叫做服务器端操作系统</p>
-<h3 id="3、GNU-Linux-的历史"><a href="#3、GNU-Linux-的历史" class="headerlink" title="3、GNU/Linux 的历史"></a>3、GNU/Linux 的历史</h3><p>自由软件之父 Richard M. Stallman 1984 GNU Copyleft OpenSource Free GPL</p>
-<p>Linux 之父 Linus Torvalds林纳斯.托瓦兹 1991<br><a href="http://www.kernel.org" target="_blank" rel="noopener">www.kernel.org</a><br> Linus之父 2017.6.19 来中国了，Linux基金会宣布在华建立正式分支机构</p>
-<p>Linux 发行版介绍 RHEL/Centos/Ubuntu/Suse/Debian</p>
-<p>Linux 相关认证介绍RHCE/RHCA</p>
-<p><a href="https://blog.csdn.net/zengxiantao1994/article/details/53141747" target="_blank" rel="noopener">Linux发展历史</a></p>
-<h3 id="4、学习方向"><a href="#4、学习方向" class="headerlink" title="4、学习方向"></a>4、学习方向</h3><p>怎么创建文件夹，怎么创建文件，怎么保存文件，怎么控制文件权限，怎么运行程序，怎么安装程 序…. 那我们学习Linux也是学习怎么在Linux操作系统上做上述事情，不过Linux上没有可视化的操作界<br>面，不能使用鼠标，所以我们要学习怎么使用命令来完成我们平时在windows电脑上很常见的操作。</p>
-<h3 id="5、Linux版本与虚拟机"><a href="#5、Linux版本与虚拟机" class="headerlink" title="5、Linux版本与虚拟机"></a>5、Linux版本与虚拟机</h3><p><strong>Linux版本</strong></p>
-<p>​            内核版本：操作系统心脏，处理跟各种硬件打交道的工作。 </p>
-<p>​                                硬件管理，内存管理，文件系统，线程管理….. </p>
-<p>​                                稳定版本 开发版本<br>​            发行版本 </p>
-<p>​                                内核版本+各种应用软件（办公 媒体播放 浏览器 数据库 …. ） </p>
-<p>​                                Ubuntu Redhat CentOS …</p>
-<p><strong>虚拟机</strong></p>
-<p>​     虚拟的计算机，一台电脑上只能同时运行一个操作系统。有了虚拟机，我们可以现有计算机的基础上，安装多个其他的操作系统（包括Linux Windows），可以很方便通过虚拟机对操作系统进行安装、卸载，这样方便我们学习别的操作系统。 虚拟机其实就是一个软件，虚拟的计算机，它用来模拟一个真实存在的计算机，我们可以安装操作系统在这个模拟的计算机环境上。</p>
-<p><a href="https://blog.csdn.net/weixin_43925504/article/details/89099541" target="_blank" rel="noopener">VMWare安装</a></p>
-<p><a href="https://cn.ubuntu.com/download" target="_blank" rel="noopener">Ubuntu</a></p>
-<p>*<em>Linux文件系统（目录和文件） *</em></p>
-<p>Windows下有盘符</p>
-<p>Linux没有盘符的概念，只有一个根目录</p>
-<p>不同的目录有哪些作用： </p>
-<p>/home/用户名 存储一些用户相关的文档 </p>
-<p>/usr 安装的应用程序 </p>
-<p><a href="http://www.cnblogs.com/duanji/p/yueding2.html" target="_blank" rel="noopener">Linux各个目录以及每个目录的作用介绍</a></p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>百感乱记</title>
     <url>/2020/01/24/%E7%99%BE%E6%84%9F%E4%B9%B1%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="百感乱记"><a href="#百感乱记" class="headerlink" title="百感乱记 "></a>百感乱记 </h1><p>2019.10.08<br>怎么对Ta你就变得幼稚了？还是你原本也就是这么幼稚呢？算了算了，幼稚就幼稚，成熟了你可能更加冷漠、懦弱吧！</p>
