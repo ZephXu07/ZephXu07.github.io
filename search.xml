@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>&#39;`GitNotes`&#39;</title>
+    <title>GitNotes</title>
     <url>/2020/02/23/GitNotes/</url>
     <content><![CDATA[<h1 id="一、Git教程来源"><a href="#一、Git教程来源" class="headerlink" title="一、Git教程来源"></a>一、Git教程来源</h1><p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/896067074338496" target="_blank" rel="noopener">廖雪峰教程</a></p>
 <a id="more"></a>
@@ -229,7 +229,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">	modified:   readme.txt</span><br></pre></td></tr></table></figure>
 
 <p>再使用针对错误一的方法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout -- readme.txt</span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gi$ git checkout -- readme.txt</span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
 
 <p>完成。</p>
 <h3 id="c、错误三"><a href="#c、错误三" class="headerlink" title="c、错误三"></a>c、错误三</h3><p><strong><em>还没有把自己的本地版本库推送到远程情况下。</em></strong></p>
