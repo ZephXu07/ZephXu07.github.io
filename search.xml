@@ -366,7 +366,8 @@
 
 <p>因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在<code>master</code>分支上工作效果是一样的，但过程更安全。</p>
 <hr>
-<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><p>我们注意到切换分支使用<code>git checkout</code>，而前面讲过的撤销修改则是<code>git checkout --</code>，同一个命令，有两种作用，确实有点令人迷惑。</p>
+<p><strong>switch</strong></p>
+<p>我们注意到切换分支使用<code>git checkout</code>，而前面讲过的撤销修改则是<code>git checkout --</code>，同一个命令，有两种作用，确实有点令人迷惑。</p>
 <p>实际上，切换分支这个动作，用<code>switch</code>更科学。因此，最新版本的Git提供了新的<code>git switch</code>命令来切换分支：</p>
 <p>创建并切换到新的<code>dev</code>分支，可以使用：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git switch -c dev</span><br></pre></td></tr></table></figure>
@@ -384,6 +385,89 @@
 <p>==创建+切换分支：<code>git checkout -b</code>或者<code>git switch -c</code>==</p>
 <p>==合并某分支到当前分支：<code>git merge</code>==</p>
 <p>==删除分支：<code>git branch -d</code>==</p>
+<h2 id="2、解决冲突"><a href="#2、解决冲突" class="headerlink" title="2、解决冲突"></a>2、解决冲突</h2><p>准备新的<code>feature1</code>分支，继续新分支开发：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> git switch -c feature1</span><br><span class="line">Switched to a new branch &#39;feature1&#39;</span><br></pre></td></tr></table></figure>
+
+<p>修改<code>readme.txt</code>最后一行，改为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Creating a new branch is quick AND simple.</span><br></pre></td></tr></table></figure>
+
+<p>在<code>feature1</code>分支上提交：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt</span><br><span class="line"></span><br><span class="line">$ git commit -m &quot;AND simple&quot;</span><br><span class="line">[feature1 14096d0] AND simple</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>切换到<code>master</code>分支：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git switch master</span><br><span class="line">Switched to branch &#39;master&#39;</span><br><span class="line">Your branch is ahead of &#39;origin&#x2F;master&#39; by 1 commit.</span><br><span class="line">  (use &quot;git push&quot; to publish your local commits)</span><br></pre></td></tr></table></figure>
+
+<p>Git还会自动提示我们当前<code>master</code>分支比远程的<code>master</code>分支要超前1个提交。</p>
+<p>在<code>master</code>分支上把<code>readme.txt</code>文件的最后一行改为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Creating a new branch is quick &amp; simple.</span><br></pre></td></tr></table></figure>
+
+<p>提交：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt </span><br><span class="line">$ git commit -m &quot;&amp; simple&quot;</span><br><span class="line">[master 5dc6824] &amp; simple</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>现在，<code>master</code>分支和<code>feature1</code>分支各自都分别有新的提交，变成了这样：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-10.png" alt="GitNotes-10"></p>
+<p>这种情况下，Git无法执行“快速合并”，只能试图把各自的修改合并起来，但这种合并就可能会有冲突，我们试试看：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git merge feature1</span><br><span class="line">Auto-merging readme.txt</span><br><span class="line">CONFLICT (content): Merge conflict in readme.txt</span><br><span class="line">Automatic merge failed; fix conflicts and then commit the result.</span><br></pre></td></tr></table></figure>
+
+<p>果然冲突了！Git告诉我们，<code>readme.txt</code>文件存在冲突，必须手动解决冲突后再提交。<code>git status</code>也可以告诉我们冲突的文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is ahead of &#39;origin&#x2F;master&#39; by 2 commits.</span><br><span class="line">  (use &quot;git push&quot; to publish your local commits)</span><br><span class="line"></span><br><span class="line">You have unmerged paths.</span><br><span class="line">  (fix conflicts and run &quot;git commit&quot;)</span><br><span class="line">  (use &quot;git merge --abort&quot; to abort the merge)</span><br><span class="line"></span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)</span><br><span class="line"></span><br><span class="line">	both modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以直接查看readme.txt的内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br><span class="line">Git has a mutable index called stage.</span><br><span class="line">Git tracks changes of files.</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">Creating a new branch is quick &amp; simple.</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Creating a new branch is quick AND simple.</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1</span><br></pre></td></tr></table></figure>
+
+<p>Git用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>，<code>=======</code>，<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>标记出不同分支的内容，我们修改如下后保存：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Creating a new branch is quick and simple.</span><br></pre></td></tr></table></figure>
+
+<p>再提交：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt </span><br><span class="line">$ git commit -m &quot;conflict fixed&quot;</span><br><span class="line">[master cf810e4] conflict fixed</span><br></pre></td></tr></table></figure>
+
+<p>现在，<code>master</code>分支和<code>feature1</code>分支变成了下图所示：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-11.png" alt="GitNotes-11"></p>
+<p>用带参数的<code>git log</code>也可以看到分支的合并情况：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log --graph --pretty&#x3D;oneline --abbrev-commit</span><br><span class="line">*   cf810e4 (HEAD -&gt; master) conflict fixed</span><br><span class="line">|\  </span><br><span class="line">| * 14096d0 (feature1) AND simple</span><br><span class="line">* | 5dc6824 &amp; simple</span><br><span class="line">|&#x2F;  </span><br><span class="line">* b17d20e branch test</span><br><span class="line">* d46f35e (origin&#x2F;master) remove test.txt</span><br><span class="line">* b84166e add test.txt</span><br><span class="line">* 519219b git tracks changes</span><br><span class="line">* e43a48b understand how stage works</span><br><span class="line">* 1094adb append GPL</span><br><span class="line">* e475afc add distributed</span><br><span class="line">* eaadf4e wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>最后，删除<code>feature1</code>分支：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch -d feature1</span><br><span class="line">Deleted branch feature1 (was 14096d0).</span><br></pre></td></tr></table></figure>
+
+<p>工作完成。</p>
+<p><strong>小结：</strong></p>
+<p>当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。</p>
+<p>解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。</p>
+<p>用<code>git log --graph</code>命令可以看到分支合并图。</p>
+<h2 id="3、分支管理策略"><a href="#3、分支管理策略" class="headerlink" title="3、分支管理策略"></a>3、分支管理策略</h2><p>==本节示例要与“创建与合并分支”对比，千万不要与“解决冲突对比”==</p>
+<p>通常，合并分支时，如果可能，Git会用<code>Fast forward</code>模式，但这种模式下，删除分支后，会丢掉分支信息。</p>
+<p>如果要强制禁用<code>Fast forward</code>模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。</p>
+<p>下面我们实战一下<code>--no-ff</code>方式的<code>git merge</code>：</p>
+<p>首先，仍然创建并切换<code>dev</code>分支：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git switch -c dev</span><br><span class="line">Switched to a new branch &#39;dev&#39;</span><br></pre></td></tr></table></figure>
+
+<p>修改readme.txt文件，并提交一个新的commit：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt </span><br><span class="line">$ git commit -m &quot;add merge&quot;</span><br><span class="line">[dev f52c633] add merge</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们切换回<code>master</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git switch master</span><br><span class="line">Switched to branch &#39;master&#39;</span><br></pre></td></tr></table></figure>
+
+<p>准备合并<code>dev</code>分支，请注意<code>--no-ff</code>参数，表示禁用<code>Fast forward</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git merge --no-ff -m &quot;merge with no-ff&quot; dev</span><br><span class="line">Merge made by the &#39;recursive&#39; strategy.</span><br><span class="line"> readme.txt | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p>因为本次合并要创建一个新的commit，所以加上<code>-m</code>参数，把commit描述写进去。</p>
+<p>合并后，我们用<code>git log</code>看看分支历史：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log --graph --pretty&#x3D;oneline --abbrev-commit</span><br><span class="line">*   e1e9c68 (HEAD -&gt; master) merge with no-ff</span><br><span class="line">|\  </span><br><span class="line">| * f52c633 (dev) add merge</span><br><span class="line">|&#x2F;  </span><br><span class="line">*   cf810e4 conflict fixed</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，不使用<code>Fast forward</code>模式，merge后就像这样：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-11.png" alt="GitNotes-11"></p>
+<p><code>Fast forward</code>模式：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-9.png" alt="GitNotes-9"></p>
+<p><strong>分支策略</strong></p>
+<p>在实际开发中，我们应该按照几个基本原则进行分支管理：</p>
+<p>首先，<code>master</code>分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；</p>
+<p>那在哪干活呢？干活都在<code>dev</code>分支上，也就是说，<code>dev</code>分支是不稳定的，到某个时候，比如1.0版本发布时，再把<code>dev</code>分支合并到<code>master</code>上，在<code>master</code>分支发布1.0版本；</p>
+<p>你和你的小伙伴们每个人都在<code>dev</code>分支上干活，每个人都有自己的分支，时不时地往<code>dev</code>分支上合并就可以了。</p>
+<p>所以，团队合作的分支看起来就像这样：</p>
+<p><img src="https://github.com/ZephXu07/IMG/blob/master/GitNotes-12.png" alt="GitNotes-12"></p>
+<p><strong>小结</strong></p>
+<p>Git分支十分强大，在团队开发中应该充分应用。</p>
+<p>合并分支时，加上<code>--no-ff</code>参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而<code>fast forward</code>合并就看不出来曾经做过合并。</p>
 ]]></content>
       <tags>
         <tag>笔记</tag>
