@@ -58,8 +58,14 @@
 <meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-1.jpg">
 <meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-2.jpg">
 <meta property="og:image" content="https://github.com/ZephXu07/IMG/blob/master/GitNotes-3.jpg">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-4.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-5.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-6.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-7.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-8.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/GitNotes-9.png">
 <meta property="article:published_time" content="2020-02-23T03:22:08.000Z">
-<meta property="article:modified_time" content="2020-02-23T10:59:33.597Z">
+<meta property="article:modified_time" content="2020-02-24T04:32:35.118Z">
 <meta property="article:author" content="zephxu">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="git">
@@ -234,10 +240,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-23 11:22:08 / 修改时间：18:59:33" itemprop="dateCreated datePublished" datetime="2020-02-23T11:22:08+08:00">2020-02-23</time>
+              <time title="创建时间：2020-02-23 11:22:08" itemprop="dateCreated datePublished" datetime="2020-02-23T11:22:08+08:00">2020-02-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-24 12:32:35" itemprop="dateModified" datetime="2020-02-24T12:32:35+08:00">2020-02-24</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -502,6 +514,156 @@
 <p>完成。</p>
 <h3 id="c、错误三"><a href="#c、错误三" class="headerlink" title="c、错误三"></a>c、错误三</h3><p><strong><em>还没有把自己的本地版本库推送到远程情况下。</em></strong></p>
 <p>参考<a href="#VersionBack">版本回退</a>一节。</p>
+<p>==注意==</p>
+<p>==原来的git checkout 可以使用 git restore 代替==</p>
+<p>==原来的git reset HEAD 可以使用 git restore –staged 代替==</p>
+<p>==最新版的git提示都已经更换成了restore==</p>
+<h2 id="6、删除文件"><a href="#6、删除文件" class="headerlink" title="6、删除文件"></a>6、删除文件</h2><p>先添加一个新文件<code>test.txt</code>到Git并且提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git add test.txt</span><br><span class="line"></span><br><span class="line">$ git commit -m &quot;add test.txt&quot;</span><br><span class="line">[master b84166e] add test.txt</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test.txt</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下，通常直接在文件管理器中把没用的文件删了，或者用<code>rm</code>命令删了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm test.txt</span><br></pre></td></tr></table></figure>
+
+<p>==删除工作区==</p>
+<p>这个时候，Git知道你删除了文件，因此，工作区和版本库就不一致了，<code>git status</code>命令会立刻告诉哪些文件被删除了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add&#x2F;rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">	deleted:    test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>现在你有两个选择，一是确实要从版本库中删除该文件，那就用命令<code>git rm</code>删掉，并且<code>git commit</code>：</p>
+<p>==<code>git rm</code>删除暂存区，提交后版本库也删除==</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git rm test.txt</span><br><span class="line">rm &#39;test.txt&#39;</span><br><span class="line"></span><br><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master d46f35e] remove test.txt</span><br><span class="line"> 1 file changed, 1 deletion(-)</span><br><span class="line"> delete mode 100644 test.txt</span><br></pre></td></tr></table></figure>
+
+<p>现在，文件就从版本库中被删除了。</p>
+<p>==小提示：先手动删除文件，然后使用git rm <file>和git add<file>效果是一样的。==</p>
+<p>另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- test.txt</span><br></pre></td></tr></table></figure>
+
+<p><code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。</p>
+<p>==注意：从来没有被添加到版本库就被删除的文件，是无法恢复的！==</p>
+<p>命令<code>git rm</code>用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失<strong>最近一次提交后你修改的内容</strong>。</p>
+<h1 id="五、远程仓库"><a href="#五、远程仓库" class="headerlink" title="五、远程仓库"></a>五、远程仓库</h1><h2 id="1、准备"><a href="#1、准备" class="headerlink" title="1、准备"></a>1、准备</h2><p><strong>Git是分布式版本控制系统。</strong></p>
+<p>注册一个GitHub账号，就可以免费获得Git远程仓库。</p>
+<p>本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，进行设置。</p>
+<hr>
+<p><strong>第一步</strong></p>
+<p><code>cd ~</code>回用户主目录，<code>ls -ah</code>查看是否有<code>.ssh</code>目录，若没有，则创建SSH Key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>把邮件地址换成自己的邮件地址，然后一路回车，使用默认值即可，无需设置密码。</p>
+<p>再<code>ls -ah</code>可以看到<code>.ssh</code>目录里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对，<code>id_rsa</code>是私钥，不能泄露出去，<code>id_rsa.pub</code>是公钥，可以放心地告诉任何人。</p>
+<p><strong>第二步</strong></p>
+<p>登陆GitHub，打开“settings”，“SSH and GPG keys”页面，然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴<code>id_rsa.pub</code>文件的内容。</p>
+<hr>
+<p>GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。</p>
+<p>当然，GitHub允许你添加多个Key。假定你有若干电脑，你一会儿在公司提交，一会儿在家里提交，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。</p>
+<p>最后友情提示，在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。所以，不要把敏感信息放进去。</p>
+<h2 id="2、添加远程仓库"><a href="#2、添加远程仓库" class="headerlink" title="2、添加远程仓库"></a>2、添加远程仓库</h2><p>登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库。</p>
+<p>在Repository name填入<code>learngit</code>，其他保持默认设置，点击“Create repository”按钮，就成功地创建了一个新的Git仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https:&#x2F;&#x2F;github.com&#x2F;ZephXu07&#x2F;learngit.git</span><br></pre></td></tr></table></figure>
+
+<p>再输入账号名和密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<p>把本地库的内容推送到远程，用<code>git push</code>命令，实际上是把当前分支<code>master</code>推送到远程。</p>
+<p>由于远程库是空的，我们第一次推送<code>master</code>分支时，加上了<code>-u</code>参数，Git不但会把本地的<code>master</code>分支内容推送的远程新的<code>master</code>分支，还会把本地的<code>master</code>分支和远程的<code>master</code>分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<p>从现在起，只要本地作了提交，就可以通过命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>把本地<code>master</code>分支的最新修改推送至GitHub，现在，你就拥有了真正的分布式版本库！</p>
+<p><strong>SSH警告</strong></p>
+<p>当你第一次使用Git的<code>clone</code>或者<code>push</code>命令连接GitHub时，会得到一个警告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#39;github.com (xx.xx.xx.xx)&#39; can&#39;t be established.</span><br><span class="line">RSA key fingerprint is xx.xx.xx.xx.xx.</span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)?</span><br></pre></td></tr></table></figure>
+
+<p>这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入<code>yes</code>回车即可。</p>
+<p>Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: Permanently added &#39;github.com&#39; (RSA) to the list of known hosts.</span><br></pre></td></tr></table></figure>
+
+<p>这个警告只会出现一次，后面的操作就不会有任何警告了。</p>
+<p>如果你实在担心有人冒充GitHub服务器，输入<code>yes</code>前可以对照<a href="https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints/" target="_blank" rel="noopener">GitHub的RSA Key的指纹信息</a>是否与SSH连接给出的一致。</p>
+<p><strong>小结</strong></p>
+<p>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git</code>；</p>
+<p>关联后，使用命令<code>git push -u origin master</code>第一次推送master分支的所有内容；</p>
+<p>此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改。</p>
+<h2 id="3、从远程库克隆"><a href="#3、从远程库克隆" class="headerlink" title="3、从远程库克隆"></a>3、从远程库克隆</h2><p>登陆GitHub，创建一个新的仓库，名字叫<code>gitskills</code>；</p>
+<p>勾选<code>Initialize this repository with a README</code>，这样GitHub会自动为我们创建一个<code>README.md</code>文件。创建完毕后，可以看到<code>README.md</code>文件；</p>
+<p>下一步是用命令<code>git clone</code>克隆一个本地库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:ZephXu07&#x2F;gitSkills.git</span><br><span class="line">Cloning into &#39;gitSkills&#39;...</span><br><span class="line">remote: Enumerating objects: 3, done.</span><br><span class="line">remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3</span><br><span class="line">Receiving objects: 100% (3&#x2F;3), done.</span><br></pre></td></tr></table></figure>
+
+<p>进入<code>gitskills</code>目录看看，已经有<code>README.md</code>文件了。</p>
+<hr>
+<p>GitHub给出的地址不止一个，还可以用<code>https://github.com/michaelliao/gitskills.git</code>这样的地址。实际上，Git支持多种协议，默认的<code>git://</code>使用ssh，但也可以使用<code>https</code>等其他协议。</p>
+<p>使用<code>https</code>除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用<code>ssh</code>协议而只能用<code>https</code>。</p>
+<hr>
+<p><strong>小结：</strong></p>
+<p>要克隆一个仓库，首先必须知道仓库的地址，然后使用<code>git clone</code>命令克隆。</p>
+<p>Git支持多种协议，包括<code>https</code>，但通过<code>ssh</code>支持的原生<code>git</code>协议速度最快。</p>
+<h1 id="六、分支管理"><a href="#六、分支管理" class="headerlink" title="六、分支管理"></a>六、分支管理</h1><h2 id="1、创建与合并分支"><a href="#1、创建与合并分支" class="headerlink" title="1、创建与合并分支"></a>1、创建与合并分支</h2><p>在<a href="#VersionBack">版本回退</a>里，每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即<code>master</code>分支。<code>HEAD</code>严格来说不是指向提交，而是指向<code>master</code>，<code>master</code>才是指向提交的，所以，<code>HEAD</code>指向的就是当前分支。</p>
+<p>一开始的时候，<code>master</code>分支是一条线，Git用<code>master</code>指向最新的提交，再用<code>HEAD</code>指向<code>master</code>，就能确定当前分支，以及当前分支的提交点：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-4.png" alt="GitNotes-4"></p>
+<p>每次提交，<code>master</code>分支都会向前移动一步，这样，随着不断提交，<code>master</code>分支的线也越来越长。</p>
+<p>当创建新的分支，例如<code>dev</code>时，Git新建了一个指针叫<code>dev</code>，指向<code>master</code>相同的提交，再把<code>HEAD</code>指向<code>dev</code>，就表示当前分支在<code>dev</code>上：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-5.png" alt="GitNotes-5"></p>
+<p>Git创建一个分支很快，因为除了增加一个<code>dev</code>指针，改改<code>HEAD</code>的指向，工作区的文件都没有任何变化！</p>
+<p>不过，从现在开始，对工作区的修改和提交就是针对<code>dev</code>分支了，比如新提交一次后，<code>dev</code>指针往前移动一步，而<code>master</code>指针不变：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-6.png" alt="GitNotes-6"></p>
+<p>假如在<code>dev</code>上的工作完成了，就可以把<code>dev</code>合并到<code>master</code>上最简单的方法，就是直接把<code>master</code>指向<code>dev</code>的当前提交，就完成了合并：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-7.png" alt="GitNotes-7"></p>
+<p>所以Git合并分支也很快！就改改指针，工作区内容也不变！</p>
+<p>合并完分支后，甚至可以删除<code>dev</code>分支。删除<code>dev</code>分支就是把<code>dev</code>指针给删掉，删掉后，就剩下了一条<code>master</code>分支：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-8.png" alt="GitNotes-8"></p>
+<p><strong>实践：</strong></p>
+<p>首先，创建<code>dev</code>分支，然后切换到<code>dev</code>分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b dev</span><br><span class="line">Switched to a new branch &#39;dev&#39;</span><br></pre></td></tr></table></figure>
+
+<p><code>git checkout</code>命令加上<code>-b</code>参数表示创建并切换，相当于以下两条命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch dev</span><br><span class="line">$ git checkout dev</span><br><span class="line">Switched to branch &#39;dev&#39;</span><br></pre></td></tr></table></figure>
+
+<p>然后，用<code>git branch</code>命令查看当前分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* dev</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
+
+<p><code>git branch</code>命令会列出所有分支，当前分支前面会标一个<code>*</code>号。</p>
+<p>然后，就可以在<code>dev</code>分支上正常提交，比如对<code>readme.txt</code>做个修改，加上一行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Creating a new branch is quick.</span><br></pre></td></tr></table></figure>
+
+<p>然后提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.txt </span><br><span class="line">$ git commit -m &quot;branch test&quot;</span><br><span class="line">[dev b17d20e] branch test</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p>现在，<code>dev</code>分支的工作完成，我们就可以切换回<code>master</code>分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch &#39;master&#39;</span><br></pre></td></tr></table></figure>
+
+<p>切换回<code>master</code>分支后，再查看一个<code>readme.txt</code>文件，刚才添加的内容不见了！因为那个提交是在<code>dev</code>分支上，而<code>master</code>分支此刻的提交点并没有变：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/GitNotes-9.png" alt="GitNotes-9"></p>
+<p>现在，把<code>dev</code>分支的工作成果合并到<code>master</code>分支上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git merge dev</span><br><span class="line">Updating d46f35e..b17d20e</span><br><span class="line">Fast-forward</span><br><span class="line"> readme.txt | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+
+<p><code>git merge</code>命令用于合并指定分支到当前分支。合并后，再查看<code>readme.txt</code>的内容，就可以看到，和<code>dev</code>分支的最新提交是完全一样的。</p>
+<p>注意到上面的<code>Fast-forward</code>信息，Git告诉我们，这次合并是“快进模式”，也就是直接把<code>master</code>指向<code>dev</code>的当前提交，所以合并速度非常快。</p>
+<p>当然，也不是每次合并都能<code>Fast-forward</code>，我们后面会讲其他方式的合并。</p>
+<p>合并完成后，就可以放心地删除<code>dev</code>分支了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d dev</span><br><span class="line">Deleted branch dev (was b17d20e).</span><br></pre></td></tr></table></figure>
+
+<p>删除后，查看<code>branch</code>，就只剩下<code>master</code>分支了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p>因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在<code>master</code>分支上工作效果是一样的，但过程更安全。</p>
+<hr>
+<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><p>我们注意到切换分支使用<code>git checkout</code>，而前面讲过的撤销修改则是<code>git checkout --</code>，同一个命令，有两种作用，确实有点令人迷惑。</p>
+<p>实际上，切换分支这个动作，用<code>switch</code>更科学。因此，最新版本的Git提供了新的<code>git switch</code>命令来切换分支：</p>
+<p>创建并切换到新的<code>dev</code>分支，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git switch -c dev</span><br></pre></td></tr></table></figure>
+
+<p>直接切换到已有的<code>master</code>分支，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git switch master</span><br></pre></td></tr></table></figure>
+
+<p>使用新的<code>git switch</code>命令，比<code>git checkout</code>要更容易理解。</p>
+<hr>
+<p><strong>小结</strong></p>
+<p>==Git鼓励大量使用分支：==</p>
+<p>==查看分支：<code>git branch</code>==</p>
+<p>==创建分支：<code>git branch</code>==</p>
+<p>==切换分支：<code>git checkout</code>或者<code>git switch</code>==</p>
+<p>==创建+切换分支：<code>git checkout -b</code>或者<code>git switch -c</code>==</p>
+<p>==合并某分支到当前分支：<code>git merge</code>==</p>
+<p>==删除分支：<code>git branch -d</code>==</p>
 
     </div>
 
@@ -605,7 +767,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Git教程来源"><span class="nav-number">1.</span> <span class="nav-text">一、Git教程来源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、安装Git"><span class="nav-number">2.</span> <span class="nav-text">二、安装Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Git官网下载"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、Git官网下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、命令行设置"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、命令行设置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、创建版本库"><span class="nav-number">3.</span> <span class="nav-text">三、创建版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、版本库定义："><span class="nav-number">3.1.</span> <span class="nav-text">1、版本库定义：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、创建"><span class="nav-number">3.2.</span> <span class="nav-text">2、创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、git-init"><span class="nav-number">3.3.</span> <span class="nav-text">3、git init</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、非空目录也可以进行上述命令"><span class="nav-number">3.4.</span> <span class="nav-text">4、非空目录也可以进行上述命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、把文件添加到版本库"><span class="nav-number">3.5.</span> <span class="nav-text">5、把文件添加到版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、编写一个readme-txt文件，内容如下："><span class="nav-number">3.5.1.</span> <span class="nav-text">a、编写一个readme.txt文件，内容如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、git-add文件添加到仓库"><span class="nav-number">3.5.2.</span> <span class="nav-text">b、git add文件添加到仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c、git-commit文件提交到仓库"><span class="nav-number">3.5.3.</span> <span class="nav-text">c、git commit文件提交到仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d、为什么两步"><span class="nav-number">3.5.4.</span> <span class="nav-text">d、为什么两步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e、小结"><span class="nav-number">3.5.5.</span> <span class="nav-text">e、小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、时光机穿梭"><span class="nav-number">4.</span> <span class="nav-text">四、时光机穿梭</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、"><span class="nav-number">4.1.</span> <span class="nav-text">1、</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、版本回退"><span class="nav-number">4.2.</span> <span class="nav-text">2、版本回退</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、修改、提交文件"><span class="nav-number">4.2.1.</span> <span class="nav-text">a、修改、提交文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、小结"><span class="nav-number">4.2.2.</span> <span class="nav-text">b、小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、工作区和暂存区"><span class="nav-number">4.3.</span> <span class="nav-text">3、工作区和暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、管理修改"><span class="nav-number">4.4.</span> <span class="nav-text">4、管理修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、对readme-txt做一个修改，比如加一行内容："><span class="nav-number">4.4.1.</span> <span class="nav-text">a、对readme.txt做一个修改，比如加一行内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、添加："><span class="nav-number">4.4.2.</span> <span class="nav-text">b、添加：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c、再修改"><span class="nav-number">4.4.3.</span> <span class="nav-text">c、再修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d、提交"><span class="nav-number">4.4.4.</span> <span class="nav-text">d、提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e、查看状态"><span class="nav-number">4.4.5.</span> <span class="nav-text">e、查看状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f、解释："><span class="nav-number">4.4.6.</span> <span class="nav-text">f、解释：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、撤销修改"><span class="nav-number">4.5.</span> <span class="nav-text">5、撤销修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、错误一"><span class="nav-number">4.5.1.</span> <span class="nav-text">a、错误一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、错误二"><span class="nav-number">4.5.2.</span> <span class="nav-text">b、错误二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c、错误三"><span class="nav-number">4.5.3.</span> <span class="nav-text">c、错误三</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Git教程来源"><span class="nav-number">1.</span> <span class="nav-text">一、Git教程来源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、安装Git"><span class="nav-number">2.</span> <span class="nav-text">二、安装Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Git官网下载"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、Git官网下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、命令行设置"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、命令行设置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、创建版本库"><span class="nav-number">3.</span> <span class="nav-text">三、创建版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、版本库定义："><span class="nav-number">3.1.</span> <span class="nav-text">1、版本库定义：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、创建"><span class="nav-number">3.2.</span> <span class="nav-text">2、创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、git-init"><span class="nav-number">3.3.</span> <span class="nav-text">3、git init</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、非空目录也可以进行上述命令"><span class="nav-number">3.4.</span> <span class="nav-text">4、非空目录也可以进行上述命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、把文件添加到版本库"><span class="nav-number">3.5.</span> <span class="nav-text">5、把文件添加到版本库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、编写一个readme-txt文件，内容如下："><span class="nav-number">3.5.1.</span> <span class="nav-text">a、编写一个readme.txt文件，内容如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、git-add文件添加到仓库"><span class="nav-number">3.5.2.</span> <span class="nav-text">b、git add文件添加到仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c、git-commit文件提交到仓库"><span class="nav-number">3.5.3.</span> <span class="nav-text">c、git commit文件提交到仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d、为什么两步"><span class="nav-number">3.5.4.</span> <span class="nav-text">d、为什么两步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e、小结"><span class="nav-number">3.5.5.</span> <span class="nav-text">e、小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、时光机穿梭"><span class="nav-number">4.</span> <span class="nav-text">四、时光机穿梭</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、"><span class="nav-number">4.1.</span> <span class="nav-text">1、</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、版本回退"><span class="nav-number">4.2.</span> <span class="nav-text">2、版本回退</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、修改、提交文件"><span class="nav-number">4.2.1.</span> <span class="nav-text">a、修改、提交文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、小结"><span class="nav-number">4.2.2.</span> <span class="nav-text">b、小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、工作区和暂存区"><span class="nav-number">4.3.</span> <span class="nav-text">3、工作区和暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、管理修改"><span class="nav-number">4.4.</span> <span class="nav-text">4、管理修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、对readme-txt做一个修改，比如加一行内容："><span class="nav-number">4.4.1.</span> <span class="nav-text">a、对readme.txt做一个修改，比如加一行内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、添加："><span class="nav-number">4.4.2.</span> <span class="nav-text">b、添加：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c、再修改"><span class="nav-number">4.4.3.</span> <span class="nav-text">c、再修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d、提交"><span class="nav-number">4.4.4.</span> <span class="nav-text">d、提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e、查看状态"><span class="nav-number">4.4.5.</span> <span class="nav-text">e、查看状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f、解释："><span class="nav-number">4.4.6.</span> <span class="nav-text">f、解释：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、撤销修改"><span class="nav-number">4.5.</span> <span class="nav-text">5、撤销修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、错误一"><span class="nav-number">4.5.1.</span> <span class="nav-text">a、错误一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、错误二"><span class="nav-number">4.5.2.</span> <span class="nav-text">b、错误二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c、错误三"><span class="nav-number">4.5.3.</span> <span class="nav-text">c、错误三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、删除文件"><span class="nav-number">4.6.</span> <span class="nav-text">6、删除文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、远程仓库"><span class="nav-number">5.</span> <span class="nav-text">五、远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、准备"><span class="nav-number">5.1.</span> <span class="nav-text">1、准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、添加远程仓库"><span class="nav-number">5.2.</span> <span class="nav-text">2、添加远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、从远程库克隆"><span class="nav-number">5.3.</span> <span class="nav-text">3、从远程库克隆</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、分支管理"><span class="nav-number">6.</span> <span class="nav-text">六、分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、创建与合并分支"><span class="nav-number">6.1.</span> <span class="nav-text">1、创建与合并分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#switch"><span class="nav-number">6.1.1.</span> <span class="nav-text">switch</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
