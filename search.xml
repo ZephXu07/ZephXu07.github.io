@@ -142,8 +142,8 @@
 
 <h4 id="删除一个远程标签"><a href="#删除一个远程标签" class="headerlink" title="删除一个远程标签"></a>删除一个远程标签</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin :refs&#x2F;tags&#x2F;&lt;tagname&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>git</tag>
         <tag>笔记</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -883,7 +883,7 @@
 <li>忽略某些文件时，需要编写<code>.gitignore</code>；</li>
 <li><code>.gitignore</code>文件本身要放到版本库里，并且可以对<code>.gitignore</code>做版本管理！</li>
 </ul>
-<h2 id="2、配置别名"><a href="#2、配置别名" class="headerlink" title="2、配置别名"></a>2、配置别名</h2><p>有没有经常敲错命令？比如<code>git status</code>？<code>status</code>这个单词真心不好记。</p>
+<h2 id="3-、配置别名"><a href="#3-、配置别名" class="headerlink" title="3 、配置别名"></a>3 、配置别名</h2><p>有没有经常敲错命令？比如<code>git status</code>？<code>status</code>这个单词真心不好记。</p>
 <p>如果敲<code>git st</code>就表示<code>git status</code>那就简单多了，当然这种偷懒的办法我们是极力赞成的。</p>
 <p>我们只需要敲一行命令，告诉Git，以后<code>st</code>就表示<code>status</code>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global alias.st status</span><br></pre></td></tr></table></figure>
@@ -914,7 +914,8 @@
 <p>甚至还有人丧心病狂地把<code>lg</code>配置成了：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global alias.lg &quot;log --color --graph --pretty&#x3D;format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>配置Git的时候，加上<code>--global</code>是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。</p>
+<p><strong>配置文件</strong></p>
+<p>配置Git的时候，加上<code>--global</code>是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。</p>
 <p>配置文件放哪了？每个仓库的Git配置文件都放在<code>.git/config</code>文件中：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cat .git&#x2F;config </span><br><span class="line">[core]</span><br><span class="line">    repositoryformatversion &#x3D; 0</span><br><span class="line">    filemode &#x3D; true</span><br><span class="line">    bare &#x3D; false</span><br><span class="line">    logallrefupdates &#x3D; true</span><br><span class="line">    ignorecase &#x3D; true</span><br><span class="line">    precomposeunicode &#x3D; true</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">    url &#x3D; git@github.com:michaelliao&#x2F;learngit.git</span><br><span class="line">    fetch &#x3D; +refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*</span><br><span class="line">[branch &quot;master&quot;]</span><br><span class="line">    remote &#x3D; origin</span><br><span class="line">    merge &#x3D; refs&#x2F;heads&#x2F;master</span><br><span class="line">[alias]</span><br><span class="line">    last &#x3D; log -1</span><br></pre></td></tr></table></figure>
 
@@ -925,10 +926,17 @@
 <p>配置别名也可以直接修改这个文件，如果改错了，可以删掉文件重新通过命令配置。</p>
 <p><strong>小结</strong></p>
 <p>给Git配置好别名，就可以输入命令时偷个懒。</p>
-]]></content>
+<h2 id="4、搭建Git服务器"><a href="#4、搭建Git服务器" class="headerlink" title="4、搭建Git服务器"></a>4、搭建Git服务器</h2><p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/899998870925664" target="_blank" rel="noopener">廖雪峰教程</a></p>
+<p><a href="https://www.xp.cn/b.php/38538.html" target="_blank" rel="noopener">linux中如何修改用户主目录</a></p>
+<p><a href="https://blog.csdn.net/qq_26990831/article/details/51857399?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">ubuntu16.04安装git和配置ssh</a></p>
+<p><a href="https://blog.csdn.net/zhuming3834/article/details/74202583?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">Ubuntu 安装git和配置ssh(Coding实例)</a></p>
+<p><a href="https://blog.csdn.net/guanhuazhan/article/details/89068560?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">关于ubuntu安装git并配置SSH Key</a></p>
+<p><a href="https://blog.csdn.net/qq_42711815/article/details/97616278" target="_blank" rel="noopener">Ubuntu使用git的时候发现没有.ssh文件</a>==注意是<code>sudo /etc/init.d/ssh restart</code>==</p>
+<p><strong>没成功，有缘再见。</strong></p>
+<h1 id="十一、使用SourceTree"><a href="#十一、使用SourceTree" class="headerlink" title="十一、使用SourceTree"></a>十一、<a href="https://www.liaoxuefeng.com/wiki/896043488029600/1317161920364578" target="_blank" rel="noopener">使用SourceTree</a></h1>]]></content>
       <tags>
-        <tag>git</tag>
         <tag>笔记</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
