@@ -48,29 +48,76 @@
   };
 </script>
 
-  <meta name="description" content="纯小白，知足常乐">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zephxu">
-<meta property="og:url" content="https://zephxu07.github.io/index.html">
+  <meta name="description" content="SpringMVC Learning NotesSpringMVC 个人学习笔记（学习视频，学习资料（提取码3b45）） （过于正式标准全部是学习资料自带的……） part1、三层架构和MVC一、三层架构1、开发服务器端程序，一般都基于两种形式，一种C&#x2F;S架构程序，一种B&#x2F;S架构程序； 2、使用Java语言基本上都是开发B&#x2F;S架构的程序，B&#x2F;S架构又分成了三层架构 3、三层架构 a)表现层：WEB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC-Learning-Notes">
+<meta property="og:url" content="https://zephxu07.github.io/2020/01/27/SpringMVC-Learning-Notes/index.html">
 <meta property="og:site_name" content="zephxu">
-<meta property="og:description" content="纯小白，知足常乐">
+<meta property="og:description" content="SpringMVC Learning NotesSpringMVC 个人学习笔记（学习视频，学习资料（提取码3b45）） （过于正式标准全部是学习资料自带的……） part1、三层架构和MVC一、三层架构1、开发服务器端程序，一般都基于两种形式，一种C&#x2F;S架构程序，一种B&#x2F;S架构程序； 2、使用Java语言基本上都是开发B&#x2F;S架构的程序，B&#x2F;S架构又分成了三层架构 3、三层架构 a)表现层：WEB">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Structure.bmp">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/DetailedStructure.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/FlowDiagram%20.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/ProcessOfIntroductoryCase.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/DetailedFlow0.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/DetailedFlow.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/RequestMappingScope.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/DetailedResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/HeadAction.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/HeadResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Test.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/NormalResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/ThrowTest.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/ResultThrow.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/TrueRequestBodyTestPost.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/TrueRequestBodyTestGet.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/FalseRequestBody.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/attention.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/RestfulCharacter.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/01-restful%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/PathVariableResul.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/ResourceCode.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/RunResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/RequestHeaderResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/attentionModelAttribute.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SessionAttributeResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/ResponseWays.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Pages.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SuccessResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/JsonResult1.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/JsonResult2.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/JsonResult3.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringMVCUpload.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/FileUploadsAcrossServers.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/PurposeOfSub-server.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/FileServerStructure.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/AddTheConfiguration.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringMVCExceptionHandler.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/DontHandleException.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/HandleExceptionResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/Interceptor.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/InterceptorResult.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/InterceptorExecutionProcess.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/TwoInterceptors.png">
+<meta property="article:published_time" content="2020-01-27T03:31:42.985Z">
+<meta property="article:modified_time" content="2020-07-20T05:09:45.633Z">
 <meta property="article:author" content="zephxu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/ZephXu07/IMG/raw/master/Structure.bmp">
 
-<link rel="canonical" href="https://zephxu07.github.io/">
+<link rel="canonical" href="https://zephxu07.github.io/2020/01/27/SpringMVC-Learning-Notes/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false
+    isHome: false,
+    isPost: true
   };
 </script>
 
-  <title>zephxu</title>
+  <title>SpringMVC-Learning-Notes | zephxu</title>
   
 
 
@@ -200,263 +247,10 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/02/29/Git%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/29/Git%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Git简单命令</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-29 19:00:26 / 修改时间：19:08:36" itemprop="dateCreated datePublished" datetime="2020-02-29T19:00:26+08:00">2020-02-29</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/29/Git%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/29/Git%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <p><a href="https://github.com/hongiii/gitNotes_from_Liao/blob/master/gitNotes_from_Liao.md" target="_blank" rel="noopener">来源</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/29/Git%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
   
   
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/02/23/GitNotes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/23/GitNotes/" class="post-title-link" itemprop="url">GitNotes</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-23 11:22:08" itemprop="dateCreated datePublished" datetime="2020-02-23T11:22:08+08:00">2020-02-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-01 15:34:56" itemprop="dateModified" datetime="2020-03-01T15:34:56+08:00">2020-03-01</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/23/GitNotes/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/23/GitNotes/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、Git教程来源"><a href="#一、Git教程来源" class="headerlink" title="一、Git教程来源"></a>一、Git教程来源</h1><p><a href="https://www.liaoxuefeng.com/wiki/896043488029600/896067074338496" target="_blank" rel="noopener">廖雪峰教程</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/23/GitNotes/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/02/14/Linux-Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/Linux-Notes/" class="post-title-link" itemprop="url">Linux Notes</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-14 13:00:54" itemprop="dateCreated datePublished" datetime="2020-02-14T13:00:54+08:00">2020-02-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-21 17:14:43" itemprop="dateModified" datetime="2020-02-21T17:14:43+08:00">2020-02-21</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/14/Linux-Notes/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/14/Linux-Notes/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、初识"><a href="#一、初识" class="headerlink" title="一、初识"></a>一、初识</h1><h2 id="1、Linux用途"><a href="#1、Linux用途" class="headerlink" title="1、Linux用途"></a>1、Linux用途</h2><p>免费的，开源的，主要用于服务器领域，性能稳定，安全。大多数企业使用的都是Linux系统。</p>
-<p>Linux一般用来做服务器端的操作系统。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/14/Linux-Notes/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/01/27/SpringMVC-Learning-Notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -470,8 +264,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/27/SpringMVC-Learning-Notes/" class="post-title-link" itemprop="url">SpringMVC-Learning-Notes</a>
+          SpringMVC-Learning-Notes
         </h1>
 
         <div class="post-meta">
@@ -492,6 +285,13 @@
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
   <span class="post-meta-item">
     
@@ -516,7 +316,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="SpringMVC-Learning-Notes"><a href="#SpringMVC-Learning-Notes" class="headerlink" title="SpringMVC Learning Notes"></a>SpringMVC Learning Notes</h1><h1 id="SpringMVC-个人学习笔记"><a href="#SpringMVC-个人学习笔记" class="headerlink" title="SpringMVC 个人学习笔记"></a>SpringMVC 个人学习笔记</h1><p>（<a href="https://www.bilibili.com/video/av47953244" target="_blank" rel="noopener">学习视频</a>，<a href="https://pan.baidu.com/s/1Tn7T5c0wzvv5apYl5G0mdQ" target="_blank" rel="noopener">学习资料（提取码3b45）</a>）</p>
+        <h1 id="SpringMVC-Learning-Notes"><a href="#SpringMVC-Learning-Notes" class="headerlink" title="SpringMVC Learning Notes"></a>SpringMVC Learning Notes</h1><h1 id="SpringMVC-个人学习笔记"><a href="#SpringMVC-个人学习笔记" class="headerlink" title="SpringMVC 个人学习笔记"></a>SpringMVC 个人学习笔记</h1><p>（<a href="https://www.bilibili.com/video/av47953244" target="_blank" rel="noopener">学习视频</a>，<a href="https://pan.baidu.com/s/1Tn7T5c0wzvv5apYl5G0mdQ" target="_blank" rel="noopener">学习资料（提取码3b45）</a>）</p>
 <p>（过于正式标准全部是学习资料自带的……）</p>
 <h2 id="part1、三层架构和MVC"><a href="#part1、三层架构和MVC" class="headerlink" title="part1、三层架构和MVC"></a>part1、三层架构和MVC</h2><h3 id="一、三层架构"><a href="#一、三层架构" class="headerlink" title="一、三层架构"></a>一、三层架构</h3><p>1、开发服务器端程序，一般都基于两种形式，一种C/S架构程序，一种B/S架构程序；</p>
 <p>2、使用Java语言基本上都是开发B/S架构的程序，B/S架构又分成了三层架构</p>
@@ -1114,545 +914,50 @@ Result"></p>
 </li>
 </ul>
 <h3 id="part9、SpringMVC暂告一段落……未完待续……"><a href="#part9、SpringMVC暂告一段落……未完待续……" class="headerlink" title="part9、SpringMVC暂告一段落……未完待续……"></a>part9、SpringMVC暂告一段落……未完待续……</h3>
-      
     </div>
 
     
     
     
+        <div class="reward-container">
+  <div>谢谢你请我吃糖果！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="zephxu 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="zephxu 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/01/24/%E7%99%BE%E6%84%9F%E4%B9%B1%E8%AE%B0/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/24/%E7%99%BE%E6%84%9F%E4%B9%B1%E8%AE%B0/" class="post-title-link" itemprop="url">百感乱记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-24 11:00:58" itemprop="dateCreated datePublished" datetime="2020-01-24T11:00:58+08:00">2020-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-14 13:49:23" itemprop="dateModified" datetime="2020-02-14T13:49:23+08:00">2020-02-14</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/24/%E7%99%BE%E6%84%9F%E4%B9%B1%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/24/%E7%99%BE%E6%84%9F%E4%B9%B1%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="百感乱记"><a href="#百感乱记" class="headerlink" title="百感乱记 "></a>百感乱记 </h1><p>2019.10.08<br>怎么对Ta你就变得幼稚了？还是你原本也就是这么幼稚呢？算了算了，幼稚就幼稚，成熟了你可能更加冷漠、懦弱吧！</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/24/%E7%99%BE%E6%84%9F%E4%B9%B1%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/24/%E7%99%BE%E6%84%9F%E4%B9%B1%E8%AE%B0/" rel="prev" title="百感乱记">
+      <i class="fa fa-chevron-left"></i> 百感乱记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/14/Linux-Notes/" rel="next" title="Linux Notes">
+      Linux Notes <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/01/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">动态代理笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-24 10:59:51" itemprop="dateCreated datePublished" datetime="2020-01-24T10:59:51+08:00">2020-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-14 13:47:49" itemprop="dateModified" datetime="2020-02-14T13:47:49+08:00">2020-02-14</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
     
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="动态代理笔记"><a href="#动态代理笔记" class="headerlink" title="动态代理笔记 "></a>动态代理笔记 </h1><hr>
-<p><a href="https://www.bilibili.com/video/av63885236" target="_blank" rel="noopener">学习视频</a></p>
-<h2 id="part1、代理模式"><a href="#part1、代理模式" class="headerlink" title="part1、代理模式 "></a>part1、代理模式 </h2><p>23种设计模式之一；在代理模式（Proxy<br>Pattern）中，一个类代表另一个类的功能，一般用于对要访问的类做一些控制、功能增强但不影响原来类的正常业务。</p>
-<ul>
-<li>通过中介租房子</li>
-<li>通过招聘平台找工作</li>
-<li>通过婚恋平台找对象</li>
-</ul>
-<p>在不改变源代码下实现对目标对象功能的扩展，甚至对目标对象进行功能覆盖或重写。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/01/23/Spring-Learning-Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/23/Spring-Learning-Notes/" class="post-title-link" itemprop="url">Spring-Learning-Notes</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-23 23:23:16" itemprop="dateCreated datePublished" datetime="2020-01-23T23:23:16+08:00">2020-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-19 23:24:02" itemprop="dateModified" datetime="2020-07-19T23:24:02+08:00">2020-07-19</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/23/Spring-Learning-Notes/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/Spring-Learning-Notes/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Spring Learning Notes</p>
-<p>Spring个人学习笔记(<a href="#advice">建议</a>) </p>
-<h2 id="part1-初识"><a href="#part1-初识" class="headerlink" title="part1 初识"></a>part1 初识</h2><h3 id="what"><a href="#what" class="headerlink" title="what"></a>what</h3><p> 大管家Spring是于2003 年兴起的一个轻量级的Java 开源框架，它由Rod<br>Johnson创建。传统J2EE应用的开发效率低，Spring作为开源的中间件，提供J2EE应用的各层的解决方案，Spring贯穿了表现层、业务层及持久层，而不是仅仅专注于某一层的方案。可以说Spring是企业应用开发的“一站式（full-stack）”选择。然而，Spring并不想取代那些已有的框架，而是与它们无缝地整合。</p>
-<p>简单来说，Spring是一个轻量级<strong>控制反转</strong>(IoC)和<strong>面向切面</strong>(AOP)的<strong>容器</strong>框架。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/23/Spring-Learning-Notes/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/01/23/ssm%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/23/ssm%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">ssm框架简介</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-23 23:22:24" itemprop="dateCreated datePublished" datetime="2020-01-23T23:22:24+08:00">2020-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-28 13:52:10" itemprop="dateModified" datetime="2020-01-28T13:52:10+08:00">2020-01-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/23/ssm%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/ssm%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="SSM框架简介个人笔记"><a href="#SSM框架简介个人笔记" class="headerlink" title="SSM框架简介个人笔记"></a>SSM框架简介个人笔记</h1><h1 id="SSM框架简介"><a href="#SSM框架简介" class="headerlink" title="SSM框架简介 "></a>SSM框架简介 </h1><p><a href="http://www.sikiedu.com/my/course/258/material" target="_blank" rel="noopener">来源</a></p>
-<h2 id="why框架"><a href="#why框架" class="headerlink" title="why框架"></a>why框架</h2><p>框架，framework，半成品，舞台，使用者表演。其完成了底层基础工作，使用者关注项目本身，框架有稳定，易用，安全等特性。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/23/ssm%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/01/23/maven%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/23/maven%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">maven笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-23 23:21:29" itemprop="dateCreated datePublished" datetime="2020-01-23T23:21:29+08:00">2020-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-28 13:51:47" itemprop="dateModified" datetime="2020-01-28T13:51:47+08:00">2020-01-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/23/maven%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/maven%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="maven笔记"><a href="#maven笔记" class="headerlink" title="maven笔记 "></a>maven笔记 </h1><p><strong>Maven</strong>项目管理</p>
-<p><a href="http://www.sikiedu.com/course/284/material/14783/download" target="_blank" rel="noopener">siki</a></p>
-<p><strong>Maven</strong>是什么？<br>Maven是Apache下的项目管理工具，它由纯Java语言开发，可以帮助我们更方便的管理和构建Java项目。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/23/maven%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/01/23/Hugo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zephxu">
-      <meta itemprop="description" content="纯小白，知足常乐">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zephxu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/23/Hugo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Hugo从零搭建博客</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-23 23:20:32" itemprop="dateCreated datePublished" datetime="2020-01-23T23:20:32+08:00">2020-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-28 13:52:40" itemprop="dateModified" datetime="2020-01-28T13:52:40+08:00">2020-01-28</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/23/Hugo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/Hugo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="hugo版从零搭建个人博客"><a href="#hugo版从零搭建个人博客" class="headerlink" title="hugo版从零搭建个人博客"></a>hugo版从零搭建个人博客</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/23/Hugo%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
@@ -1660,15 +965,10 @@ Result"></p>
 
   </div>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1715,6 +1015,7 @@ Result"></p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringMVC-Learning-Notes"><span class="nav-number">1.</span> <span class="nav-text">SpringMVC Learning Notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringMVC-个人学习笔记"><span class="nav-number">2.</span> <span class="nav-text">SpringMVC 个人学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#part1、三层架构和MVC"><span class="nav-number">2.1.</span> <span class="nav-text">part1、三层架构和MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、三层架构"><span class="nav-number">2.1.1.</span> <span class="nav-text">一、三层架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、MVC模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">二、MVC模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#part2、SpringMVC的入门案例"><span class="nav-number">2.2.</span> <span class="nav-text">part2、SpringMVC的入门案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、SpringMVC的概述"><span class="nav-number">2.2.1.</span> <span class="nav-text">一、SpringMVC的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、SpringMVC的概述"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">1、SpringMVC的概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、SpringMVC在三层架构中的位置：表现层框架"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">2、SpringMVC在三层架构中的位置：表现层框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、SpringMVC的优势"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">3、SpringMVC的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、SpringMVC和Stru2的对比"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">4、SpringMVC和Stru2的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#共同点："><span class="nav-number">2.2.1.4.1.</span> <span class="nav-text">共同点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区别："><span class="nav-number">2.2.1.4.2.</span> <span class="nav-text">区别：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、SpringMVC的入门程序"><span class="nav-number">2.2.2.</span> <span class="nav-text">二、SpringMVC的入门程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、创建Web工程，引入开发的jar包"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">1、创建Web工程，引入开发的jar包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#具体坐标如下"><span class="nav-number">2.2.2.1.1.</span> <span class="nav-text">具体坐标如下</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、配置核心的控制器（配置DispatcherServlet）"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">2、配置核心的控制器（配置DispatcherServlet）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在web-xml配置文件中核心控制器DispatcherServlet"><span class="nav-number">2.2.2.2.1.</span> <span class="nav-text">在web.xml配置文件中核心控制器DispatcherServlet</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、编写springmvc-xml的配置文件"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">3、编写springmvc.xml的配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-编写index-jsp和HelloController控制器"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">4. 编写index.jsp和HelloController控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-index-jsp："><span class="nav-number">2.2.2.4.1.</span> <span class="nav-text">a) index.jsp：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-HelloController"><span class="nav-number">2.2.2.4.2.</span> <span class="nav-text">b) HelloController</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、在WEB-INF目录下创建pages文件夹，编写success-jsp的成功页面"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">5、在WEB-INF目录下创建pages文件夹，编写success.jsp的成功页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、启动Tomcat服务器，进行测试"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">6、启动Tomcat服务器，进行测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、入门案例的执行过程分析"><span class="nav-number">2.2.3.</span> <span class="nav-text">三、入门案例的执行过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、入门案例的执行流程"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">1、入门案例的执行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、入门案例中的组件分析"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">2、入门案例中的组件分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-DispatcherServlet：前端控制器"><span class="nav-number">2.2.3.2.1.</span> <span class="nav-text">a) DispatcherServlet：前端控制器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-HandlerMapping：处理器映射器"><span class="nav-number">2.2.3.2.2.</span> <span class="nav-text">b) HandlerMapping：处理器映射器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-Handler：处理器"><span class="nav-number">2.2.3.2.3.</span> <span class="nav-text">c) Handler：处理器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-HandlAdapter：处理器适配器（转接口）"><span class="nav-number">2.2.3.2.4.</span> <span class="nav-text">d) HandlAdapter：处理器适配器（转接口）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-View-Resolver：视图解析器"><span class="nav-number">2.2.3.2.5.</span> <span class="nav-text">e) View Resolver：视图解析器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f-View：视图"><span class="nav-number">2.2.3.2.6.</span> <span class="nav-text">f) View：视图</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、-lt-mvc-annotation-driven-gt-说明"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">3、&lt;mvc:annotation-driven&gt;说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、RequestMapping注解"><span class="nav-number">2.2.4.</span> <span class="nav-text">四、RequestMapping注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、RequestMapping注解的作用是建立请求URL和处理方法之间的对应关系"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">1、RequestMapping注解的作用是建立请求URL和处理方法之间的对应关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-、RequestMapping注解可以作用在方法和类上：更加清晰"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">2.、RequestMapping注解可以作用在方法和类上：更加清晰</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、RequestMapping的属性"><span class="nav-number">2.2.4.3.</span> <span class="nav-text">3、RequestMapping的属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#part3、请求参数的绑定"><span class="nav-number">2.3.</span> <span class="nav-text">part3、请求参数的绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、请求参数的绑定说明"><span class="nav-number">2.3.1.</span> <span class="nav-text">一、请求参数的绑定说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、绑定机制"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">1、绑定机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、支持的数据类型"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">2、支持的数据类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、基本数据类型和字符串类型"><span class="nav-number">2.3.2.</span> <span class="nav-text">二、基本数据类型和字符串类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、实体类型（JavaBean）"><span class="nav-number">2.3.3.</span> <span class="nav-text">三、实体类型（JavaBean）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、集合属性数据封装"><span class="nav-number">2.3.4.</span> <span class="nav-text">四、集合属性数据封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、List：JSP页面编写方式：list-0-属性"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">1、List：JSP页面编写方式：list[0].属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Map：map-‘key’-属性"><span class="nav-number">2.3.4.2.</span> <span class="nav-text">2、Map：map[‘key’].属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、自定义类型转换器"><span class="nav-number">2.3.5.</span> <span class="nav-text">五、自定义类型转换器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、在控制器中使用原生的ServletAPI对象："><span class="nav-number">2.3.6.</span> <span class="nav-text">六、在控制器中使用原生的ServletAPI对象：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#part4、常用的注解"><span class="nav-number">2.4.</span> <span class="nav-text">part4、常用的注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、RequestParam注解"><span class="nav-number">2.4.1.</span> <span class="nav-text">一、RequestParam注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用："><span class="nav-number">2.4.1.1.</span> <span class="nav-text">1、作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性："><span class="nav-number">2.4.1.2.</span> <span class="nav-text">2、属性：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、RequestBody注解（异步，json）"><span class="nav-number">2.4.2.</span> <span class="nav-text">二、RequestBody注解（异步，json）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用：-1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">1、作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性：-1"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">2、属性：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、PathVariable注解"><span class="nav-number">2.4.3.</span> <span class="nav-text">三、PathVariable注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用：-2"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">1、作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性：-2"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">2、属性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Restful风格的URL"><span class="nav-number">2.4.3.3.</span> <span class="nav-text">3、Restful风格的URL</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a"><span class="nav-number">2.4.3.3.1.</span> <span class="nav-text">a)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-restful风格的URL优点"><span class="nav-number">2.4.3.3.2.</span> <span class="nav-text">b) restful风格的URL优点:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-restful特性"><span class="nav-number">2.4.3.3.3.</span> <span class="nav-text">c) restful特性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、实践"><span class="nav-number">2.4.3.4.</span> <span class="nav-text">4、实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、基于-HiddentHttpMethodFilter-的示例（了解即可）"><span class="nav-number">2.4.4.</span> <span class="nav-text">四、基于 HiddentHttpMethodFilter 的示例（了解即可）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用：-3"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">1、作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、使用方法："><span class="nav-number">2.4.4.2.</span> <span class="nav-text">2、使用方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、源码分析："><span class="nav-number">2.4.4.3.</span> <span class="nav-text">3、源码分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、RequestHeader注解（一般开发中不怎么用）"><span class="nav-number">2.4.5.</span> <span class="nav-text">五、RequestHeader注解（一般开发中不怎么用）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用：-4"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">1、作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性：-3"><span class="nav-number">2.4.5.2.</span> <span class="nav-text">2、属性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、实践"><span class="nav-number">2.4.5.3.</span> <span class="nav-text">3、实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、CookieValue注解"><span class="nav-number">2.4.6.</span> <span class="nav-text">六、CookieValue注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用：-5"><span class="nav-number">2.4.6.1.</span> <span class="nav-text">1、作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性：-4"><span class="nav-number">2.4.6.2.</span> <span class="nav-text">2、属性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、实践-1"><span class="nav-number">2.4.6.3.</span> <span class="nav-text">3、实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、ModelAttribute注解"><span class="nav-number">2.4.7.</span> <span class="nav-text">七、ModelAttribute注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用"><span class="nav-number">2.4.7.1.</span> <span class="nav-text">1、作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性：-5"><span class="nav-number">2.4.7.2.</span> <span class="nav-text">2、属性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、应用场景："><span class="nav-number">2.4.7.3.</span> <span class="nav-text">3、应用场景：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、实践-1"><span class="nav-number">2.4.7.4.</span> <span class="nav-text">4、实践</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-方法无返回值："><span class="nav-number">2.4.7.4.1.</span> <span class="nav-text">a) 方法无返回值：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-方法有返回值："><span class="nav-number">2.4.7.4.2.</span> <span class="nav-text">b) 方法有返回值：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八、SessionAttributes（复数）"><span class="nav-number">2.4.8.</span> <span class="nav-text">八、SessionAttributes（复数）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、作用：-6"><span class="nav-number">2.4.8.1.</span> <span class="nav-text">1、作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性"><span class="nav-number">2.4.8.2.</span> <span class="nav-text">2、属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、实践："><span class="nav-number">2.4.8.3.</span> <span class="nav-text">3、实践：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#part5、响应数据和结果视图"><span class="nav-number">2.5.</span> <span class="nav-text">part5、响应数据和结果视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、返回值分类"><span class="nav-number">2.5.1.</span> <span class="nav-text">一、返回值分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、返回字符串"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">1、返回字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、返回值是void"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">2、返回值是void</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-返回值是ModelAndView对象（与返回字符串方式类似）"><span class="nav-number">2.5.1.3.</span> <span class="nav-text">3. 返回值是ModelAndView对象（与返回字符串方式类似）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、SpringMVC框架提供的转发和重定向"><span class="nav-number">2.5.2.</span> <span class="nav-text">二、SpringMVC框架提供的转发和重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、forward请求转发"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">1、forward请求转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、redirect重定向"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">2、redirect重定向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、ResponseBody响应json数据"><span class="nav-number">2.5.3.</span> <span class="nav-text">三、ResponseBody响应json数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、DispatcherServlet"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">1、DispatcherServlet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、使用-RequestBody获取请求体数据（点击查看作用）"><span class="nav-number">2.5.3.2.</span> <span class="nav-text">2、使用@RequestBody获取请求体数据（点击查看作用）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、使用-RequestBody注解把json的字符串转换成JavaBean的对象"><span class="nav-number">2.5.3.3.</span> <span class="nav-text">3、使用@RequestBody注解把json的字符串转换成JavaBean的对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、使用-ResponseBody注解把JavaBean对象转换成json字符串，直接响应"><span class="nav-number">2.5.3.4.</span> <span class="nav-text">4、使用@ResponseBody注解把JavaBean对象转换成json字符串，直接响应</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#part6、SpringMVC实现文件上传"><span class="nav-number">2.6.</span> <span class="nav-text">part6、SpringMVC实现文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、传统文件上传的回顾"><span class="nav-number">2.6.1.</span> <span class="nav-text">1、传统文件上传的回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-、必要前提"><span class="nav-number">2.6.1.1.</span> <span class="nav-text">a)、必要前提</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-、原理分析"><span class="nav-number">2.6.1.2.</span> <span class="nav-text">b)、原理分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-、借助第三方组件实现文件上传"><span class="nav-number">2.6.1.3.</span> <span class="nav-text">c)、借助第三方组件实现文件上传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d-、代码："><span class="nav-number">2.6.1.4.</span> <span class="nav-text">d)、代码：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、SpringMVC传统方式文件上传"><span class="nav-number">2.6.2.</span> <span class="nav-text">2、SpringMVC传统方式文件上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、SpringMVC跨服务器方式文件上传"><span class="nav-number">2.6.3.</span> <span class="nav-text">3、SpringMVC跨服务器方式文件上传</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、搭建图片服务器："><span class="nav-number">2.6.3.1.</span> <span class="nav-text">1、搭建图片服务器：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、实现SpringMVC跨服务器方式文件上传"><span class="nav-number">2.6.3.2.</span> <span class="nav-text">2、实现SpringMVC跨服务器方式文件上传</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#part7、SpringMVC的异常处理"><span class="nav-number">2.7.</span> <span class="nav-text">part7、SpringMVC的异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、异常处理思路"><span class="nav-number">2.7.1.</span> <span class="nav-text">1、异常处理思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、SpringMVC的异常处理"><span class="nav-number">2.7.2.</span> <span class="nav-text">2、SpringMVC的异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-、不进行处理："><span class="nav-number">2.7.2.0.1.</span> <span class="nav-text">a)、不进行处理：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-、异常处理"><span class="nav-number">2.7.2.0.2.</span> <span class="nav-text">b)、异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#i-、自定义异常类：继承Exception"><span class="nav-number">2.7.2.0.2.1.</span> <span class="nav-text">i)、自定义异常类：继承Exception</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ii-、自定义异常处理器"><span class="nav-number">2.7.2.0.2.2.</span> <span class="nav-text">ii)、自定义异常处理器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#iii-、配置异常处理器"><span class="nav-number">2.7.2.0.2.3.</span> <span class="nav-text">iii)、配置异常处理器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#iv-、结果"><span class="nav-number">2.7.2.0.2.4.</span> <span class="nav-text">iv)、结果</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#part8、SpringMVC框架中的拦截器"><span class="nav-number">2.8.</span> <span class="nav-text">part8、SpringMVC框架中的拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、拦截器的概述"><span class="nav-number">2.8.1.</span> <span class="nav-text">1、拦截器的概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、自定义拦截器步骤"><span class="nav-number">2.8.2.</span> <span class="nav-text">2、自定义拦截器步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、HandlerInterceptor接口中的方法"><span class="nav-number">2.8.3.</span> <span class="nav-text">3、HandlerInterceptor接口中的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、配置多个拦截器"><span class="nav-number">2.8.4.</span> <span class="nav-text">4、配置多个拦截器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#part9、SpringMVC暂告一段落……未完待续……"><span class="nav-number">2.8.5.</span> <span class="nav-text">part9、SpringMVC暂告一段落……未完待续……</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
