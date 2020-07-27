@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>springboot</title>
+    <url>/2020/07/27/springboot-pdf/</url>
+    <content><![CDATA[<div class="pdf" target="SpringBoot(bjxst).pdf" height=""></div>]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>java</tag>
+        <tag>springboot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git简单命令</title>
     <url>/2020/02/29/Git%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p><a href="https://github.com/hongiii/gitNotes_from_Liao/blob/master/gitNotes_from_Liao.md" target="_blank" rel="noopener">来源</a></p>
