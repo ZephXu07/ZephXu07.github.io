@@ -3,7 +3,7 @@
   <entry>
     <title>springboot</title>
     <url>/2020/07/27/springboot/</url>
-    <content><![CDATA[<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% pdf ./mydocument.pdf %&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% pdf https://github.com/ZephXu07/MyBlog/blob/master/source/_posts/springboot/mydocument.pdf %&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <tags>
