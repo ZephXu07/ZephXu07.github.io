@@ -3,7 +3,7 @@
   <entry>
     <title>springboot</title>
     <url>/2020/07/27/springboot/</url>
-    <content><![CDATA[<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% pdf https://github.com/ZephXu07/MyBlog/blob/master/source/_posts/springboot/mydocument.pdf %&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<div class="pdf" target="https://github.com/ZephXu07/MyBlog/blob/master/source/_posts/springboot/mydocument.pdf" height=""></div>
 
 ]]></content>
       <tags>
@@ -154,8 +154,8 @@
 
 <h4 id="删除一个远程标签"><a href="#删除一个远程标签" class="headerlink" title="删除一个远程标签"></a>删除一个远程标签</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin :refs&#x2F;tags&#x2F;&lt;tagname&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>git</tag>
         <tag>笔记</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -947,8 +947,8 @@
 <p><strong>没成功，有缘再见。</strong></p>
 <h1 id="十一、使用SourceTree"><a href="#十一、使用SourceTree" class="headerlink" title="十一、使用SourceTree"></a>十一、<a href="https://www.liaoxuefeng.com/wiki/896043488029600/1317161920364578" target="_blank" rel="noopener">使用SourceTree</a></h1>]]></content>
       <tags>
-        <tag>git</tag>
         <tag>笔记</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -2419,8 +2419,8 @@ graphs"></p>
 <h2 id="part9、未完待续……"><a href="#part9、未完待续……" class="headerlink" title="part9、未完待续…… "></a>part9、未完待续…… </h2>]]></content>
       <tags>
         <tag>笔记</tag>
-        <tag>java</tag>
         <tag>ssm</tag>
+        <tag>java</tag>
         <tag>spring</tag>
       </tags>
   </entry>
@@ -2444,8 +2444,8 @@ graphs"></p>
 ]]></content>
       <tags>
         <tag>笔记</tag>
-        <tag>java</tag>
         <tag>ssm</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -3151,8 +3151,8 @@ graphs"></p>
 <h2 id="part11、未完待续……"><a href="#part11、未完待续……" class="headerlink" title="part11、未完待续……"></a>part11、未完待续……</h2>]]></content>
       <tags>
         <tag>笔记</tag>
-        <tag>java</tag>
         <tag>ssm</tag>
+        <tag>java</tag>
         <tag>mybatis</tag>
       </tags>
   </entry>
