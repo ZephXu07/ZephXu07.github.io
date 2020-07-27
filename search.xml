@@ -2,8 +2,8 @@
 <search>
   <entry>
     <title>springboot</title>
-    <url>/2020/07/27/springboot-pdf/</url>
-    <content><![CDATA[<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% pdf mydocument.pdf %&#125;</span><br></pre></td></tr></table></figure>
+    <url>/2020/07/27/springboot/</url>
+    <content><![CDATA[<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% pdf ./mydocument.pdf %&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <tags>
