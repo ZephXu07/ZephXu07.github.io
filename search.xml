@@ -46,16 +46,16 @@
 <li>log4j-over-slf4j:与剔除log4j联合使用，替换log4j，使log4j实现slf。用于让单独用log4j的依赖能遵循slf，进而统一日志配置。</li>
 <li>log4j-to-slf4j:与剔除log4j2联合使用，替换log4j2，使log4j2实现slf。用于让单独用log4j2的依赖能遵循slf，进而统一日志配置。<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>==slf4j是门面，大的设计模式是门面系统，而logback是直接实现了slf4j-api中的接口，是通过接口实现的方式完成了门面的实现。==</li>
 </ul>
-<p>==而log4j和log4j2没有直接实现接口，所以需要个适配器。slf4j-log4j12和log4j-slf4j-impl就是<code>适配器</code>，将原本不能实现slf4j的变得也能实现这个标准了。添加了适配器后，就能使用slf4j的接口来使用log4j了。==<br><img src="https://bolg.obs.cn-north-1.myhuaweicloud.com/1911/concrete-bindings.png" alt="image"></p>
+<p>==而log4j和log4j2没有直接实现接口，所以需要个适配器。slf4j-log4j12和log4j-slf4j-impl就是<code>适配器</code>，将原本不能实现slf4j的变得也能实现这个标准了。添加了适配器后，就能使用slf4j的接口来使用log4j了。==<br><img src="https://github.com/ZephXu07/IMG/raw/master/concrete-bindings.png" alt="image"></p>
 <p>==项目的依赖中独立使用了log4j/log4j2，注意是依赖中，这时候想要统一到slf4j上来，就需要log4j-over-slf4j/log4j-to-slf4j。==<br>==以log4j-over-slf4j为例，他实际上是重写了log4j所有的类，将原来的info、debug等等方法委托给slf4j执行了，上面我们将log4j用不存在版本的方式彻底剔除了log4j中的类，使依赖加载的类被偷梁换柱为log4j-over-slf4j中的logger，这个logger中方法又委托给slf4j，slf4j向下找binding找到仅存的logback。==</p>
 <p>下面是log4j和log4j-over-slf4j重写的logger类,他们形式上一样包括包名，这里就放一张图了</p>
-<p><img src="https://bolg.obs.cn-north-1.myhuaweicloud.com/1911/loga.png" alt="image"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/loga.png" alt="image"></p>
 <p>然后都是继承Category这个类，实际上主要的方法实现都在这里，下面分别是log4j包和log4j-over-slf4j包中的Category：</p>
-<p><img src="https://bolg.obs.cn-north-1.myhuaweicloud.com/1911/logb.png" alt="image"></p>
-<p><img src="https://bolg.obs.cn-north-1.myhuaweicloud.com/1911/logc.png" alt="image"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/logb.png" alt="image"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/logc.png" alt="image"></p>
 <p>从图中可以看出log4j就是自己在写日志，而后者则委托给了slf4j。</p>
 <p>这是slf官网的图。</p>
-<p><img src="https://bolg.obs.cn-north-1.myhuaweicloud.com/1911/legacy.png" alt="image"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/legacy.png" alt="image"></p>
 <p>不存在版本的方式剔除log4j是一种暴力方式，其实目的是让原来的log4j不要先加载就行，可以在pom中将log4j-over-slf4j写在log4j前面就行，log4j写存在的版本就行（因为也不会加载）。</p>
 <p>疑惑：pom中不写log4j会有问题吗？</p>
 <p>回答：可能会有问题。maven决定了依赖的加载顺序，假如用了log4j的依赖叫A。不写log4j在pom中就必须保证log4j-over-slf4j写在A前面。</p>
@@ -215,8 +215,8 @@
 
 <h4 id="删除一个远程标签"><a href="#删除一个远程标签" class="headerlink" title="删除一个远程标签"></a>删除一个远程标签</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin :refs&#x2F;tags&#x2F;&lt;tagname&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>笔记</tag>
         <tag>git</tag>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -1008,8 +1008,8 @@
 <p><strong>没成功，有缘再见。</strong></p>
 <h1 id="十一、使用SourceTree"><a href="#十一、使用SourceTree" class="headerlink" title="十一、使用SourceTree"></a>十一、<a href="https://www.liaoxuefeng.com/wiki/896043488029600/1317161920364578" target="_blank" rel="noopener">使用SourceTree</a></h1>]]></content>
       <tags>
-        <tag>笔记</tag>
         <tag>git</tag>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
