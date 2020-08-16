@@ -1,6 +1,811 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker学习笔记</title>
+    <url>/2020/08/02/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p><a href="https://www.bilibili.com/video/BV1og4y1q7M4?spm_id_from=333.788.b_765f64657363.1" target="_blank" rel="noopener">学习视频</a></p>
+<p><a href="https://blog.csdn.net/xiaozecheng/article/details/106145593" target="_blank" rel="noopener">笔记来源</a></p>
+<blockquote>
+<p>Docker 学习</p>
+</blockquote>
+<ul>
+<li>Docker 概述</li>
+<li>Docker安装</li>
+<li>Docker命令<ul>
+<li>镜像命令</li>
+<li>容器命令</li>
+<li>操作命令</li>
+<li>。。。</li>
+</ul>
+</li>
+<li>Docker镜像</li>
+<li>容器数据卷</li>
+<li>DockerFile</li>
+<li>Docker网络原理</li>
+<li>IDEA整合Docker（单机Docker)</li>
+<li>Docker Compose</li>
+<li>Docker Swarm</li>
+<li>CI\CD Jenkins</li>
+</ul>
+<h1 id="Docker概述"><a href="#Docker概述" class="headerlink" title="Docker概述"></a>Docker概述</h1><h2 id="Docker为什么出现？"><a href="#Docker为什么出现？" class="headerlink" title="Docker为什么出现？"></a>Docker为什么出现？</h2><p>一款产品： 开发–上线 两套环境！应用环境，应用配置！</p>
+<p>开发 — 运维。 问题：我在我的电脑上可以允许！版本更新，导致服务不可用！对于运维来说考验十分大？</p>
+<p>环境配置是十分的麻烦，每一个及其都要部署环境(集群Redis、ES、Hadoop…) !费事费力。</p>
+<p>发布一个项目( jar + (Redis MySQL JDK ES) ),项目能不能带上环境安装打包！</p>
+<p>之前在服务器配置一个应用的环境 Redis MySQL JDK ES Hadoop 配置超麻烦了，不能够跨平台。</p>
+<p>开发环境Windows，最后发布到Linux！</p>
+<p>传统：开发jar，运维来做！</p>
+<p>现在：开发打包部署上线，一套流程做完！</p>
+<p>安卓流程：java — apk —发布（应用商店）一 张三使用apk一安装即可用！</p>
+<p>docker流程： java-jar（环境） — 打包项目帯上环境（镜像） — ( Docker仓库：商店）—–</p>
+<p>Docker给以上的问题，提出了解决方案！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker1.png" alt="image-20200514192040435"></p>
+<p>Docker的思想就来自于集装箱！</p>
+<p>JRE – 多个应用(端口冲突) – 原来都是交叉的！<br>隔离：Docker核心思想！打包装箱！每个箱子是互相隔离的。</p>
+<p>Docker通过隔离机制，可以将服务器利用到极致！</p>
+<p>本质：所有的技术都是因为出现了一些问题，我们需要去解决，才去学习！</p>
+<h2 id="Docker历史"><a href="#Docker历史" class="headerlink" title="Docker历史"></a>Docker历史</h2><p>2010年，几个的年轻人，就在美国成立了一家公司 <code>dotcloud</code></p>
+<p>做一些pass的云计算服务！LXC（Linux Container容器）有关的容器技术！</p>
+<blockquote>
+<p>Linux Container容器是一种内核虚拟化技术，可以提供轻量级的虚拟化，以便隔离进程和资源。</p>
+</blockquote>
+<p>他们将自己的技术（容器化技术）命名就是 Docker<br>Docker刚刚延生的时候，没有引起行业的注意！<code>dotCloud</code>，就活不下去！</p>
+<p>==开源==</p>
+<p>2013年，Docker开源！</p>
+<p>越来越多的人发现docker的优点！火了。Docker每个月都会更新一个版本！</p>
+<p>2014年4月9日，Docker1.0发布！</p>
+<p>docker为什么这么火？十分的轻巧！</p>
+<p>在容器技术出来之前，我们都是使用虚拟机技术！</p>
+<p>虚拟机：在window中装一个VMware，通过这个软件我们可以虚拟出来一台或者多台电脑！笨重！</p>
+<p>虚拟机也属于虚拟化技术，Docker容器技术，也是一种虚拟化技术！</p>
+<p>==vm : linux centos 原生镜像（一个电脑！） 隔离、需要开启多个虚拟机！ 几个G 几分钟==<br>==docker: 隔离，镜像（最核心的环境 4m + jdk + mysql）十分的小巧，运行镜像就可以了！小巧！ 几个M 秒级启动！==<br>==12==</p>
+<blockquote>
+<p>聊聊Docker</p>
+</blockquote>
+<p>Docker基于Go语言开发的！开源项目！</p>
+<p><a href="https://www.docker.com/" target="_blank" rel="noopener">docker官网</a></p>
+<p><a href="https://docs.docker.com/" target="_blank" rel="noopener">文档</a>： Docker的文档是超级详细的！</p>
+<p><a href="https://hub.docker.com/" target="_blank" rel="noopener">仓库</a>：</p>
+<h2 id="Docker能干嘛"><a href="#Docker能干嘛" class="headerlink" title="Docker能干嘛"></a>Docker能干嘛</h2><blockquote>
+<p>之前的虚拟机技术！</p>
+</blockquote>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker2.png" alt="image-20200515153852954"></p>
+<p><strong>虚拟机技术缺点</strong>：</p>
+<p>1、 资源占用十分多</p>
+<p>2、 冗余步骤多</p>
+<p>3、 启动很慢！</p>
+<blockquote>
+<p>容器化技术</p>
+</blockquote>
+<p>==容器化技术不是模拟一个完整的操作系统==</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker3.png" alt="image-20200515094336846"></p>
+<p>比较Docker和虚拟机技术的不同：</p>
+<ul>
+<li>传统虚拟机，虚拟出一条硬件，运行一个完整的操作系统，然后在这个系统上安装和运行软件</li>
+<li>容器内的应用直接运行在宿主机的内容，容器是没有自己的内核的，也没有虚拟我们的硬件，所以就轻便了</li>
+<li>每个容器间是互相隔离，每个容器内都有一个属于自己的文件系统，互不影响</li>
+</ul>
+<blockquote>
+<p>DevOps（开发、运维）</p>
+</blockquote>
+<p><strong>应用更快速的交付和部署</strong></p>
+<p>传统：一堆帮助文档，安装程序。</p>
+<p>Docker：打包镜像发布测试，一键运行。</p>
+<p><strong>更便捷的升级和扩缩容</strong></p>
+<p>使用了 Docker之后，我们部署应用就和搭积木一样<br>项目打包为一个镜像，扩展服务器A！服务器B</p>
+<p><strong>更简单的系统运维</strong><br>在容器化之后，我们的开发，测试环境都是高度一致的</p>
+<p><strong>更高效的计算资源利用</strong></p>
+<p>Docker是内核级别的虚拟化，可以在一个物理机上可以运行很多的容器实例！服务器的性能可以被压榨到极致。</p>
+<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><h2 id="Docker的基本组成"><a href="#Docker的基本组成" class="headerlink" title="Docker的基本组成"></a>Docker的基本组成</h2><p><img src="https://github.com/ZephXu07/IMG/raw/master/docker4.png" alt="image-20200514195805400"></p>
+<p><strong>镜像（image)：</strong></p>
+<p>docker镜像就好比是一个目标，可以通过这个目标来创建容器服务，tomcat镜像==&gt;run==&gt;容器（提供服务器），通过这个镜像可以创建多个容器（最终服务运行或者项目运行就是在容器中的）。</p>
+<p><strong>容器(container)：</strong></p>
+<p>Docker利用容器技术，独立运行一个或者一组应用，通过镜像来创建的。<br>启动，停止，删除，基本命令<br>目前就可以把这个容器理解为就是一个简易的 Linux系统。</p>
+<p><strong>仓库(repository)：</strong></p>
+<p>仓库就是存放镜像的地方！<br>仓库分为公有仓库和私有仓库。(很类似git)<br>Docker Hub是国外的。<br>阿里云…都有容器服务器(配置镜像加速!)</p>
+<h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><blockquote>
+<p>环境准备</p>
+</blockquote>
+<p>Linux要求内核3.0以上</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  ~ uname -r    </span><br><span class="line">4.15.0-96-generic # 要求3.0以上</span><br><span class="line">➜  ~ cat /etc/os-release </span><br><span class="line">NAME="Ubuntu"</span><br><span class="line">VERSION="18.04.4 LTS (Bionic Beaver)"</span><br><span class="line">ID=ubuntu</span><br><span class="line">ID_LIKE=debian</span><br><span class="line">PRETTY_NAME="Ubuntu 18.04.4 LTS"</span><br><span class="line">VERSION_ID="18.04"</span><br><span class="line">HOME_URL="https://www.ubuntu.com/"</span><br><span class="line">SUPPORT_URL="https://help.ubuntu.com/"</span><br><span class="line">BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"</span><br><span class="line">PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"VERSION_CODENAME=bionic</span><br><span class="line">UBUNTU_CODENAME=bionic</span><br><span class="line">1234567891011121314</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安装</p>
+</blockquote>
+<p>帮助文档：<a href="https://docs.docker.com/engine/install/" target="_blank" rel="noopener">https://docs.docker.com/engine/install/</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.卸载旧版本</span></span><br><span class="line">yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br><span class="line"><span class="comment">#2.需要的安装包</span></span><br><span class="line">yum install -y yum-utils</span><br><span class="line"><span class="comment">#3.设置镜像的仓库</span></span><br><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment">#默认是从国外的，不推荐</span></span><br><span class="line"><span class="comment">#推荐使用国内的</span></span><br><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment">#更新yum软件包索引</span></span><br><span class="line">yum makecache fast</span><br><span class="line"><span class="comment">#4.安装docker相关的 docker-ce 社区版 而ee是企业版</span></span><br><span class="line">yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="comment">#5、启动docker</span></span><br><span class="line">docker systemctl start docker</span><br><span class="line"><span class="comment">#6. 使用docker version查看是否按照成功</span></span><br><span class="line">docker version</span><br><span class="line"><span class="comment">#7. 测试</span></span><br><span class="line">docker run hello-world</span><br><span class="line">123456789101112131415161718192021222324252627282930</span><br><span class="line"><span class="comment">#7. 测试</span></span><br><span class="line">➜  ~ docker run hello-world</span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">"hello-world"</span> image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br><span class="line">12345678910111213141516171819202122</span><br><span class="line"><span class="comment">#8.查看一下下载的镜像</span></span><br><span class="line">➜  ~ docker images         </span><br><span class="line">REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">hello-world           latest              bf756fb1ae65        4 months ago        13.3kB</span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+
+<p>了解：卸载docker</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">1. 卸载依赖</span></span><br><span class="line">yum remove docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta">#</span><span class="bash">2. 删除资源</span></span><br><span class="line">rm -rf /var/lib/docker</span><br><span class="line"><span class="meta">#</span><span class="bash"> /var/lib/docker 是docker的默认工作路径！</span></span><br><span class="line">12345</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.cnblogs.com/Chaser-Eagle/p/12232382.html" target="_blank" rel="noopener">Ubuntu19.10安装docker</a></p>
+<p><a href="https://blog.csdn.net/b9567/article/details/105027440/" target="_blank" rel="noopener">在Ubuntu 18.04安装Docker</a></p>
+<h2 id="阿里云镜像加速"><a href="#阿里云镜像加速" class="headerlink" title="阿里云镜像加速"></a>阿里云镜像加速</h2><p>1、登录阿里云找到容器服务</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker5.png" alt="image-20200515102112851"></p>
+<p>2、找到镜像加速器</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker6.png" alt="image-20200515102009470"></p>
+<p>3、配置使用</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker7.png" alt="image-20200515102216898"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;8bbku6za.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="回顾HelloWorld流程"><a href="#回顾HelloWorld流程" class="headerlink" title="回顾HelloWorld流程"></a>回顾HelloWorld流程</h2><p><img src="https://github.com/ZephXu07/IMG/raw/master/docker8.png" alt="image-20200515102503722"></p>
+<p><strong>docker run 流程图</strong></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker9.png" alt="image-20200515102637246"></p>
+<h2 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h2><p>Docker<strong>是怎么工作的</strong>？</p>
+<p>Docker是一个Client-Server结构的系统，Docker的守护进程运行在主机上。通过Socket从客户端访问！</p>
+<p>Docker-Server接收到Docker-Client的指令，就会执行这个命令！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker10.png" alt="image-20200515102949558"></p>
+<p><strong>为什么Docker比Vm快</strong><br>1、docker有着比虚拟机更少的抽象层。由于docker不需要Hypervisor实现<strong>硬件资源虚拟化</strong>,运行在docker容器上的程序直接使用的都是实际物理机的硬件资源。因此在CPU、内存利用率上docker将会在效率上有明显优势。<br>2、docker利用的是宿主机的内核,而不需要Guest OS。</p>
+<blockquote>
+<p>GuestOS： VM（虚拟机）里的的系统（OS）;</p>
+<p>HostOS：物理机里的系统（OS）；</p>
+</blockquote>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker11.png" alt="image-20200515104117329"></p>
+<p>因此,当新建一个 容器时,docker不需要和虚拟机一样重新加载一个操作系统内核。仍而避免引导、加载操作系统内核返个比较费时费资源的过程,当新建一个虚拟机时,虚拟机软件需要加载GuestOS,返个新建过程是<strong>分钟级别</strong>的。而docker由于直接利用宿主机的操作系统,则省略了这个复杂的过程,因此新建一个docker容器只需要<strong>几秒钟</strong>。</p>
+<hr>
+<p><a href="https://blog.csdn.net/liangllhahaha/article/details/92077065" target="_blank" rel="noopener">Docker”Got permission denied while trying to connect to the Docker daemon socket”问题</a></p>
+<hr>
+<h1 id="Docker的常用命令"><a href="#Docker的常用命令" class="headerlink" title="Docker的常用命令"></a>Docker的常用命令</h1><h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker version    #显示docker的版本信息。</span><br><span class="line">docker info       #显示docker的系统信息，包括镜像和容器的数量</span><br><span class="line">docker 命令 --help #帮助命令</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://docs.docker.com/engine/reference/commandline/build/" target="_blank" rel="noopener">帮助文档的地址</a></p>
+<h2 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h2><blockquote>
+<p>docker images #查看所有本地主机上的镜像 可以使用docker image ls代替</p>
+<p>docker search 搜索镜像</p>
+<p>docker pull 下载镜像 docker image pull</p>
+<p>docker rmi 删除镜像 docker image rm</p>
+</blockquote>
+<p><strong>docker images</strong> 查看所有本地的主机上的镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  ~ docker images</span><br><span class="line">REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">mysql                 5.7                 e73346bdf465        24 hours ago        448MB</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 解释</span></span><br><span class="line"><span class="meta">#</span><span class="bash">REPOSITORY			<span class="comment"># 镜像的仓库源</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">TAG				<span class="comment"># 镜像的标签</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">IMAGE ID			<span class="comment"># 镜像的id</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">CREATED			<span class="comment"># 镜像的创建时间</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">SIZE				<span class="comment"># 镜像的大小</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可选项</span></span><br><span class="line">Options:</span><br><span class="line">  -a, --all             Show all images (default hides intermediate images) #列出所有镜像</span><br><span class="line">  -q, --quiet           Only show numeric IDs # 只显示镜像的id</span><br><span class="line">  </span><br><span class="line">➜  ~ docker images -aq ＃显示所有镜像的id</span><br><span class="line">e73346bdf465</span><br><span class="line">d03312117bb0</span><br><span class="line">d03312117bb0</span><br><span class="line">602e111c06b6</span><br><span class="line">2869fc110bf7</span><br><span class="line">470671670cac</span><br><span class="line">bf756fb1ae65</span><br><span class="line">5acf0e8da90b</span><br></pre></td></tr></table></figure>
+
+<p><strong>docker search 搜索镜像</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  ~ docker search mysql</span><br><span class="line">NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">mysql                             MySQL is a widely used, open-source relation…   9500                [OK]                </span><br><span class="line">mariadb                           MariaDB is a community-developed fork of MyS…   3444                [OK]  </span><br><span class="line"><span class="meta">#</span><span class="bash"> --filter=STARS=3000 <span class="comment">#搜索出来的镜像就是STARS大于3000的</span></span></span><br><span class="line">Options:</span><br><span class="line">  -f, --filter filter   Filter output based on conditions provided</span><br><span class="line">      --format string   Pretty-print search using a Go template</span><br><span class="line">      --limit int       Max number of search results (default 25)</span><br><span class="line">      --no-trunc        Don't truncate output</span><br><span class="line">      </span><br><span class="line">➜  ~ docker search mysql --filter=STARS=3000</span><br><span class="line">NAME                DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">mysql               MySQL is a widely used, open-source relation…   9500                [OK]             </span><br><span class="line">mariadb             MariaDB is a community-developed fork of MyS…   3444                [OK]</span><br><span class="line">123456789101112131415</span><br></pre></td></tr></table></figure>
+
+<p><strong>docker pull</strong> 下载镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载镜像 docker pull 镜像名[:tag]</span></span><br><span class="line">➜  ~ docker pull tomcat:8</span><br><span class="line">8: Pulling from library/tomcat #如果不写tag，默认就是latest</span><br><span class="line">90fe46dd8199: Already exists   #分层下载： docker image 的核心 联合文件系统</span><br><span class="line">35a4f1977689: Already exists </span><br><span class="line">bbc37f14aded: Already exists </span><br><span class="line">74e27dc593d4: Already exists </span><br><span class="line">93a01fbfad7f: Already exists </span><br><span class="line">1478df405869: Pull complete </span><br><span class="line">64f0dd11682b: Pull complete </span><br><span class="line">68ff4e050d11: Pull complete </span><br><span class="line">f576086003cf: Pull complete </span><br><span class="line">3b72593ce10e: Pull complete </span><br><span class="line">Digest: sha256:0c6234e7ec9d10ab32c06423ab829b32e3183ba5bf2620ee66de866df640a027  # 签名 防伪</span><br><span class="line">Status: Downloaded newer image for tomcat:8</span><br><span class="line">docker.io/library/tomcat:8 #真实地址</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">等价于</span></span><br><span class="line">docker pull tomcat:8</span><br><span class="line">docker pull docker.io/library/tomcat:8</span><br></pre></td></tr></table></figure>
+
+<p><strong>docker rmi 删除镜像</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  ~ docker rmi -f 镜像id #删除指定的镜像</span><br><span class="line">➜  ~ docker rmi -f 镜像id 镜像id 镜像id 镜像id#删除指定的镜像</span><br><span class="line">➜  ~ docker rmi -f $(docker images -aq) #删除全部的镜像</span><br></pre></td></tr></table></figure>
+
+<h2 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h2><blockquote>
+<p>docker run 镜像id 新建容器并启动</p>
+<p>docker ps 列出所有运行的容器 docker container list</p>
+<p>docker rm 容器id 删除指定容器</p>
+<p>docker start 容器id #启动容器<br>docker restart 容器id #重启容器<br>docker stop 容器id #停止当前正在运行的容器<br>docker kill 容器id #强制停止当前容器</p>
+</blockquote>
+<p>说明：我们有了镜像才可以创建容器，Linux，下载centos镜像来学习</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  ~ docker container     </span><br><span class="line">Usage:  docker container COMMAND</span><br><span class="line">Manage containers</span><br><span class="line">Commands:</span><br><span class="line">  attach      Attach <span class="built_in">local</span> standard input, output, and error streams to a running container</span><br><span class="line">  commit      Create a new image from a container<span class="string">'s changes</span></span><br><span class="line"><span class="string">  cp          Copy files/folders between a container and the local filesystem</span></span><br><span class="line"><span class="string">  create      Create a new container</span></span><br><span class="line"><span class="string">  diff        Inspect changes to files or directories on a container'</span>s filesystem</span><br><span class="line">  <span class="built_in">exec</span>        Run a <span class="built_in">command</span> <span class="keyword">in</span> a running container</span><br><span class="line">  <span class="built_in">export</span>      Export a container<span class="string">'s filesystem as a tar archive</span></span><br><span class="line"><span class="string">  inspect     Display detailed information on one or more containers</span></span><br><span class="line"><span class="string">  kill        Kill one or more running containers</span></span><br><span class="line"><span class="string">  logs        Fetch the logs of a container</span></span><br><span class="line"><span class="string">  ls          List containers</span></span><br><span class="line"><span class="string">  pause       Pause all processes within one or more containers</span></span><br><span class="line"><span class="string">  port        List port mappings or a specific mapping for the container</span></span><br><span class="line"><span class="string">  prune       Remove all stopped containers</span></span><br><span class="line"><span class="string">  rename      Rename a container</span></span><br><span class="line"><span class="string">  restart     Restart one or more containers</span></span><br><span class="line"><span class="string">  rm          Remove one or more containers</span></span><br><span class="line"><span class="string">  run         Run a command in a new container</span></span><br><span class="line"><span class="string">  start       Start one or more stopped containers</span></span><br><span class="line"><span class="string">  stats       Display a live stream of container(s) resource usage statistics</span></span><br><span class="line"><span class="string">  stop        Stop one or more running containers</span></span><br><span class="line"><span class="string">  top         Display the running processes of a container</span></span><br><span class="line"><span class="string">  unpause     Unpause all processes within one or more containers</span></span><br><span class="line"><span class="string">  update      Update configuration of one or more containers</span></span><br><span class="line"><span class="string">  wait        Block until one or more containers stop, then print their exit codes</span></span><br><span class="line"><span class="string">Run '</span>docker container COMMAND --<span class="built_in">help</span><span class="string">' for more information on a command.</span></span><br><span class="line"><span class="string">123456789101112131415161718192021222324252627282930</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>新建容器并启动</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run [可选参数] image | docker container run [可选参数] image </span><br><span class="line"><span class="meta">#</span><span class="bash">参书说明</span></span><br><span class="line">--name="Name"		容器名字 tomcat01 tomcat02 用来区分容器</span><br><span class="line">-d					后台方式运行</span><br><span class="line">-it 				使用交互方式运行，进入容器查看内容</span><br><span class="line">-p					指定容器的端口 -p 8080(宿主机):8080(容器)</span><br><span class="line">		-p ip:主机端口:容器端口</span><br><span class="line">		-p 主机端口:容器端口(常用)</span><br><span class="line">		-p 容器端口</span><br><span class="line">		容器端口</span><br><span class="line">-P(大写) 				随机指定端口</span><br><span class="line"><span class="meta">#</span><span class="bash"> 测试、启动并进入容器</span></span><br><span class="line">➜  ~ docker run -it centos /bin/bash</span><br><span class="line">[root@95039813da8d /]# ls  #查看容器内的centos</span><br><span class="line">bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span><br><span class="line">[root@95039813da8d /]# exit #从容器退回主机</span><br><span class="line">exit</span><br><span class="line">➜  ~ ls</span><br><span class="line">shell  user.txt</span><br><span class="line">123456789101112131415161718192021222324</span><br></pre></td></tr></table></figure>
+
+<p><strong>列出所有运行的容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">docker ps命令 <span class="comment">#列出当前正在运行的容器</span></span></span><br><span class="line">  -a, --all       #运行及停止      Show all containers (default shows just running)</span><br><span class="line">  -n, --last int        Show n last created containers (includes all states) (default -1)</span><br><span class="line">  -q, --quiet           Only display numeric IDs</span><br><span class="line">  </span><br><span class="line">  ➜  ~ docker ps   </span><br><span class="line">CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                    NAMES</span><br><span class="line">68729e9654d4        portainer/portainer   "/portainer"             14 hours ago        Up About a minute   0.0.0.0:8088-&gt;9000/tcp   funny_curie</span><br><span class="line">d506a017e951        nginx                 "nginx -g 'daemon of…"   15 hours ago        Up 15 hours         0.0.0.0:3344-&gt;80/tcp     nginx01</span><br><span class="line">➜  ~ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                       PORTS                    NAMES</span><br><span class="line">95039813da8d        centos                "/bin/bash"              3 minutes ago       Exited (0) 2 minutes ago                              condescending_pike</span><br><span class="line">1e46a426a5ba        tomcat                "catalina.sh run"        11 minutes ago      Exited (130) 9 minutes ago                            sweet_gould</span><br><span class="line">14bc9334d1b2        bf756fb1ae65          "/hello"                 3 hours ago         Exited (0) 3 hours ago                                amazing_stonebraker</span><br><span class="line">f10d60f473f5        bf756fb1ae65          "/hello"                 3 hours ago         Exited (0) 3 hours ago                                dreamy_germain</span><br><span class="line">68729e9654d4        portainer/portainer   "/portainer"             14 hours ago        Up About a minute            0.0.0.0:8088-&gt;9000/tcp   funny_curie</span><br><span class="line">677cde5e4f1d        elasticsearch         "/docker-entrypoint.…"   15 hours ago        Exited (143) 8 minutes ago                            elasticsearch</span><br><span class="line">33eb3f70b4db        tomcat                "catalina.sh run"        15 hours ago        Exited (143) 8 minutes ago                            tomcat01</span><br><span class="line">d506a017e951        nginx                 "nginx -g 'daemon of…"   15 hours ago        Up 15 hours                  0.0.0.0:3344-&gt;80/tcp     nginx01</span><br><span class="line">24ce2db02e45        centos                "/bin/bash"              16 hours ago        Exited (0) 15 hours ago                               hopeful_faraday</span><br><span class="line">42267d1ad80b        bf756fb1ae65          "/hello"                 16 hours ago        Exited (0) 16 hours ago                               ecstatic_sutherland</span><br><span class="line">➜  ~ docker ps -aq</span><br><span class="line">95039813da8d</span><br><span class="line">1e46a426a5ba</span><br><span class="line">14bc9334d1b2</span><br><span class="line">f10d60f473f5</span><br><span class="line">68729e9654d4</span><br><span class="line">677cde5e4f1d</span><br><span class="line">33eb3f70b4db</span><br><span class="line">d506a017e951</span><br><span class="line">24ce2db02e45</span><br><span class="line">42267d1ad80b</span><br><span class="line">1234567891011121314151617181920212223242526272829303132</span><br></pre></td></tr></table></figure>
+
+<p><strong>退出容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">exit #容器直接退出</span><br><span class="line">ctrl +P +Q #容器不停止退出</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker rm 容器id   #删除指定的容器，不能删除正在运行的容器，如果要强制删除 rm -rf</span><br><span class="line">docker rm -f $(docker ps -aq)  #删除指定的容器</span><br><span class="line">docker ps -a -q|xargs docker rm  #删除所有的容器</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动和停止容器的操作</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker start 容器id	#启动容器</span><br><span class="line">docker restart 容器id	#重启容器</span><br><span class="line">docker stop 容器id	#停止当前正在运行的容器</span><br><span class="line">docker kill 容器id	#强制停止当前容器</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用其他命令"><a href="#常用其他命令" class="headerlink" title="常用其他命令"></a>常用其他命令</h2><p><strong>后台启动命令</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 命令 docker run -d 镜像名</span></span><br><span class="line">➜  ~ docker run -d centos</span><br><span class="line">a8f922c255859622ac45ce3a535b7a0e8253329be4756ed6e32265d2dd2fac6c</span><br><span class="line">➜  ~ docker ps           </span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line"><span class="meta">#</span><span class="bash"> 问题docker ps. 发现centos 停止了</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 常见的坑，docker容器使用后台运行，就必须要有要一个前台进程，docker发现没有应用，就会自动停止</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> nginx，容器启动后，发现自己没有提供服务，就会立刻停止，就是没有程序了</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>查看日志</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker logs --help</span><br><span class="line">Options:</span><br><span class="line">      --details        Show extra details provided to logs </span><br><span class="line">*  -f, --follow         Follow log output</span><br><span class="line">      --since string   Show logs since timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes)</span><br><span class="line">*      --tail string    Number of lines to show from the end of the logs (default "all")</span><br><span class="line">*  -t, --timestamps     Show timestamps</span><br><span class="line">      --until string   Show logs before a timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes)</span><br><span class="line">➜  ~ docker run -d centos /bin/sh -c "while true;do echo 6666;sleep 1;done" #模拟日志      </span><br><span class="line"><span class="meta">#</span><span class="bash">显示日志</span></span><br><span class="line">-tf		#显示日志信息（一直更新）</span><br><span class="line">--tail number #需要显示日志条数</span><br><span class="line">docker logs -t --tail n 容器id #查看n行日志</span><br><span class="line">docker logs -ft 容器id #跟着日志</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看容器中进程信息</strong> ps</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 命令 docker top 容器id</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker12.png" alt="image-20200515132913888"></p>
+<p><strong>查看镜像的元数据</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 命令</span></span><br><span class="line">docker inspect 容器id</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">测试</span></span><br><span class="line">➜  ~ docker inspect 55321bcae33d</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "Id": "55321bcae33d15da8280bcac1d2bc1141d213bcc8f8e792edfd832ff61ae5066",</span><br><span class="line">        "Created": "2020-05-15T05:22:05.515909071Z",</span><br><span class="line">        "Path": "/bin/sh",</span><br><span class="line">        "Args": [</span><br><span class="line">            "-c",</span><br><span class="line">            "while true;do echo 6666;sleep 1;done"</span><br><span class="line">        ],</span><br><span class="line">        "State": &#123;</span><br><span class="line">            "Status": "running",</span><br><span class="line">            "Running": true,</span><br><span class="line">            "Paused": false,</span><br><span class="line">            "Restarting": false,</span><br><span class="line">            "OOMKilled": false,</span><br><span class="line">            "Dead": false,</span><br><span class="line">            "Pid": 22973,</span><br><span class="line">            "ExitCode": 0,</span><br><span class="line">            "Error": "",</span><br><span class="line">            "StartedAt": "2020-05-15T05:22:06.165904633Z",</span><br><span class="line">            "FinishedAt": "0001-01-01T00:00:00Z"</span><br><span class="line">        &#125;,</span><br><span class="line">        "Image": "sha256:470671670cac686c7cf0081e0b37da2e9f4f768ddc5f6a26102ccd1c6954c1ee",</span><br><span class="line">        "ResolvConfPath": "/var/lib/docker/containers/55321bcae33d15da8280bcac1d2bc1141d213bcc8f8e792edfd832ff61ae5066/resolv.conf",</span><br><span class="line">        "HostnamePath": "/var/lib/docker/containers/55321bcae33d15da8280bcac1d2bc1141d213bcc8f8e792edfd832ff61ae5066/hostname",</span><br><span class="line">        "HostsPath": "/var/lib/docker/containers/55321bcae33d15da8280bcac1d2bc1141d213bcc8f8e792edfd832ff61ae5066/hosts",</span><br><span class="line">        "LogPath": "/var/lib/docker/containers/55321bcae33d15da8280bcac1d2bc1141d213bcc8f8e792edfd832ff61ae5066/55321bcae33d15da8280bcac1d2bc1141d213bcc8f8e792edfd832ff61ae5066-json.log",</span><br><span class="line">        "Name": "/bold_bell",</span><br><span class="line">        "RestartCount": 0,</span><br><span class="line">        "Driver": "overlay2",</span><br><span class="line">        "Platform": "linux",</span><br><span class="line">        "MountLabel": "",</span><br><span class="line">        "ProcessLabel": "",</span><br><span class="line">        "AppArmorProfile": "docker-default",</span><br><span class="line">        "ExecIDs": null,</span><br><span class="line">        "HostConfig": &#123;</span><br><span class="line">            "Binds": null,</span><br><span class="line">            "ContainerIDFile": "",</span><br><span class="line">            "LogConfig": &#123;</span><br><span class="line">                "Type": "json-file",</span><br><span class="line">                "Config": &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            "NetworkMode": "default",</span><br><span class="line">            "PortBindings": &#123;&#125;,</span><br><span class="line">            "RestartPolicy": &#123;</span><br><span class="line">                "Name": "no",</span><br><span class="line">                "MaximumRetryCount": 0</span><br><span class="line">            &#125;,</span><br><span class="line">            "AutoRemove": false,</span><br><span class="line">            "VolumeDriver": "",</span><br><span class="line">            "VolumesFrom": null,</span><br><span class="line">            "CapAdd": null,</span><br><span class="line">            "CapDrop": null,</span><br><span class="line">            "Capabilities": null,</span><br><span class="line">            "Dns": [],</span><br><span class="line">            "DnsOptions": [],</span><br><span class="line">            "DnsSearch": [],</span><br><span class="line">            "ExtraHosts": null,</span><br><span class="line">            "GroupAdd": null,</span><br><span class="line">            "IpcMode": "private",</span><br><span class="line">            "Cgroup": "",</span><br><span class="line">            "Links": null,</span><br><span class="line">            "OomScoreAdj": 0,</span><br><span class="line">            "PidMode": "",</span><br><span class="line">            "Privileged": false,</span><br><span class="line">            "PublishAllPorts": false,</span><br><span class="line">            "ReadonlyRootfs": false,</span><br><span class="line">            "SecurityOpt": null,</span><br><span class="line">            "UTSMode": "",</span><br><span class="line">            "UsernsMode": "",</span><br><span class="line">            "ShmSize": 67108864,</span><br><span class="line">            "Runtime": "runc",</span><br><span class="line">            "ConsoleSize": [</span><br><span class="line">                0,</span><br><span class="line">                0</span><br><span class="line">            ],</span><br><span class="line">            "Isolation": "",</span><br><span class="line">            "CpuShares": 0,</span><br><span class="line">            "Memory": 0,</span><br><span class="line">            "NanoCpus": 0,</span><br><span class="line">            "CgroupParent": "",</span><br><span class="line">            "BlkioWeight": 0,</span><br><span class="line">            "BlkioWeightDevice": [],</span><br><span class="line">            "BlkioDeviceReadBps": null,</span><br><span class="line">            "BlkioDeviceWriteBps": null,</span><br><span class="line">            "BlkioDeviceReadIOps": null,</span><br><span class="line">            "BlkioDeviceWriteIOps": null,</span><br><span class="line">            "CpuPeriod": 0,</span><br><span class="line">            "CpuQuota": 0,</span><br><span class="line">            "CpuRealtimePeriod": 0,</span><br><span class="line">            "CpuRealtimeRuntime": 0,</span><br><span class="line">            "CpusetCpus": "",</span><br><span class="line">            "CpusetMems": "",</span><br><span class="line">            "Devices": [],</span><br><span class="line">            "DeviceCgroupRules": null,</span><br><span class="line">            "DeviceRequests": null,</span><br><span class="line">            "KernelMemory": 0,</span><br><span class="line">            "KernelMemoryTCP": 0,</span><br><span class="line">            "MemoryReservation": 0,</span><br><span class="line">            "MemorySwap": 0,</span><br><span class="line">            "MemorySwappiness": null,</span><br><span class="line">            "OomKillDisable": false,</span><br><span class="line">            "PidsLimit": null,</span><br><span class="line">            "Ulimits": null,</span><br><span class="line">            "CpuCount": 0,</span><br><span class="line">            "CpuPercent": 0,</span><br><span class="line">            "IOMaximumIOps": 0,</span><br><span class="line">            "IOMaximumBandwidth": 0,</span><br><span class="line">            "MaskedPaths": [</span><br><span class="line">                "/proc/asound",</span><br><span class="line">                "/proc/acpi",</span><br><span class="line">                "/proc/kcore",</span><br><span class="line">                "/proc/keys",</span><br><span class="line">                "/proc/latency_stats",</span><br><span class="line">                "/proc/timer_list",</span><br><span class="line">                "/proc/timer_stats",</span><br><span class="line">                "/proc/sched_debug",</span><br><span class="line">                "/proc/scsi",</span><br><span class="line">                "/sys/firmware"</span><br><span class="line">            ],</span><br><span class="line">            "ReadonlyPaths": [</span><br><span class="line">                "/proc/bus",</span><br><span class="line">                "/proc/fs",</span><br><span class="line">                "/proc/irq",</span><br><span class="line">                "/proc/sys",</span><br><span class="line">                "/proc/sysrq-trigger"</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        "GraphDriver": &#123;</span><br><span class="line">            "Data": &#123;</span><br><span class="line">                "LowerDir": "/var/lib/docker/overlay2/1f347949ba49c4dbee70cea9ff3af39a14e602bc8fac8331c46347bf6708757a-init/diff:/var/lib/docker/overlay2/5afcd8220c51854a847a36f52775b4ed0acb16fe6cfaec3bd2e5df59863835ba/diff",</span><br><span class="line">                "MergedDir": "/var/lib/docker/overlay2/1f347949ba49c4dbee70cea9ff3af39a14e602bc8fac8331c46347bf6708757a/merged",</span><br><span class="line">                "UpperDir": "/var/lib/docker/overlay2/1f347949ba49c4dbee70cea9ff3af39a14e602bc8fac8331c46347bf6708757a/diff",</span><br><span class="line">                "WorkDir": "/var/lib/docker/overlay2/1f347949ba49c4dbee70cea9ff3af39a14e602bc8fac8331c46347bf6708757a/work"</span><br><span class="line">            &#125;,</span><br><span class="line">            "Name": "overlay2"</span><br><span class="line">        &#125;,</span><br><span class="line">        "Mounts": [],</span><br><span class="line">        "Config": &#123;</span><br><span class="line">            "Hostname": "55321bcae33d",</span><br><span class="line">            "Domainname": "",</span><br><span class="line">            "User": "",</span><br><span class="line">            "AttachStdin": false,</span><br><span class="line">            "AttachStdout": false,</span><br><span class="line">            "AttachStderr": false,</span><br><span class="line">            "Tty": false,</span><br><span class="line">            "OpenStdin": false,</span><br><span class="line">            "StdinOnce": false,</span><br><span class="line">            "Env": [</span><br><span class="line">                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"</span><br><span class="line">            ],</span><br><span class="line">            "Cmd": [</span><br><span class="line">                "/bin/sh",</span><br><span class="line">                "-c",</span><br><span class="line">                "while true;do echo 6666;sleep 1;done"</span><br><span class="line">            ],</span><br><span class="line">            "Image": "centos",</span><br><span class="line">            "Volumes": null,</span><br><span class="line">            "WorkingDir": "",</span><br><span class="line">            "Entrypoint": null,</span><br><span class="line">            "OnBuild": null,</span><br><span class="line">            "Labels": &#123;</span><br><span class="line">                "org.label-schema.build-date": "20200114",</span><br><span class="line">                "org.label-schema.license": "GPLv2",</span><br><span class="line">                "org.label-schema.name": "CentOS Base Image",</span><br><span class="line">                "org.label-schema.schema-version": "1.0",</span><br><span class="line">                "org.label-schema.vendor": "CentOS",</span><br><span class="line">                "org.opencontainers.image.created": "2020-01-14 00:00:00-08:00",</span><br><span class="line">                "org.opencontainers.image.licenses": "GPL-2.0-only",</span><br><span class="line">                "org.opencontainers.image.title": "CentOS Base Image",</span><br><span class="line">                "org.opencontainers.image.vendor": "CentOS"</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        "NetworkSettings": &#123;</span><br><span class="line">            "Bridge": "",</span><br><span class="line">            "SandboxID": "63ed0c837f35c12453bae9661859f37a08541a0749afb86e881869bf6fd9031b",</span><br><span class="line">            "HairpinMode": false,</span><br><span class="line">            "LinkLocalIPv6Address": "",</span><br><span class="line">            "LinkLocalIPv6PrefixLen": 0,</span><br><span class="line">            "Ports": &#123;&#125;,</span><br><span class="line">            "SandboxKey": "/var/run/docker/netns/63ed0c837f35",</span><br><span class="line">            "SecondaryIPAddresses": null,</span><br><span class="line">            "SecondaryIPv6Addresses": null,</span><br><span class="line">            "EndpointID": "b129d9a5a2cbb92722a2101244bd81a9e3d8af034e83f338c13790a1a94552a1",</span><br><span class="line">            "Gateway": "172.17.0.1",</span><br><span class="line">            "GlobalIPv6Address": "",</span><br><span class="line">            "GlobalIPv6PrefixLen": 0,</span><br><span class="line">            "IPAddress": "172.17.0.4",</span><br><span class="line">            "IPPrefixLen": 16,</span><br><span class="line">            "IPv6Gateway": "",</span><br><span class="line">            "MacAddress": "02:42:ac:11:00:04",</span><br><span class="line">            "Networks": &#123;</span><br><span class="line">                "bridge": &#123;</span><br><span class="line">                    "IPAMConfig": null,</span><br><span class="line">                    "Links": null,</span><br><span class="line">                    "Aliases": null,</span><br><span class="line">                    "NetworkID": "ad5ada6a106f5ba3dda9ce4bc1475a4bb593bf5f7fbead72196e66515e8ac36a",</span><br><span class="line">                    "EndpointID": "b129d9a5a2cbb92722a2101244bd81a9e3d8af034e83f338c13790a1a94552a1",</span><br><span class="line">                    "Gateway": "172.17.0.1",</span><br><span class="line">                    "IPAddress": "172.17.0.4",</span><br><span class="line">                    "IPPrefixLen": 16,</span><br><span class="line">                    "IPv6Gateway": "",</span><br><span class="line">                    "GlobalIPv6Address": "",</span><br><span class="line">                    "GlobalIPv6PrefixLen": 0,</span><br><span class="line">                    "MacAddress": "02:42:ac:11:00:04",</span><br><span class="line">                    "DriverOpts": null</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+
+<p><strong>进入当前正在运行的容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 我们通常容器都是使用后台方式运行的，需要进入容器，修改一些配置</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令 </span></span><br><span class="line">docker exec -it 容器id bashshell</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">测试</span></span><br><span class="line">➜  ~ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">55321bcae33d        centos              "/bin/sh -c 'while t…"   10 minutes ago      Up 10 minutes                           bold_bell</span><br><span class="line">a7215824a4db        centos              "/bin/sh -c 'while t…"   13 minutes ago      Up 13 minutes                           zen_kepler</span><br><span class="line">55a31b3f8613        centos              "/bin/bash"              15 minutes ago      Up 15 minutes                           lucid_clarke</span><br><span class="line">➜  ~ docker exec -it 55321bcae33d /bin/bash</span><br><span class="line">[root@55321bcae33d /]# </span><br><span class="line"></span><br><span class="line">1234567891011121314</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker13.png" alt="image-20200515133433372"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 方式二</span></span><br><span class="line">docker attach 容器id</span><br><span class="line"><span class="meta">#</span><span class="bash">测试</span></span><br><span class="line">docker attach 55321bcae33d </span><br><span class="line">正在执行当前的代码...</span><br><span class="line">区别</span><br><span class="line"><span class="meta">#</span><span class="bash">docker <span class="built_in">exec</span> <span class="comment">#进入当前容器后开启一个新的终端，可以在里面操作。（常用）</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">docker attach <span class="comment"># 进入容器正在执行的终端</span></span></span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker14.png" alt="image-20200515133907134"></p>
+<p><strong>从容器内拷贝到主机上</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker cp 容器id:容器内路径   主机目的路径</span><br><span class="line"><span class="meta">#</span><span class="bash">进入docker容器内部</span></span><br><span class="line">➜  ~ docker exec -it  55321bcae33d /bin/bash </span><br><span class="line">[root@55321bcae33d /]# ls</span><br><span class="line">bin  etc   lib    lost+found  mnt  proc  run   srv  tmp  var</span><br><span class="line">dev  home  lib64  media       opt  root  sbin  sys  usr</span><br><span class="line"><span class="meta">#</span><span class="bash">新建一个文件</span></span><br><span class="line">[root@55321bcae33d /]# echo "hello" &gt; java.java</span><br><span class="line">[root@55321bcae33d /]# cat java.java </span><br><span class="line">hello</span><br><span class="line">[root@55321bcae33d /]# exit</span><br><span class="line">exit</span><br><span class="line">➜  ~ docker cp 55321bcae33d:/java.java /    #拷贝</span><br><span class="line">➜  ~ cd /              </span><br><span class="line">➜  / ls  #可以看见java.java存在</span><br><span class="line">bin   home            lib         mnt   run       sys  vmlinuz</span><br><span class="line">boot  initrd.img      lib64       opt   sbin      tmp  vmlinuz.old</span><br><span class="line">dev   initrd.img.old  lost+found  proc  srv       usr  wget-log</span><br><span class="line">etc   java.java       media       root  swapfile  var</span><br></pre></td></tr></table></figure>
+
+<p>学习方式：将我的所有笔记敲一遍，自己记录笔记！</p>
+<p><strong>小结：</strong></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker15.png" alt="image-20200514214313962"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">attach      Attach local standard input, output, and error streams to a running container</span><br><span class="line"><span class="meta">#</span><span class="bash">当前shell下 attach连接指定运行的镜像</span></span><br><span class="line">build       Build an image from a Dockerfile # 通过Dockerfile定制镜像</span><br><span class="line">commit      Create a new image from a container's changes #提交当前容器为新的镜像</span><br><span class="line">cp          Copy files/folders between a container and the local filesystem #拷贝文件</span><br><span class="line">create      Create a new container #创建一个新的容器</span><br><span class="line">diff        Inspect changes to files or directories on a container's filesystem #查看docker容器的变化</span><br><span class="line">events      Get real time events from the server # 从服务获取容器实时时间</span><br><span class="line">exec        Run a command in a running container # 在运行中的容器上运行命令</span><br><span class="line">export      Export a container's filesystem as a tar archive #导出容器文件系统作为一个tar归档文件[对应import]</span><br><span class="line">history     Show the history of an image # 展示一个镜像形成历史</span><br><span class="line">images      List images #列出系统当前的镜像</span><br><span class="line">import      Import the contents from a tarball to create a filesystem image #从tar包中导入内容创建一个文件系统镜像</span><br><span class="line">info        Display system-wide information # 显示全系统信息</span><br><span class="line">inspect     Return low-level information on Docker objects #查看容器详细信息</span><br><span class="line">kill        Kill one or more running containers # kill指定docker容器</span><br><span class="line">load        Load an image from a tar archive or STDIN #从一个tar包或标准输入中加载一个镜像[对应save]</span><br><span class="line">login       Log in to a Docker registry #</span><br><span class="line">logout      Log out from a Docker registry</span><br><span class="line">logs        Fetch the logs of a container</span><br><span class="line">pause       Pause all processes within one or more containers</span><br><span class="line">port        List port mappings or a specific mapping for the container</span><br><span class="line">ps          List containers</span><br><span class="line">pull        Pull an image or a repository from a registry</span><br><span class="line">push        Push an image or a repository to a registry</span><br><span class="line">rename      Rename a container</span><br><span class="line">restart     Restart one or more containers</span><br><span class="line">rm          Remove one or more containers</span><br><span class="line">rmi         Remove one or more images</span><br><span class="line">run         Run a command in a new container</span><br><span class="line">save        Save one or more images to a tar archive (streamed to STDOUT by default)</span><br><span class="line">search      Search the Docker Hub for images</span><br><span class="line">start       Start one or more stopped containers</span><br><span class="line">stats       Display a live stream of container(s) resource usage statistics</span><br><span class="line">stop        Stop one or more running containers</span><br><span class="line">tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE</span><br><span class="line">top         Display the running processes of a container</span><br><span class="line">unpause     Unpause all processes within one or more containers</span><br><span class="line">update      Update configuration of one or more containers</span><br><span class="line">version     Show the Docker version information</span><br><span class="line">wait        Block until one or more containers stop, then print their exit codes</span><br></pre></td></tr></table></figure>
+
+<h1 id="docker命令小结"><a href="#docker命令小结" class="headerlink" title="docker命令小结"></a>docker命令小结</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start docker #启动docker命令</span><br><span class="line">docker version  #查看docker是否启动</span><br><span class="line">docker images  #查看docker 下载 镜像</span><br><span class="line">docker search  名称  #搜索镜像</span><br><span class="line">docker pull  镜像名：[:tag] #下载镜像</span><br><span class="line">docker rmi -f 9cfcce23593a (通过 IMAGE ID 删除，删除单个容器) #删除单个容器镜像</span><br><span class="line">docker rmi -f 容器id 容器id 容器id (通过 IMAGE ID 删除，删除多个容器) # 删除多个容器镜像</span><br><span class="line">docker rmi -f $（docker images -qa） #删除全部容器镜像 </span><br><span class="line"><span class="meta"> #</span><span class="bash"> docker ps 命令</span></span><br><span class="line"><span class="meta"> #</span><span class="bash"> docker ps 查看当前运行的容器</span></span><br><span class="line">   -a #列出当前运行的容器和历史</span><br><span class="line">   -n # 列出最近运行的容器</span><br><span class="line">exit #退出容器并且停止</span><br><span class="line">Ctrl +P+Q #容器不停止退出</span><br><span class="line">docker rm 容器id #删除指定容器（不能删除正在运行的容器 如果强制的话  rm -f）</span><br><span class="line">docker rm -f $(docker ps -aq) #删除所有的容器</span><br><span class="line">docker ps -a -q|xargs docker rm #删除所有容器</span><br><span class="line">docker start 容器id        #启动容器</span><br><span class="line">docker restart 容器id      #重启容器</span><br><span class="line">docker stop 容器id		#停止当前正在运行的容器</span><br><span class="line">docker kill 容器id		#强制停止当前容器</span><br><span class="line">docker Logs -tf --tail 10 CONTAINER ID（值） #查看容器日志命令</span><br><span class="line">docker top 8523b51dc9d4 #查看容器中的进程信息 ps</span><br><span class="line">docker inspect 容器id #查看镜像的元数据</span><br><span class="line">docker exec -it 容器id bashShell  #命令 docker exec 进入容器后开启新的（正常）</span><br><span class="line">docker attach 容器id # docker attach 进入容器正在执行的终端，不会启动新的进程</span><br><span class="line">docker cp 容器id:/容器文件夹/文件 /主机目录 #从容器内拷贝文件到主机上</span><br><span class="line">docker stats # 查看内存状态</span><br></pre></td></tr></table></figure>
+
+<h2 id="作业练习"><a href="#作业练习" class="headerlink" title="作业练习"></a>作业练习</h2><blockquote>
+<p>Docker 安装Nginx</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull nginx</span><br><span class="line"><span class="meta">#</span><span class="bash">1. 搜索镜像 search 建议大家去docker搜索，可以看到帮助文档</span></span><br><span class="line"><span class="meta">#</span><span class="bash">2. 拉取镜像 pull</span></span><br><span class="line"><span class="meta">#</span><span class="bash">3、运行测试</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -d 后台运行</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> --name 给容器命名</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -p 宿主机端口：容器内部端口</span></span><br><span class="line">docker search nginx</span><br><span class="line">docker pull nginx</span><br><span class="line">docker run -d --name nginx01 -p 3344:80 nginx</span><br><span class="line">docker ps</span><br><span class="line">curl localhost:3344</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">进入容器</span></span><br><span class="line">docker exec -it nginx01 /bin/bash</span><br><span class="line">whereis nginx</span><br><span class="line">cd etc/nginx</span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><a href="https://www.cnblogs.com/dnoir/p/11719812.html" target="_blank" rel="noopener">物理机访问虚拟机中docker的nginx服务</a></p>
+<p>虚拟机地址：192.168.195.129 docker 172.17.0.1</p>
+<hr>
+<p>思考问题：我们每次改动nginx配置文件，都需要进入容器内部？十分的麻烦，要是可以在容器外部提供一个映射路径，达到在容器修改文件名，容器内部就可以自动修改？√数据卷！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker16.png" alt="image-20200514215915650"></p>
+<blockquote>
+<p>作用：docker 来装一个tomcat</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 官方的使用</span></span><br><span class="line">docker run -it --rm tomcat:9.0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 之前的启动都是后台，停止了容器，容器还是可以查到， docker run -it --rm image 一般是用来测试，用完就删除</span></span><br><span class="line">--rm       Automatically remove the container when it exits</span><br><span class="line"><span class="meta">#</span><span class="bash">下载</span></span><br><span class="line">docker pull tomcat</span><br><span class="line"><span class="meta">#</span><span class="bash">启动运行</span></span><br><span class="line">docker run -d -p 3355:8080 --name tomcat01 tomcat</span><br><span class="line"><span class="meta">#</span><span class="bash">测试访问有没有问题</span></span><br><span class="line">curl localhost:8080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">进入容器</span></span><br><span class="line">docker exec -it tomcat01 /bin/bash           </span><br><span class="line"><span class="meta">#</span><span class="bash"> 发现问题：1、linux命令少了。 2.没有webapps，阿里云镜像，默认最小</span></span><br></pre></td></tr></table></figure>
+
+<p>思考问题：我们以后要部署项目，如果每次都要进入容器是不是十分麻烦？要是可以在容器外部提供一个映射路径，webapps，我们在外部放置项目，就自动同步内部就好了！</p>
+<blockquote>
+<p>作业：部署es+kibana</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> es 暴露的端口很多！耗内存！</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> es 的数据一般需要放置到安全目录！挂载</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> --net somenetwork ? 网络配置</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动elasticsearch</span></span><br><span class="line">docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.6.2</span><br><span class="line"><span class="meta">#</span><span class="bash"> 测试一下es是否成功启动</span></span><br><span class="line">➜  ~ curl localhost:9200</span><br><span class="line">&#123;</span><br><span class="line">  "name" : "d73ad2f22dd3",</span><br><span class="line">  "cluster_name" : "docker-cluster",</span><br><span class="line">  "cluster_uuid" : "atFKgANxS8CzgIyCB8PGxA",</span><br><span class="line">  "version" : &#123;</span><br><span class="line">    "number" : "7.6.2",</span><br><span class="line">    "build_flavor" : "default",</span><br><span class="line">    "build_type" : "docker",</span><br><span class="line">    "build_hash" : "ef48eb35cf30adf4db14086e8aabd07ef6fb113f",</span><br><span class="line">    "build_date" : "2020-03-26T06:34:37.794943Z",</span><br><span class="line">    "build_snapshot" : false,</span><br><span class="line">    "lucene_version" : "8.4.0",</span><br><span class="line">    "minimum_wire_compatibility_version" : "6.8.0",</span><br><span class="line">    "minimum_index_compatibility_version" : "6.0.0-beta1"</span><br><span class="line">  &#125;,</span><br><span class="line">  "tagline" : "You Know, for Search"</span><br><span class="line">&#125;</span><br><span class="line">➜  ~ docker stats # 查看docker容器使用内存情况</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker17.png" alt="image-20200515152552722"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">关闭，添加内存的限制，修改配置文件 -e 环境配置修改</span></span><br><span class="line">➜  ~ docker rm -f d73ad2f22dd3                                                  </span><br><span class="line">➜  ~ docker run -d --name elasticsearch02 -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms64m -Xmx512m" elasticsearch:7.6.2</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker18.png" alt="image-20200515153511695"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  ~ curl localhost:9200</span><br><span class="line">&#123;</span><br><span class="line">  "name" : "b72c9847ec48",</span><br><span class="line">  "cluster_name" : "docker-cluster",</span><br><span class="line">  "cluster_uuid" : "yNAK0EORSvq3Wtaqe2QqAg",</span><br><span class="line">  "version" : &#123;</span><br><span class="line">    "number" : "7.6.2",</span><br><span class="line">    "build_flavor" : "default",</span><br><span class="line">    "build_type" : "docker",</span><br><span class="line">    "build_hash" : "ef48eb35cf30adf4db14086e8aabd07ef6fb113f",</span><br><span class="line">    "build_date" : "2020-03-26T06:34:37.794943Z",</span><br><span class="line">    "build_snapshot" : false,</span><br><span class="line">    "lucene_version" : "8.4.0",</span><br><span class="line">    "minimum_wire_compatibility_version" : "6.8.0",</span><br><span class="line">    "minimum_index_compatibility_version" : "6.0.0-beta1"</span><br><span class="line">  &#125;,</span><br><span class="line">  "tagline" : "You Know, for Search"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>作业：使用kibana连接es？思考网络如何才能连接</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker19.png" alt="image-20200515153725991"></p>
+<h2 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h2><ul>
+<li>portainer(先用这个)</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8088:9000 \</span><br><span class="line">--restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Rancher(CI/CD再用)</li>
+</ul>
+<p><strong>什么是portainer？</strong></p>
+<p>Docker图形化界面管理工具！提供一个后台面板供我们操作！</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8080:9000 \</span><br><span class="line">--restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+
+<p>测试访问： 外网：8080</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker20.png" alt="image-20200515155006079"></p>
+<p>进入之后的面板</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker21.png" alt="image-20200515155113693"></p>
+<h1 id="Docker镜像讲解"><a href="#Docker镜像讲解" class="headerlink" title="Docker镜像讲解"></a>Docker镜像讲解</h1><h2 id="镜像是什么"><a href="#镜像是什么" class="headerlink" title="镜像是什么"></a><strong>镜像是什么</strong></h2><p>镜像是一种轻量级、可执行的独立软件保，用来打包软件运行环境和基于运行环境开发的软件，他包含运行某个软件所需的所有内容，包括代码、运行时库、环境变量和配置文件</p>
+<h2 id="Docker镜像加载原理"><a href="#Docker镜像加载原理" class="headerlink" title="Docker镜像加载原理"></a><strong>Docker镜像加载原理</strong></h2><blockquote>
+<p>UnionFs （联合文件系统）</p>
+</blockquote>
+<p>UnionFs（联合文件系统）：Union文件系统（UnionFs）是一种分层、轻量级并且高性能的文件系统，他支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下（ unite several directories into a single virtual filesystem)。Union文件系统是 Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像<br>特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
+<blockquote>
+<p>Docker镜像加载原理</p>
+</blockquote>
+<p>docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。<br>boots(boot file system）主要包含 bootloader和 Kernel, bootloader主要是引导加 kernel, Linux刚启动时会加bootfs文件系统，在 Docker镜像的最底层是 boots。这一层与我们典型的Linux/Unix系统是一样的，包含boot加載器和内核。当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已由 bootfs转交给内核，此时系统也会卸载bootfs。<br>rootfs（root file system),在 bootfs之上。包含的就是典型 Linux系统中的/dev,/proc,/bin,/etc等标准目录和文件。 rootfs就是各种不同的操作系统发行版，比如 Ubuntu, Centos等等。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker22.png" alt="image-20200515163049959"></p>
+<p>平时我们安装进虚拟机的CentOS都是好几个G，为什么Docker这里才200M？</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker23.png" alt="image-20200515163140559"></p>
+<p>对于个精简的OS,rootfs可以很小，只需要包合最基本的命令，工具和程序库就可以了，因为底层直接用Host的kernel，自己只需要提供rootfs就可以了。由此可见对于不同的Linux发行版， boots基本是一致的， rootfs会有差別，因此不同的发行版可以公用bootfs.</p>
+<p>虚拟机是分钟级别，容器是秒级！</p>
+<h2 id="分层理解"><a href="#分层理解" class="headerlink" title="分层理解"></a>分层理解</h2><blockquote>
+<p>分层的镜像</p>
+</blockquote>
+<p>我们可以去下载一个镜像，注意观察下载的日志输出，可以看到是一层层的在下载</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker24.png" alt="image-20200515163839180"></p>
+<p>思考：为什么Docker镜像要采用这种分层的结构呢？</p>
+<p>最大的好处，我觉得莫过于资源共享了！比如有多个镜像都从相同的Base镜像构建而来，那么宿主机只需在磁盘上保留一份base镜像，同时内存中也只需要加载一份base镜像，这样就可以为所有的容器服务了，而且镜像的每一层都可以被共享。</p>
+<p>查看镜像分层的方式可以通过docker image inspect 命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  / docker image inspect redis          </span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "Id": "sha256:f9b9909726890b00d2098081642edf32e5211b7ab53563929a47f250bcdc1d7c",</span><br><span class="line">        "RepoTags": [</span><br><span class="line">            "redis:latest"</span><br><span class="line">        ],</span><br><span class="line">        "RepoDigests": [</span><br><span class="line">            "redis@sha256:399a9b17b8522e24fbe2fd3b42474d4bb668d3994153c4b5d38c3dafd5903e32"</span><br><span class="line">        ],</span><br><span class="line">        "Parent": "",</span><br><span class="line">        "Comment": "",</span><br><span class="line">        "Created": "2020-05-02T01:40:19.112130797Z",</span><br><span class="line">        "Container": "d30c0bcea88561bc5139821227d2199bb027eeba9083f90c701891b4affce3bc",</span><br><span class="line">        "ContainerConfig": &#123;</span><br><span class="line">            "Hostname": "d30c0bcea885",</span><br><span class="line">            "Domainname": "",</span><br><span class="line">            "User": "",</span><br><span class="line">            "AttachStdin": false,</span><br><span class="line">            "AttachStdout": false,</span><br><span class="line">            "AttachStderr": false,</span><br><span class="line">            "ExposedPorts": &#123;</span><br><span class="line">                "6379/tcp": &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            "Tty": false,</span><br><span class="line">            "OpenStdin": false,</span><br><span class="line">            "StdinOnce": false,</span><br><span class="line">            "Env": [</span><br><span class="line">                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",</span><br><span class="line">                "GOSU_VERSION=1.12",</span><br><span class="line">                "REDIS_VERSION=6.0.1",</span><br><span class="line">                "REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-6.0.1.tar.gz",</span><br><span class="line">                "REDIS_DOWNLOAD_SHA=b8756e430479edc162ba9c44dc89ac394316cd482f2dc6b91bcd5fe12593f273"</span><br><span class="line">            ],</span><br><span class="line">            "Cmd": [</span><br><span class="line">                "/bin/sh",</span><br><span class="line">                "-c",</span><br><span class="line">                "#(nop) ",</span><br><span class="line">                "CMD [\"redis-server\"]"</span><br><span class="line">            ],</span><br><span class="line">            "ArgsEscaped": true,</span><br><span class="line">            "Image": "sha256:704c602fa36f41a6d2d08e49bd2319ccd6915418f545c838416318b3c29811e0",</span><br><span class="line">            "Volumes": &#123;</span><br><span class="line">                "/data": &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            "WorkingDir": "/data",</span><br><span class="line">            "Entrypoint": [</span><br><span class="line">                "docker-entrypoint.sh"</span><br><span class="line">            ],</span><br><span class="line">            "OnBuild": null,</span><br><span class="line">            "Labels": &#123;&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        "DockerVersion": "18.09.7",</span><br><span class="line">        "Author": "",</span><br><span class="line">        "Config": &#123;</span><br><span class="line">            "Hostname": "",</span><br><span class="line">            "Domainname": "",</span><br><span class="line">            "User": "",</span><br><span class="line">            "AttachStdin": false,</span><br><span class="line">            "AttachStdout": false,</span><br><span class="line">            "AttachStderr": false,</span><br><span class="line">            "ExposedPorts": &#123;</span><br><span class="line">                "6379/tcp": &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            "Tty": false,</span><br><span class="line">            "OpenStdin": false,</span><br><span class="line">            "StdinOnce": false,</span><br><span class="line">            "Env": [</span><br><span class="line">                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",</span><br><span class="line">                "GOSU_VERSION=1.12",</span><br><span class="line">                "REDIS_VERSION=6.0.1",</span><br><span class="line">                "REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-6.0.1.tar.gz",</span><br><span class="line">                "REDIS_DOWNLOAD_SHA=b8756e430479edc162ba9c44dc89ac394316cd482f2dc6b91bcd5fe12593f273"</span><br><span class="line">            ],</span><br><span class="line">            "Cmd": [</span><br><span class="line">                "redis-server"</span><br><span class="line">            ],</span><br><span class="line">            "ArgsEscaped": true,</span><br><span class="line">            "Image": "sha256:704c602fa36f41a6d2d08e49bd2319ccd6915418f545c838416318b3c29811e0",</span><br><span class="line">            "Volumes": &#123;</span><br><span class="line">                "/data": &#123;&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            "WorkingDir": "/data",</span><br><span class="line">            "Entrypoint": [</span><br><span class="line">                "docker-entrypoint.sh"</span><br><span class="line">            ],</span><br><span class="line">            "OnBuild": null,</span><br><span class="line">            "Labels": null</span><br><span class="line">        &#125;,</span><br><span class="line">        "Architecture": "amd64",</span><br><span class="line">        "Os": "linux",</span><br><span class="line">        "Size": 104101893,</span><br><span class="line">        "VirtualSize": 104101893,</span><br><span class="line">        "GraphDriver": &#123;</span><br><span class="line">            "Data": &#123;</span><br><span class="line">                "LowerDir": "/var/lib/docker/overlay2/adea96bbe6518657dc2d4c6331a807eea70567144abda686588ef6c3bb0d778a/diff:/var/lib/docker/overlay2/66abd822d34dc6446e6bebe73721dfd1dc497c2c8063c43ffb8cf8140e2caeb6/diff:/var/lib/docker/overlay2/d19d24fb6a24801c5fa639c1d979d19f3f17196b3c6dde96d3b69cd2ad07ba8a/diff:/var/lib/docker/overlay2/a1e95aae5e09ca6df4f71b542c86c677b884f5280c1d3e3a1111b13644b221f9/diff:/var/lib/docker/overlay2/cd90f7a9cd0227c1db29ea992e889e4e6af057d9ab2835dd18a67a019c18bab4/diff",</span><br><span class="line">                "MergedDir": "/var/lib/docker/overlay2/afa1de233453b60686a3847854624ef191d7bc317fb01e015b4f06671139fb11/merged",</span><br><span class="line">                "UpperDir": "/var/lib/docker/overlay2/afa1de233453b60686a3847854624ef191d7bc317fb01e015b4f06671139fb11/diff",</span><br><span class="line">                "WorkDir": "/var/lib/docker/overlay2/afa1de233453b60686a3847854624ef191d7bc317fb01e015b4f06671139fb11/work"</span><br><span class="line">            &#125;,</span><br><span class="line">            "Name": "overlay2"</span><br><span class="line">        &#125;,</span><br><span class="line">        "RootFS": &#123;</span><br><span class="line">            "Type": "layers",</span><br><span class="line">            "Layers": [</span><br><span class="line">                "sha256:c2adabaecedbda0af72b153c6499a0555f3a769d52370469d8f6bd6328af9b13",</span><br><span class="line">                "sha256:744315296a49be711c312dfa1b3a80516116f78c437367ff0bc678da1123e990",</span><br><span class="line">                "sha256:379ef5d5cb402a5538413d7285b21aa58a560882d15f1f553f7868dc4b66afa8",</span><br><span class="line">                "sha256:d00fd460effb7b066760f97447c071492d471c5176d05b8af1751806a1f905f8",</span><br><span class="line">                "sha256:4d0c196331523cfed7bf5bafd616ecb3855256838d850b6f3d5fba911f6c4123",</span><br><span class="line">                "sha256:98b4a6242af2536383425ba2d6de033a510e049d9ca07ff501b95052da76e894"</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        "Metadata": &#123;</span><br><span class="line">            "LastTagTime": "0001-01-01T00:00:00Z"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>理解：</strong></p>
+<p>所有的 Docker镜像都起始于一个基础镜像层，当进行修改或培加新的内容时，就会在当前镜像层之上，创建新的镜像层。</p>
+<p>举一个简单的例子，假如基于 Ubuntu Linux16.04创建一个新的镜像，这就是新镜像的第一层；如果在该镜像中添加 Python包，<br>就会在基础镜像层之上创建第二个镜像层；如果继续添加一个安全补丁，就会创健第三个镜像层该像当前已经包含3个镜像层，如下图所示（这只是一个用于演示的很简单的例子）。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker25.png" alt="image-20200515165234274"></p>
+<p>在添加额外的镜像层的同时，镜像始终保持是当前所有镜像的组合，理解这一点非常重要。下图中举了一个简单的例子，每个镜像层包含3个文件，而镜像包含了来自两个镜像层的6个文件。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker26.png" alt="image-20200515164958932"></p>
+<p>上图中的镜像层跟之前图中的略有区別，主要目的是便于展示文件<br>下图中展示了一个稍微复杂的三层镜像，在外部看来整个镜像只有6个文件，这是因为最上层中的文件7是文件5的一个更新版</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker27.png" alt="image-20200515165148002"></p>
+<p>文种情況下，上层镜像层中的文件覆盖了底层镜像层中的文件。这样就使得文件的更新版本作为一个新镜像层添加到镜像当中</p>
+<p>Docker通过存储引擎（新版本采用快照机制）的方式来实现镜像层堆栈，并保证多镜像层对外展示为统一的文件系统</p>
+<p>Linux上可用的存储引撃有AUFS、 Overlay2、 Device Mapper、Btrfs以及ZFS。顾名思义，每种存储引擎都基于 Linux中对应的<br>件系统或者块设备技术，井且每种存储引擎都有其独有的性能特点。</p>
+<p>Docker在 Windows上仅支持 windowsfilter 一种存储引擎，该引擎基于NTFS文件系统之上实现了分层和CoW [1]。</p>
+<p>下图展示了与系统显示相同的三层镜像。所有镜像层堆并合井，对外提供统一的视图</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker28.png" alt="image-20200515165557807"></p>
+<blockquote>
+<p>特点</p>
+</blockquote>
+<p>Docker 镜像都是只读的，当容器启动时，一个新的可写层加载到镜像的顶部！</p>
+<p>这一层就是我们通常说的容器层，容器之下的都叫镜像层！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker29.png" alt="image-20200515161505897"></p>
+<p><strong>commit镜像</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker commit 提交容器成为一个新的副本</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令和git原理类似</span></span><br><span class="line">docker commit -m="描述信息" -a="作者" 容器id 目标镜像名:[TAG]</span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+
+<p>实战测试</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1、启动一个默认的tomcat</span></span><br><span class="line">docker run -d -p 8080:8080 tomcat</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、发现这个默认的tomcat 是没有webapps应用，官方的镜像默认webapps下面是没有文件的！</span></span><br><span class="line">docker exec -it 容器id</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3、拷贝文件进去</span></span><br><span class="line">cp -r webapps.dist/* webapps</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4、将操作过的容器通过commit调教为一个镜像！我们以后就使用我们修改过的镜像即可，这就是我们自己的一个修改的镜像。</span></span><br><span class="line">docker commit -m="描述信息" -a="作者" 容器id 目标镜像名:[TAG]</span><br><span class="line">docker commit -a="zeph" -m="add webapps app" cf23f6ff3f4b tomcat02:1.0</span><br></pre></td></tr></table></figure>
+
+<p>如果你想要保存当前容器的状态，就可以通过commit来提交，获得一个镜像，就好比我们我们使用虚拟机的快照。</p>
+<hr>
+<p>==入门！！！！==</p>
+<hr>
+<p><a href="https://blog.csdn.net/xiaozecheng/article/details/106165491" target="_blank" rel="noopener">笔记docker 进阶 之容器数据卷 DockerFile Docker网络</a></p>
+<h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1><h2 id="什么是容器数据卷"><a href="#什么是容器数据卷" class="headerlink" title="什么是容器数据卷"></a>什么是容器数据卷</h2><p><strong>docker的理念回顾</strong></p>
+<p>将应用和环境打包成一个镜像！</p>
+<p>数据？如果数据都在容器中，那么我们容器删除，数据就会丢失！==需求：数据可以持久化==</p>
+<p>MySQL，容器删除了，删库跑路！==需求：MySQL数据可以存储在本地！==</p>
+<p>容器之间可以有一个数据共享的技术！Docker容器中产生的数据，同步到本地！</p>
+<p>这就是卷技术！目录的挂载，将我们容器内的目录，挂载到Linux上面！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker30.png" alt="image-20200516105258456"></p>
+<p>==<strong>总结一句话：容器的持久化和同步操作！容器间也是可以数据共享的！</strong>==</p>
+<h2 id="使用数据卷"><a href="#使用数据卷" class="headerlink" title="使用数据卷"></a>使用数据卷</h2><blockquote>
+<p>方式一 ：直接使用命令挂载 -v</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-v, --volume list                    Bind mount a volume</span><br><span class="line"></span><br><span class="line">docker run -it -v 主机目录:容器内目录  -p 主机端口:容器内端口</span><br><span class="line">➜ ~ docker run -it -v /home/ceshi:/home centos /bin/bash</span><br><span class="line"><span class="meta">#</span><span class="bash">通过 docker inspect 容器id 查看</span></span><br><span class="line">12345</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker31.png" alt="image-20200515191647970"></p>
+<p>测试文件的同步</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker32.png" alt="image-20200515191718470"></p>
+<p>再来测试！</p>
+<p>1、停止容器</p>
+<p>2、宿主机修改文件</p>
+<p>3、启动容器</p>
+<p>4、容器内的数据依旧是同步的</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker33.png" alt="image-20200516110850431"></p>
+<p>好处：我们以后修改只需要在本地修改即可，容器内会自动同步！</p>
+<h2 id="实战：安装MySQL"><a href="#实战：安装MySQL" class="headerlink" title="实战：安装MySQL"></a>实战：安装MySQL</h2><p>思考：MySQL的数据持久化的问题</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 获取mysql镜像</span></span><br><span class="line">➜  ~ docker pull mysql:5.7</span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行容器,需要做数据挂载 <span class="comment">#安装启动mysql，需要配置密码的，这是要注意点！</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 参考官网hub </span></span><br><span class="line">docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动我们得</span></span><br><span class="line">-d 后台运行</span><br><span class="line">-p 端口映射</span><br><span class="line">-v 卷挂载</span><br><span class="line">-e 环境配置</span><br><span class="line">-- name 容器名字</span><br><span class="line">➜  ~ docker run -d -p 3310:3306 -v /home/zeph/Desktop/mysql/conf:/etc/mysql/conf.d -v /home/zeph/Desktop/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=10709991 --name mysql01 mysql:5.7</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动成功之后，我们在本地使用sqlyog来测试一下</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> sqlyog-连接到服务器的3310--和容器内的3306映射 </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在本地测试创建一个数据库，查看一下我们映射的路径是否ok！</span></span><br></pre></td></tr></table></figure>
+
+<p>假设我们将容器删除</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker34.png" alt="image-20200516112532950"></p>
+<p>发现，我们挂载到本地的数据卷依旧没有丢失，这就实现了容器数据持久化功能。</p>
+<h2 id="具名和匿名挂载"><a href="#具名和匿名挂载" class="headerlink" title="具名和匿名挂载"></a>具名和匿名挂载</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 匿名挂载</span></span><br><span class="line">-v 容器内路径!</span><br><span class="line">docker run -d -P --name nginx01 -v /etc/nginx nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有的volume的情况</span></span><br><span class="line">➜  ~ docker volume ls    </span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line">local               33ae588fae6d34f511a769948f0d3d123c9d45c442ac7728cb85599c2657e50d</span><br><span class="line">local            </span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里发现，这种就是匿名挂载，我们在 -v只写了容器内的路径，没有写容器外的路劲！</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 具名挂载</span></span><br><span class="line">➜  ~ docker run -d -P --name nginx02 -v juming-nginx:/etc/nginx nginx</span><br><span class="line">➜  ~ docker volume ls                  </span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line">local               juming-nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 通过 -v 卷名：容器内路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看一下这个卷</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker35.png" alt="image-20200516113545746"></p>
+<p>所有的docker容器内的卷，没有指定目录的情况下都是在<code>/var/lib/docker/volumes/xxxx/_data</code>下<br>如果指定了目录，docker volume ls 是查看不到的</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker36.png" alt="image-20200516114231435"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 三种挂载： 匿名挂载、具名挂载、指定路径挂载</span></span><br><span class="line">-v 容器内路径			#匿名挂载</span><br><span class="line">-v 卷名：容器内路径		#具名挂载</span><br><span class="line">-v /宿主机路径：容器内路径 #指定路径挂载 docker volume ls 是查看不到的</span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+
+<p>拓展：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通过 -v 容器内路径： ro rw 改变读写权限</span></span><br><span class="line">ro #readonly 只读</span><br><span class="line">rw #readwrite 可读可写</span><br><span class="line">docker run -d -P --name nginx05 -v juming:/etc/nginx:ro nginx</span><br><span class="line">docker run -d -P --name nginx05 -v juming:/etc/nginx:rw nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ro 只要看到ro就说明这个路径只能通过宿主机来操作，容器内部是无法操作！</span></span><br><span class="line">1234567</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始Dockerfile"><a href="#初始Dockerfile" class="headerlink" title="初始Dockerfile"></a>初始Dockerfile</h2><p>Dockerfile 就是用来构建docker镜像的构建文件！命令脚本！先体验一下！</p>
+<p>通过这个脚本可以生成镜像，镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个dockerfile文件，名字可以随便 建议Dockerfile</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 文件中的内容 指令(大写) 参数</span></span><br><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">VOLUME ["volume01","volume02"]</span><br><span class="line"></span><br><span class="line">CMD echo "----end----"</span><br><span class="line">CMD /bin/bash</span><br><span class="line"><span class="meta">#</span><span class="bash">这里的每个命令，就是镜像的一层！</span></span><br></pre></td></tr></table></figure>
+
+<p><code>docker build -f /home/docker-test-volume/dockerfile1 -t zeph/centos:1.0 .</code></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker37.png" alt="image-20200516121221066"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动自己写的镜像</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker38.png" alt="image-20200516121459026"></p>
+<p>这个卷和外部一定有一个同步的目录</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker39.png" alt="image-20200516121531626"></p>
+<p>查看一下卷挂载</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker inspect 容器id</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker40.png" alt="image-20200516121630295"></p>
+<p>测试一下刚才的文件是否同步出去了！</p>
+<p>这种方式使用的十分多，因为我们通常会构建自己的镜像！</p>
+<p>假设构建镜像时候没有挂载卷，要手动镜像挂载 -v 卷名：容器内路径！</p>
+<h2 id="数据卷容器"><a href="#数据卷容器" class="headerlink" title="数据卷容器"></a>数据卷容器</h2><p>多个MySQL同步数据！</p>
+<p>命名的容器挂载数据卷！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker41.png" alt="image-20200516122047440"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">--volumes-from list              Mount volumes from the specified container(s)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 测试，我们通过刚才启动的</span></span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker42.png" alt="image-20200516123020050"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker43.png" alt="image-20200516123128475"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试：可以删除docker01，查看一下docker02和docker03是否可以访问这个文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 测试依旧可以访问</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker44.png" alt="image-20200516123355034"></p>
+<p><strong>==3个容器共享卷映射到宿主机相同地址。==</strong></p>
+<p>多个mysql实现数据共享</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  ~ docker run -d -p 3307:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7</span><br><span class="line">➜  ~ docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=123456 --name mysql02 --volumes-from mysql01  mysql:5.7</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个时候，可以实现两个容器数据同步！</span></span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>结论：</p>
+<p>容器之间的配置信息的传递，数据卷容器的生命周期一直持续到没有容器使用为止。</p>
+<p>但是一旦你持久化到了本地，这个时候，本地的数据是不会删除的！</p>
+<h1 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h1><h2 id="DockerFile介绍"><a href="#DockerFile介绍" class="headerlink" title="DockerFile介绍"></a>DockerFile介绍</h2><p><code>dockerfile</code>是用来构建docker镜像的文件！命令参数脚本！</p>
+<p>构建步骤：</p>
+<p>1、 编写一个dockerfile文件</p>
+<p>2、 docker build 构建称为一个镜像</p>
+<p>3、 docker run运行镜像</p>
+<p>4、 docker push发布镜像（DockerHub 、阿里云仓库)</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker45.png" alt="image-20200516131400456"></p>
+<p>点击后跳到一个Dockerfile</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker46.png" alt="image-20200516131441750"></p>
+<p>很多官方镜像都是基础包，很多功能没有，我们通常会自己搭建自己的镜像！</p>
+<p>官方既然可以制作镜像，那我们也可以！</p>
+<h2 id="DockerFile构建过程"><a href="#DockerFile构建过程" class="headerlink" title="DockerFile构建过程"></a>DockerFile构建过程</h2><p><strong>基础知识：</strong></p>
+<p>1、每个保留关键字(指令）都是必须是大写字母</p>
+<p>2、执行从上到下顺序</p>
+<p>3、#表示注释</p>
+<p>4、每一个指令都会创建提交一个新的镜像层，并提交！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker47.png" alt="image-20200516131756997"></p>
+<p>Dockerfile是面向开发的，我们以后要发布项目，做镜像，就需要编写dockerfile文件，这个文件十分简单！</p>
+<p>Docker镜像逐渐成企业交付的标准，必须要掌握！</p>
+<p>DockerFile：构建文件，定义了一切的步骤，源代码</p>
+<p>DockerImages：通过DockerFile构建生成的镜像，最终发布和运行产品。</p>
+<p>Docker容器：容器就是镜像运行起来提供服务。</p>
+<h2 id="DockerFile的指令"><a href="#DockerFile的指令" class="headerlink" title="DockerFile的指令"></a>DockerFile的指令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM				# 基础镜像，一切从这里开始构建</span><br><span class="line">MAINTAINER			# 镜像是谁写的， 姓名+邮箱</span><br><span class="line">RUN					# 镜像构建的时候需要运行的命令</span><br><span class="line">ADD					# 步骤，tomcat镜像，这个tomcat压缩包！添加内容 添加同目录</span><br><span class="line">WORKDIR				# 镜像的工作目录</span><br><span class="line">VOLUME				# 挂载的目录</span><br><span class="line">EXPOSE				# 保留端口配置</span><br><span class="line">CMD					# 指定这个容器启动的时候要运行的命令，只有最后一个会生效，可被替代。</span><br><span class="line">ENTRYPOINT			# 指定这个容器启动的时候要运行的命令，可以追加命令</span><br><span class="line">ONBUILD				# 当构建一个被继承 DockerFile 这个时候就会运行ONBUILD的指令，触发指令。</span><br><span class="line">COPY				# 类似ADD，将我们文件拷贝到镜像中，不会自动解压</span><br><span class="line">ENV					# 构建的时候设置环境变量！</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker48.png" alt="1"></p>
+<h2 id="实战测试"><a href="#实战测试" class="headerlink" title="实战测试"></a>实战测试</h2><blockquote>
+<p>创建一个自己的centos</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1.编写Dockerfile文件</span></span><br><span class="line">vim mydockerfile-centos</span><br><span class="line">FROM centos</span><br><span class="line">MAINTAINER zeph&lt;1300928574@qq.com&gt;</span><br><span class="line"></span><br><span class="line">ENV MYPATH /usr/local</span><br><span class="line">WORKDIR $MYPATH</span><br><span class="line"></span><br><span class="line">RUN yum -y install vim</span><br><span class="line">RUN yum -y install net-tools</span><br><span class="line"></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line">CMD echo $MYPATH</span><br><span class="line">CMD echo "-----end----"</span><br><span class="line">CMD /bin/bash</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、通过这个文件构建镜像</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令 docker build -f 文件路径 -t 镜像名:[tag] .</span></span><br><span class="line">docker build -f mydockerfile-centos -t mycentos:0.1 .</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker49.png" alt="image-20200516140831464"></p>
+<p><strong>测试运行</strong></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker50.png" alt="image-20200516141629583"></p>
+<p>我们可以列出本地进行的变更历史</p>
+<p><code>docker history</code></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker51.png" alt="image-20200516141840706"></p>
+<p>我们平时拿到一个镜像，可以研究一下是什么做的</p>
+<blockquote>
+<p>CMD 和 ENTRYPOINT区别</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">CMD					# 指定这个容器启动的时候要运行的命令，只有最后一个会生效，可被替代。</span><br><span class="line">ENTRYPOINT			# 指定这个容器启动的时候要运行的命令，可以追加命令</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试cmd</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编写dockerfile文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim dockerfile-cmd-test</span></span><br><span class="line">FROM centos</span><br><span class="line">CMD ["ls","-a"]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建镜像</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker build -f dockerfile-cmd-test -t cmd-test:0.1 .</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行镜像</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run cmd-test:0.1</span></span><br><span class="line">.</span><br><span class="line">..</span><br><span class="line">.dockerenv</span><br><span class="line">bin</span><br><span class="line">dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 想追加一个命令  -l 成为ls -al</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run cmd-test:0.1 -l</span></span><br><span class="line">docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "exec: \"-l\":</span><br><span class="line"> executable file not found in $PATH": unknown.</span><br><span class="line">ERRO[0000] error waiting for container: context canceled </span><br><span class="line"><span class="meta">#</span><span class="bash"> cmd的情况下 -l 替换了CMD[<span class="string">"ls"</span>,<span class="string">"-l"</span>]。 -l  不是命令所有报错</span></span><br></pre></td></tr></table></figure>
+
+<p>测试ENTRYPOINT</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编写dockerfile文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim dockerfile-test-entrypoint</span></span><br><span class="line">FROM centos</span><br><span class="line">ENTRYPOINT ["ls","-a"]</span><br><span class="line">docker build -f dockerfile-test-entrypoint -t test-entrypoint .</span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run <span class="built_in">test</span>-entrypoint</span></span><br><span class="line">.</span><br><span class="line">..</span><br><span class="line">.dockerenv</span><br><span class="line">bin</span><br><span class="line">dev</span><br><span class="line">etc</span><br><span class="line">home</span><br><span class="line">lib</span><br><span class="line">lib64</span><br><span class="line">lost+found ...</span><br><span class="line"><span class="meta">#</span><span class="bash"> 我们的命令，是直接拼接在我们得ENTRYPOINT命令后面的</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run <span class="built_in">test</span>-entrypoint -l</span></span><br><span class="line">total 56</span><br><span class="line">drwxr-xr-x   1 root root 4096 May 16 06:32 .</span><br><span class="line">drwxr-xr-x   1 root root 4096 May 16 06:32 ..</span><br><span class="line">-rwxr-xr-x   1 root root    0 May 16 06:32 .dockerenv</span><br><span class="line">lrwxrwxrwx   1 root root    7 May 11  2019 bin -&gt; usr/bin</span><br><span class="line">drwxr-xr-x   5 root root  340 May 16 06:32 dev</span><br><span class="line">drwxr-xr-x   1 root root 4096 May 16 06:32 etc</span><br><span class="line">drwxr-xr-x   2 root root 4096 May 11  2019 home</span><br><span class="line">lrwxrwxrwx   1 root root    7 May 11  2019 lib -&gt; usr/lib</span><br><span class="line">lrwxrwxrwx   1 root root    9 May 11  2019 lib64 -&gt; usr/lib64 ....</span><br><span class="line">123456789101112131415161718192021222324252627</span><br></pre></td></tr></table></figure>
+
+<p>Dockerfile中很多命令都十分的相似，我们需要了解它们的区别，我们最好的学习就是对比他们然后测试效果！</p>
+<h2 id="实战：Tomcat镜像"><a href="#实战：Tomcat镜像" class="headerlink" title="实战：Tomcat镜像"></a>实战：Tomcat镜像</h2><p>1、准备镜像文件</p>
+<p> 准备tomcat 和 jdk到当前目录，编写好README（百度）</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker52.png" alt="image-20200516162443652"></p>
+<p>2、编写dokerfile</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM centos </span><br><span class="line">MAINTAINER zeph&lt;1300928574@qq.com&gt;</span><br><span class="line"></span><br><span class="line">COPY readme.txt /usr/local/readme.txt </span><br><span class="line"><span class="meta">#</span><span class="bash">复制文件</span></span><br><span class="line">ADD jdk-8u261-linux-x64.tar.gz /usr/local/ </span><br><span class="line"><span class="meta">#</span><span class="bash">复制解压</span></span><br><span class="line">ADD apache-tomcat-9.0.37.tar.gz /usr/local/ </span><br><span class="line"><span class="meta">#</span><span class="bash">复制解压</span></span><br><span class="line"></span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line">ENV MYPATH /usr/local </span><br><span class="line"><span class="meta">#</span><span class="bash">设置环境变量</span></span><br><span class="line">WORKDIR $MYPATH </span><br><span class="line"><span class="meta">#</span><span class="bash">设置工作目录</span></span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME /usr/local/jdk1.8.0_261 </span><br><span class="line"><span class="meta">#</span><span class="bash">设置环境变量</span></span><br><span class="line">ENV CLASSPATH $AJAVA_HOME/lib/dt.jar:%JAVA_HOME/lib/tools.jar</span><br><span class="line">ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.37 </span><br><span class="line"><span class="meta">#</span><span class="bash">设置环境变量</span></span><br><span class="line">ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.37</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin </span><br><span class="line"><span class="meta">#</span><span class="bash">设置环境变量 分隔符是：</span></span><br><span class="line"></span><br><span class="line">EXPOSE 8080 </span><br><span class="line"><span class="meta">#</span><span class="bash">设置暴露的端口</span></span><br><span class="line">CMD /usr/local/apache-tomcat-9.0.37/bin/startup.sh &amp;&amp; tail -F /usr/local/apache-tomcat-9.0.37/logs/catalina.out </span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置默认命令</span></span><br></pre></td></tr></table></figure>
+
+<p>3、构建镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 因为dockerfile命名使用默认命名 因此不用使用-f 指定文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker build -t diytomcat:0.1 .</span></span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+
+<p>4、run镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 9090:8080 --name zephtomcat -v /root/Desktop/tomcat/test:/usr/local/apache-tomcat-9.0.37/webapps/test -v /root/Desktop/tomcat/tomcatlogs/:/usr/local/apache-tomcat-9.0.37/logs diytomcat:0.1</span><br></pre></td></tr></table></figure>
+
+<p>5、访问测试</p>
+<p>6、发布项目(由于做了卷挂载，我们直接在本地编写项目就可以发布了！)</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="attr">id</span>=<span class="string">"WebApp_ID"</span> <span class="attr">version</span>=<span class="string">"3.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span></span><br><span class="line">         pageEncoding=<span class="string">"utf-8"</span> %&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=utf-<span class="number">8</span><span class="string">"&gt;</span></span><br><span class="line"><span class="string">    &lt;title&gt;zeph&lt;/title&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">hello world&lt;br/&gt;</span></span><br><span class="line"><span class="string">&lt;%</span></span><br><span class="line"><span class="string">	System.out.println("</span>----test web logs----<span class="string">");</span></span><br><span class="line"><span class="string">%&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>发现：项目部署成功，可以直接访问！</p>
+<p>我们以后开发的步骤：需要掌握Dockerfile的编写！我们之后的一切都是使用docker镜像来发布运行！</p>
+<h2 id="发布自己的镜像"><a href="#发布自己的镜像" class="headerlink" title="发布自己的镜像"></a>发布自己的镜像</h2><blockquote>
+<p>Dockerhub</p>
+</blockquote>
+<p>1、地址 <a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+<p>2、确定这个账号可以登录</p>
+<p>3、登录</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker login --<span class="built_in">help</span></span></span><br><span class="line">Usage:  docker login [OPTIONS] [SERVER]</span><br><span class="line"></span><br><span class="line">Log in to a Docker registry.</span><br><span class="line">If no server is specified, the default is defined by the daemon.</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -p, --password string   Password</span><br><span class="line">      --password-stdin    Take the password from stdin</span><br><span class="line">  -u, --username string   Username</span><br><span class="line">docker login -u zephxu</span><br></pre></td></tr></table></figure>
+
+<p>4、提交 push镜像</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker53.png" alt="image-20200516164434042"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 会发现push不上去，因为如果没有前缀的话默认是push到 官方的library</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 解决方法</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 第一种 build的时候添加你的dockerhub用户名，然后在push就可以放到自己的仓库了</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker build -t zephxu/diytomcat:0.1 .</span></span><br><span class="line">docker push zephxu/test-entrypoint:1.0</span><br><span class="line"><span class="meta">#</span><span class="bash">docker push 用户名/镜像名:版本号</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 第二种 使用docker tag <span class="comment">#然后再次push</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker tag 容器id chengcoder/mytomcat:1.0 <span class="comment">#然后再次push</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>阿里云镜像服务上</p>
+</blockquote>
+<p><a href="https://cr.console.aliyun.com/repository/" target="_blank" rel="noopener">阿里云–&gt;容器镜像–&gt;命名空间–&gt;容器镜像</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo docker push registry-vpc.cn-hangzhou.aliyuncs.com&#x2F;acs&#x2F;agent:0.7-dfb6816</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo docker login --username=zchengx registry.cn-shenzhen.aliyuncs.com</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/dsadxzc/cheng:[镜像版本号]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改id 和 版本</span></span><br><span class="line">sudo docker tag a5ef1f32aaae registry.cn-shenzhen.aliyuncs.com/dsadxzc/cheng:1.0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改版本</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo docker push registry.cn-shenzhen.aliyuncs.com/dsadxzc/cheng:[镜像版本号]</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker54.png" alt="image-20200516171012186"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="https://github.com/ZephXu07/IMG/raw/master/docker55.png" alt="image-20200516171155667"></p>
+<h1 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h1><h2 id="理解Docker-0"><a href="#理解Docker-0" class="headerlink" title="理解Docker 0"></a>理解Docker 0</h2><p>清空所有环境</p>
+<blockquote>
+<p>测试</p>
+</blockquote>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker56.png" alt="image-20200515223236772"></p>
+<p>三个网络</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta"> #</span><span class="bash"> 问题： docker 是如果处理容器网络访问的？</span></span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNjE3MjA0MTk4NS5wbmc?x-oss-process=image/format,png" alt="image-20200516172041985"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试  运行一个tomcat</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d --name tomcat01 tomcat</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> ip addr       </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看容器内部网络地址 发现容器启动的时候会得到一个 eth0@if5 ip地址，docker分配！</span></span><br><span class="line">4: eth0@if5: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default </span><br><span class="line">    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">       </span><br><span class="line"><span class="meta">#</span><span class="bash"> 思考？ linux能不能ping通容器内部！ 可以 容器内部可以ping通外界吗？ 可以！</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ping 172.17.0.2</span></span><br><span class="line">PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.</span><br><span class="line">64 bytes from 172.17.0.2: icmp_seq=1 ttl=64 time=0.069 ms</span><br><span class="line">64 bytes from 172.17.0.2: icmp_seq=2 ttl=64 time=0.074 ms</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原理</p>
+</blockquote>
+<p>1、我们每启动一个docker容器，docker就会给docker容器分配一个ip，我们只要按照了docker，就会有一个docker0桥接模式，使用的技术是<a href="https://www.cnblogs.com/bakari/p/10613710.html" target="_blank" rel="noopener">veth-pair技术</a></p>
+<p>再次测试ip add</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker57.png" alt="image-20200515224036883"></p>
+<p>2 、在启动一个容器测试，发现又多了一对网络</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker58.png" alt="image-20200516173259458"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 我们发现这个容器带来网卡，都是一对对的</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> veth-pair 就是一对的虚拟设备接口，他们都是成对出现的，一端连着协议，一端彼此相连</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 正因为有这个特性 veth-pair 充当一个桥梁，连接各种虚拟网络设备的</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> OpenStac,Docker容器之间的连接，OVS的连接，都是使用veth-pair技术</span></span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+
+<p>3、我们来测试下tomcat01和tomcat02是否可以ping通</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker-tomcat docker <span class="built_in">exec</span> -it tomcat01 ip addr  <span class="comment">#获取tomcat01的ip 172.17.0.2   </span></span></span><br><span class="line">550: eth0@if551: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default </span><br><span class="line">    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="meta">$</span><span class="bash"> docker-tomcat docker <span class="built_in">exec</span> -it tomcat02 ping 172.17.0.2<span class="comment">#让tomcat02ping tomcat01 </span></span></span><br><span class="line">PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.</span><br><span class="line">64 bytes from 172.17.0.2: icmp_seq=1 ttl=64 time=0.098 ms</span><br><span class="line">64 bytes from 172.17.0.2: icmp_seq=2 ttl=64 time=0.071 ms</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以ping通</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker59.png" alt="image-20200516174248626"></p>
+<p>结论：tomcat01和tomcat02公用一个路由器，docker0。</p>
+<p>所有的容器不指定网络的情况下，都是docker0路由的，docker会给我们的容器分配一个默认的可用ip。</p>
+<blockquote>
+<p>小结：</p>
+</blockquote>
+<p>Docker使用的是Linux的桥接，宿主机是一个Docker容器的网桥 docker0</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker60.png" alt="image-20200516174701063"></p>
+<p>Docker中所有网络接口都是虚拟的，虚拟的转发效率高（内网传递文件）</p>
+<p>只要容器删除，对应的网桥一对就没了！</p>
+<blockquote>
+<p>思考一个场景：我们编写了一个微服务，database url=ip: 项目不重启，数据ip换了，我们希望可以处理这个问题，可以通过名字来进行访问容器？</p>
+</blockquote>
+<h2 id="–link"><a href="#–link" class="headerlink" title="–link"></a>–link</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it tomcat02 ping tomca01   <span class="comment"># ping不通</span></span></span><br><span class="line">ping: tomca01: Name or service not known</span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行一个tomcat03 --link tomcat02 </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -P --name tomcat03 --link tomcat02 tomcat</span></span><br><span class="line">5f9331566980a9e92bc54681caaac14e9fc993f14ad13d98534026c08c0a9aef</span><br><span class="line"><span class="meta">#</span><span class="bash"> 用tomcat03 ping tomcat02 可以ping通</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it tomcat03 ping tomcat02</span></span><br><span class="line">PING tomcat02 (172.17.0.3) 56(84) bytes of data.</span><br><span class="line">64 bytes from tomcat02 (172.17.0.3): icmp_seq=1 ttl=64 time=0.115 ms</span><br><span class="line">64 bytes from tomcat02 (172.17.0.3): icmp_seq=2 ttl=64 time=0.080 ms</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 用tomcat02 ping tomcat03 ping不通</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>探究：</strong></p>
+<p>docker network inspect 网络id 网段相同</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker61.png" alt="image-20200516175904551"></p>
+<p>docker inspect tomcat03</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker62.png" alt="image-20200516180308530"></p>
+<p>查看tomcat03里面的/etc/hosts发现有tomcat02的配置</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker63.png" alt="image-20200516180629012"></p>
+<p>–link 本质就是在hosts配置中添加映射</p>
+<p>现在使用Docker已经不建议使用–link了！</p>
+<p>自定义网络，不适用docker0！</p>
+<p>docker0问题：不支持容器名连接访问！</p>
+<h2 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker network</span><br><span class="line">connect     -- Connect a container to a network</span><br><span class="line">create      -- Creates a new network with a name specified by the</span><br><span class="line">disconnect  -- Disconnects a container from a network</span><br><span class="line">inspect     -- Displays detailed information on a network</span><br><span class="line">ls          -- Lists all the networks created by the user</span><br><span class="line">prune       -- Remove all unused networks</span><br><span class="line">rm          -- Deletes one or more networks</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看所有的docker网络</p>
+</blockquote>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker64.png" alt="image-20200516190316073"></p>
+<p><strong>网络模式</strong></p>
+<p>bridge ：桥接 docker（默认，自己创建也是用bridge模式）</p>
+<p>none ：不配置网络，一般不用</p>
+<p>host ：和所主机共享网络</p>
+<p>container ：容器网络连通（用得少！局限很大）</p>
+<p>测试</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 我们直接启动的命令 --net bridge,而这个就是我们得docker0</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> bridge就是docker0</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -P --name tomcat01 tomcat</span></span><br><span class="line">等价于 =&gt; docker run -d -P --name tomcat01 --net bridge tomcat</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> docker0，特点：默认，域名不能访问。 --link可以打通连接，但是很麻烦！</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 我们可以 自定义一个网络</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 mynet</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker65.png" alt="image-20200516191139944"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker network inspect mynet;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker66.png" alt="image-20200516191407065"></p>
+<p>启动两个tomcat,再次查看网络情况</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -P --name tomcat-net-01 --net mynet tomcat</span><br><span class="line">docker run -d -P --name tomcat-net-02 --net mynet tomcat</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker67.png" alt="image-20200516191844240"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker68.png" alt="image-20200516192007371"></p>
+<p>在自定义的网络下，服务可以互相ping通，不用使用–link</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker69.png" alt="image-20200516192134673"></p>
+<p>我们自定义的网络docker当我们维护好了对应的关系，推荐我们平时这样使用网络！</p>
+<p>好处：</p>
+<p>redis -不同的集群使用不同的网络，保证集群是安全和健康的</p>
+<p>mysql-不同的集群使用不同的网络，保证集群是安全和健康的</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker70.png" alt="image-20200516192504367"></p>
+<h2 id="网络连通"><a href="#网络连通" class="headerlink" title="网络连通"></a>网络连通</h2><p><img src="https://github.com/ZephXu07/IMG/raw/master/docker71.png" alt="image-20200516193243146"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker72.png" alt="image-20200516193259185"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试两个不同的网络连通  再启动两个tomcat 使用默认网络，即docker0</span></span><br><span class="line">docker network connect 容器 网络</span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -P --name tomcat01 tomcat</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -P --name tomcat02 tomcat</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此时ping不通</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker73.png" alt="image-20200516193554931"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 要将tomcat01 连通 tomcat—net-01 ，连通就是将 tomcat01加到 mynet网络</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 一个容器两个ip（tomcat01）</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker74.png" alt="image-20200516193848337"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 01连通 ，加入后此时，已经可以tomcat01 和 tomcat-01-net ping通了</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 02是依旧不通的</span></span><br></pre></td></tr></table></figure>
+
+<p>结论：假设要跨网络操作别人，就需要使用docker network connect 连通！</p>
+<h2 id="实战：部署Redis集群"><a href="#实战：部署Redis集群" class="headerlink" title="实战：部署Redis集群"></a>实战：部署Redis集群</h2><p><img src="https://github.com/ZephXu07/IMG/raw/master/docker75.png" alt="image-20200516194419471"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建网卡</span></span><br><span class="line">docker network create redis --subnet 172.38.0.0/16</span><br><span class="line"><span class="meta">#</span><span class="bash"> 通过脚本创建六个redis配置</span></span><br><span class="line">for port in $(seq 1 6);\</span><br><span class="line">do \</span><br><span class="line">mkdir -p /mydata/redis/node-$&#123;port&#125;/conf</span><br><span class="line">touch /mydata/redis/node-$&#123;port&#125;/conf/redis.conf</span><br><span class="line">cat &lt;&lt; EOF &gt;&gt; /mydata/redis/node-$&#123;port&#125;/conf/redis.conf</span><br><span class="line">port 6379</span><br><span class="line">bind 0.0.0.0</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">cluster-announce-ip 172.38.0.1$&#123;port&#125;</span><br><span class="line">cluster-announce-port 6379</span><br><span class="line">cluster-announce-bus-port 16379</span><br><span class="line">appendonly yes</span><br><span class="line">EOF</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 通过脚本运行六个redis</span></span><br><span class="line">for port in $(seq 1 6);\</span><br><span class="line">docker run -p 637$&#123;port&#125;:6379 -p 1667$&#123;port&#125;:16379 --name redis-$&#123;port&#125; \</span><br><span class="line">-v /mydata/redis/node-$&#123;port&#125;/data:/data \</span><br><span class="line">-v /mydata/redis/node-$&#123;port&#125;/conf/redis.conf:/etc/redis/redis.conf \</span><br><span class="line">-d --net redis --ip 172.38.0.1$&#123;port&#125; redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf</span><br><span class="line">docker exec -it redis-1 /bin/sh #redis默认没有bash</span><br><span class="line">redis-cli --cluster create 172.38.0.11:6379 172.38.0.12:6379 172.38.0.13:6379 172.38.0.14:6379 172.38.0.15:6379 172.38.0.16:6379  --cluster-replicas 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker76.png" alt="image-20200516202902241"></p>
+<p>docker搭建redis集群完成！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker77.png" alt="image-20200516203323971"></p>
+<p>我们使用docker之后，所有的技术都会慢慢变得简单起来！</p>
+<h1 id="SpringBoot微服务打包Docker镜像"><a href="#SpringBoot微服务打包Docker镜像" class="headerlink" title="SpringBoot微服务打包Docker镜像"></a>SpringBoot微服务打包Docker镜像</h1><p>1、构建SpringBoot项目</p>
+<p>2、打包运行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn package</span><br></pre></td></tr></table></figure>
+
+<p>3、编写dockerfile</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM java:8</span><br><span class="line">COPY *.jar /app.jar</span><br><span class="line">CMD ["--server.port=8080"]</span><br><span class="line">EXPOSE 8080</span><br><span class="line">ENTRYPOINT ["java","-jar","app.jar"]</span><br></pre></td></tr></table></figure>
+
+<p>4、构建镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1.复制jar和DockerFIle到服务器</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2.构建镜像</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker build -t xxxxx:xx  .</span></span><br></pre></td></tr></table></figure>
+
+<p>5、发布运行</p>
+<p>以后我们使用了Docker之后，给别人交付就是一个镜像即可！</p>
+<h1 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>原先dockerfile build run，需要手动操作，单个容器！<br>Docker Compose 可以高效管理容器，定义运行多个容器。</p>
+<p>==作用：批量容器编排。==</p>
+<hr>
+<p>Compose是Docker官方的开源项目。需要安装！<br>web服务，redis，mysql，nginx……多个容器，通过compose可以快速启动。</p>
+<p>Compose</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'2.0'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"5000:5000"</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">.:/code</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">logvolume01:/var/log</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">logvolume01:</span> <span class="string">&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>docker-compose up 100个服务</p>
+<p>Compose重要概念：</p>
+<ul>
+<li>服务services，容器应用。(web,redis,mysql…)</li>
+<li>项目project。一组关联的容器。 博客，web,mysql wp</li>
+</ul>
+<h2 id="安装Compose"><a href="#安装Compose" class="headerlink" title="安装Compose"></a>安装Compose</h2><p>1、下载</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.26.2/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备用地址，比较快</span></span><br><span class="line">curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-<span class="string">'uname -s'</span>-<span class="string">'uname-m'</span> &gt; /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>2、授权</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h2 id="getting-start体验"><a href="#getting-start体验" class="headerlink" title="getting start体验"></a>getting start体验</h2><p>官方地址：<a href="https://docs.docker.com/compose/gettingstarted/" target="_blank" rel="noopener">https://docs.docker.com/compose/gettingstarted/</a><br>python应用，计数器，redis</p>
+<p>1、应用 app.py</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir composetest</span><br><span class="line">cd composetest</span><br><span class="line">vim app.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">cache = redis.Redis(host=<span class="string">'redis'</span>, port=<span class="number">6379</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_hit_count</span><span class="params">()</span>:</span></span><br><span class="line">    retries = <span class="number">5</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> cache.incr(<span class="string">'hits'</span>)</span><br><span class="line">        <span class="keyword">except</span> redis.exceptions.ConnectionError <span class="keyword">as</span> exc:</span><br><span class="line">            <span class="keyword">if</span> retries == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">raise</span> exc</span><br><span class="line">            retries -= <span class="number">1</span></span><br><span class="line">            time.sleep(<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    count = get_hit_count()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello World! I have been seen &#123;&#125; times.\n'</span>.format(count)</span><br></pre></td></tr></table></figure>
+
+<p><code>vim requirements.txt</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flask</span><br><span class="line">redis</span><br></pre></td></tr></table></figure>
+
+<p>2、Dockerfile 应用打包为镜像</p>
+<p><code>vim Dockerfile</code></p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.7</span>-alpine</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /code</span></span><br><span class="line"><span class="keyword">ENV</span> FLASK_APP app.py</span><br><span class="line"><span class="keyword">ENV</span> FLASK_RUN_HOST <span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache gcc musl-dev linux-headers</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> requirements.txt requirements.txt</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> pip install -r requirements.txt</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">5000</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . .</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"flask"</span>, <span class="string">"run"</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>3、Docker-compose yml 文件（定义整个服务需要的环境：web, redis）</p>
+<p><code>vim docker-compose.yml</code></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"5000:5000"</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">"redis:alpine"</span></span><br></pre></td></tr></table></figure>
+
+<p>4、启动compose项目（docker-compose up）</p>
+<p><code>docker-compose up</code></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>1、创建网络</p>
+<p>2、执行Docker-compose yaml</p>
+<p>3、启动服务</p>
+<p>Docker-compose yaml</p>
+<p>Creating composetest_web_1   … done<br>Creating composetest_redis_1 … done</p>
+<p>默认的服务名：==文件名_服务名_num==<br>多个服务器 集群 A B _num，num代表副本数量<br>服务redis服务 =&gt; 4个副本<br>集群状态，服务都不可能只有一个运行实例。弹性</p>
+<h2 id="网络规则"><a href="#网络规则" class="headerlink" title="网络规则"></a>网络规则</h2><p>NETWORK ID          NAME                  DRIVER              SCOPE<br>40b3600ac322        composetest_default   bridge              local</p>
+<p>10个服务构成一个项目，项目中的内容都在同个网络下。</p>
+<p><code>docker inspect composetest_default</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;Containers&quot;: &#123;</span><br><span class="line">            &quot;2381a01096bcce4feadef05194300cdbd309b0eb0aabacec676d4ff7d62920f4&quot;: &#123;</span><br><span class="line">                &quot;Name&quot;: &quot;composetest_redis_1&quot;,</span><br><span class="line">                &quot;EndpointID&quot;: &quot;187fa1a26e568028ae1177a15aee73e35f7a2e7393115a52139649612678606d&quot;,</span><br><span class="line">                &quot;MacAddress&quot;: &quot;02:42:ac:12:00:03&quot;,</span><br><span class="line">                &quot;IPv4Address&quot;: &quot;172.18.0.3&#x2F;16&quot;,</span><br><span class="line">                &quot;IPv6Address&quot;: &quot;&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;767c5c85f88693f83ded0bf607b198efbfdb9317a1eacb0814b9190b52b19f72&quot;: &#123;</span><br><span class="line">                &quot;Name&quot;: &quot;composetest_web_1&quot;,</span><br><span class="line">                &quot;EndpointID&quot;: &quot;065396cbe27beec58539302c359cc464ea3206189b4123e957ed30d2c5ae4b06&quot;,</span><br><span class="line">                &quot;MacAddress&quot;: &quot;02:42:ac:12:00:02&quot;,</span><br><span class="line">                &quot;IPv4Address&quot;: &quot;172.18.0.2&#x2F;16&quot;,</span><br><span class="line">                &quot;IPv6Address&quot;: &quot;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>在同一网络下，可通过名称访问，保证了高可用。</p>
+<h2 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h2><p>docker-compose down </p>
+<p>ctrl+c</p>
+<p>以前都是单个docker run启动容器，docker-compose通过yml配置文件，可以通过compose一键启动所有服务、停止</p>
+<h2 id="Docker小结"><a href="#Docker小结" class="headerlink" title="Docker小结"></a>Docker小结</h2><p>1、docker镜像。run –&gt; 容器</p>
+<p>2、dockerFile构建镜像（服务打包）</p>
+<p>3、docker-compose启动项目（编排、多个微服务或环境）</p>
+<p>4、docker网络</p>
+<h2 id="yaml规则"><a href="#yaml规则" class="headerlink" title="yaml规则"></a>yaml规则</h2><p>docker-compose.yaml核心</p>
+<p><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">官方文档</a></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#3层</span></span><br><span class="line"><span class="attr">version:</span> <span class="string">''</span></span><br><span class="line"><span class="comment">#版本</span></span><br><span class="line">	<span class="string">服务1：web</span></span><br><span class="line">	<span class="comment">#服务配置</span></span><br><span class="line">		<span class="string">images</span></span><br><span class="line">		<span class="string">build</span></span><br><span class="line">		<span class="string">network</span></span><br><span class="line">		<span class="string">......</span></span><br><span class="line">	<span class="string">服务2:</span></span><br><span class="line">	<span class="string">......</span></span><br><span class="line"><span class="comment">#其他配置：网络、卷挂载、全局规则</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">configs:</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h2><p><a href="https://docs.docker.com/compose/wordpress/" target="_blank" rel="noopener">官方文档</a></p>
+<p>下载程序、安装数据库、配置……</p>
+<p>compose应用 —&gt; 一键启动</p>
+<p>1、下载项目（docker-compose.yaml）</p>
+<p>2、dockerfile</p>
+<p>3、文件准备</p>
+<p>4、启动<code>docker-compose up</code></p>
+<p>前台启动<code>docker-compose up -d</code></p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>1、编写项目微服务</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    StringRedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Long views = redisTemplate.opsForValue().increment(<span class="string">"views"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello world，views："</span> + views;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、Dockerfile构建镜像</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> java:<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> *.jar /app.jar</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"--server.port=8080"</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"java"</span>, <span class="string">"-jar"</span>, <span class="string">"/app.jar"</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>3、docker-compose.yaml编排项目</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3.8'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zephapp:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zephapp</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"8080:8080"</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">"library/redis:plpine"</span></span><br></pre></td></tr></table></figure>
+
+<p>4、加载到服务器，启动</p>
+<p><code>docker-compose up</code></p>
+<p>项目重新部署打包</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker-compose up --build</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<p>项目compose：三层</p>
+<ul>
+<li>工程Project</li>
+<li><ul>
+<li>服务</li>
+<li><ul>
+<li>容器：运行实例</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li><p>4台服务器，都安装docker</p>
+</li>
+<li><p>技巧：xshell同步操作</p>
+</li>
+</ul>
+<h2 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h2><p><img src="https://github.com/ZephXu07/IMG/raw/master/swarm-diagram.png" alt="image"></p>
+<h2 id="搭建集群"><a href="#搭建集群" class="headerlink" title="搭建集群"></a>搭建集群</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker swarm --help</span><br><span class="line"></span><br><span class="line">Usage:	docker swarm COMMAND</span><br><span class="line"></span><br><span class="line">Manage Swarm</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  ca          Display and rotate the root CA</span><br><span class="line">  init        Initialize a swarm</span><br><span class="line">  join        Join a swarm as a node and/or manager</span><br><span class="line">  join-token  Manage join tokens</span><br><span class="line">  leave       Leave the swarm</span><br><span class="line">  unlock      Unlock swarm</span><br><span class="line">  unlock-key  Manage the unlock key</span><br><span class="line">  update      Update the swarm</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker78.png" alt="images"></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker79.png" alt="images"></p>
+<p>初始化节点：<code>docker swarm init --advertise-adr 172.24.82.149</code></p>
+<p>加入一个节点：<code>docker swarm join</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">获取令牌</span></span><br><span class="line">docker swarm join-token mannager</span><br><span class="line">docker swarm join-token worker</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker80.png" alt="images"></p>
+<p>把后面的节点搭建进去：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker81.png" alt="images"></p>
+<p>==1、生成主节点 init==</p>
+<p>==2、加入管理者、工作者==</p>
+<p>==目标：双主双从==</p>
+<h2 id="Raft协议"><a href="#Raft协议" class="headerlink" title="Raft协议"></a>Raft协议</h2><p>双主双从：假设一个节点失效，其他节点是否可以用？</p>
+<p>Raft协议：保证大多数节点存活才可以用。集群至少需要==3==个管理节点，且需要==1==个管理节点存活才能保证集群可以使用！</p>
+<h3 id="实验："><a href="#实验：" class="headerlink" title="实验："></a>实验：</h3><p>1、将docker1机器停止，宕机！双主双从，另外一个主节点也不能使用。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker82.png" alt="images"></p>
+<p>2、可以让其他节点离开集群：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker83.png" alt="images"></p>
+<p>3、worker工作，manager管理，例如<code>docker node ls</code>，3台机器设置为manager。</p>
+<p>==集群至少需要3个管理节点，且需要1个管理节点存活才能保证集群可以使用！==</p>
+<p><strong>Raft协议：保证大多数节点存活才可以用，高可用！</strong></p>
+<h2 id="体会"><a href="#体会" class="headerlink" title="体会"></a>体会</h2><p>弹性、扩缩容！集群！</p>
+<p>告别<code>docker run</code></p>
+<p>单机：<code>docker-compose up</code></p>
+<p>集群：swarm，<code>docker service</code></p>
+<p>容器 –&gt; 服务</p>
+<p>容器 –&gt; 服务 –&gt; 副本</p>
+<p>redis服务 –&gt; 10个副本（同时开启10个redis容器）</p>
+<p>体验：创建服务、动态扩展服务、动态更新服务。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker84.png" alt="images"></p>
+<p>灰度发布（金丝雀发布）</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker85.png" alt="images"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run</span><br><span class="line"><span class="meta">#</span><span class="bash">容器启动，不具有扩缩容。</span></span><br><span class="line">docker service</span><br><span class="line"><span class="meta">#</span><span class="bash">服务，具有扩缩容，滚动更新。</span></span><br></pre></td></tr></table></figure>
+
+<p>查看服务 replicas</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker86.png" alt="images"></p>
+<p>动态扩缩容</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker87.png" alt="images"></p>
+<p>服务，集群中的任意的节点都可以访问。服务可以有多个副本动态扩缩容实现高可用。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker88.png" alt="images"></p>
+<h2 id="概念总结"><a href="#概念总结" class="headerlink" title="概念总结"></a>概念总结</h2><blockquote>
+<p>swarm</p>
+</blockquote>
+<p>集群的管理和编号。docker可以初始化一个swarm集群，其他节点可以加入（manager、worker）。</p>
+<blockquote>
+<p>Node</p>
+</blockquote>
+<p>就是一个docker节点。多个节点就组成了一个网络集群。（manager、worker两种节点）</p>
+<blockquote>
+<p>Service</p>
+</blockquote>
+<p>任务，可以在管理节点或者工作节点来运行。核心！用户访问！</p>
+<blockquote>
+<p>Tas</p>
+</blockquote>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker89.png" alt="images"></p>
+<p><strong>逻辑是不变的。</strong></p>
+<p>==命令 –&gt; 管理 —&gt; api —&gt; 调度 –&gt; 工作节点（创建Task容器维护）==</p>
+<blockquote>
+<p>服务与全局服务</p>
+</blockquote>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker90.png" alt="images"></p>
+<p>调整service以什么方式运行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">--mode string</span><br><span class="line">service mode (replicated or global)(default "relicated")</span><br><span class="line"></span><br><span class="line">docker service create --mode replicated --name mytom tomcat:7</span><br><span class="line"></span><br><span class="line">docker service create --mode global --name haha alpine baidu.com</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">场景？日志收集</span></span><br><span class="line"><span class="meta">#</span><span class="bash">每一个节点有自己的日志收集器，过滤。把所有日志最终再传给日志中心</span></span><br><span class="line"><span class="meta">#</span><span class="bash">服务监控，状态性能</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>拓展：</p>
+<p>​    网络模式：</p>
+<p>​        “PublishMode”:”ingress”</p>
+<ul>
+<li>Swarm</li>
+<li>Overlay</li>
+<li>ingress：特殊的Overlay网络，具有负载均衡功能！IPVS、VIP</li>
+</ul>
+<p>虽然docker在四台机器上，实际网络是同一个！ingress网络，是一个特殊的Overlay网络。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker91.png" alt="images"></p>
+<p>集群就是一个整体！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker92.png" alt="images"></p>
+<h1 id="Docker-Stack"><a href="#Docker-Stack" class="headerlink" title="Docker Stack"></a>Docker Stack</h1><ul>
+<li><p>docker-compose 单机部署项目</p>
+</li>
+<li><p>docker stack 集群部署项目</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">单机</span></span><br><span class="line">docker-compose up -d wordpress.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">集群</span></span><br><span class="line">docker stack deploy wordpress.yaml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">version: &#39;3.4&#39;</span><br><span class="line">services:</span><br><span class="line">  mongo:</span><br><span class="line">    image: mongo</span><br><span class="line">    restart: always</span><br><span class="line">    networks: </span><br><span class="line">      - mongo_network</span><br><span class="line">    deploy:</span><br><span class="line">      restart_policy:</span><br><span class="line">        condition: on-failure</span><br><span class="line">      replicas: 2</span><br><span class="line">  mongo-express: </span><br><span class="line">    image: mongo-express</span><br><span class="line">    restart: always</span><br><span class="line">    networks: </span><br><span class="line">      - mongo_network</span><br><span class="line">    ports:</span><br><span class="line">      - target: 8081</span><br><span class="line">        published: 80</span><br><span class="line">        protocol: tcp</span><br><span class="line">        mode: ingress</span><br><span class="line">    environment:</span><br><span class="line">      ME_CONFIG_MONGODB_SERVER: mongo</span><br><span class="line">      ME_CONFIG_MONGODB_PORT: 27017</span><br><span class="line">    deploy:</span><br><span class="line">      restart_policy:</span><br><span class="line">        condition: on-failure</span><br><span class="line">      replicas: 1</span><br><span class="line">networks:</span><br><span class="line">  mongo_network:</span><br><span class="line">    external: true</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker94.png" alt="images"></p>
+<h1 id="Docker-Secret"><a href="#Docker-Secret" class="headerlink" title="Docker Secret"></a>Docker Secret</h1><p>安全，部署密码，证书！</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker93.png" alt="images"></p>
+<h1 id="Docker-Config"><a href="#Docker-Config" class="headerlink" title="Docker Config"></a>Docker Config</h1><p>配置</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/docker95.png" alt="images"></p>
+<h1 id="拓展到K8S"><a href="#拓展到K8S" class="headerlink" title="拓展到K8S"></a>拓展到K8S</h1>]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>log_java日志框架</title>
     <url>/2020/07/31/log_java%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<p>title: java日志<br>date: 2020-08-02 17:17:30<br>tags: [笔记, log, java]</p>
@@ -215,8 +1020,8 @@
 
 <h4 id="删除一个远程标签"><a href="#删除一个远程标签" class="headerlink" title="删除一个远程标签"></a>删除一个远程标签</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin :refs&#x2F;tags&#x2F;&lt;tagname&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>git</tag>
         <tag>笔记</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -1008,8 +1813,8 @@
 <p><strong>没成功，有缘再见。</strong></p>
 <h1 id="十一、使用SourceTree"><a href="#十一、使用SourceTree" class="headerlink" title="十一、使用SourceTree"></a>十一、<a href="https://www.liaoxuefeng.com/wiki/896043488029600/1317161920364578" target="_blank" rel="noopener">使用SourceTree</a></h1>]]></content>
       <tags>
-        <tag>git</tag>
         <tag>笔记</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -2480,8 +3285,8 @@ graphs"></p>
 <h2 id="part9、未完待续……"><a href="#part9、未完待续……" class="headerlink" title="part9、未完待续…… "></a>part9、未完待续…… </h2>]]></content>
       <tags>
         <tag>笔记</tag>
-        <tag>java</tag>
         <tag>ssm</tag>
+        <tag>java</tag>
         <tag>spring</tag>
       </tags>
   </entry>
@@ -2505,8 +3310,8 @@ graphs"></p>
 ]]></content>
       <tags>
         <tag>笔记</tag>
-        <tag>java</tag>
         <tag>ssm</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -3212,8 +4017,8 @@ graphs"></p>
 <h2 id="part11、未完待续……"><a href="#part11、未完待续……" class="headerlink" title="part11、未完待续……"></a>part11、未完待续……</h2>]]></content>
       <tags>
         <tag>笔记</tag>
-        <tag>java</tag>
         <tag>ssm</tag>
+        <tag>java</tag>
         <tag>mybatis</tag>
       </tags>
   </entry>
