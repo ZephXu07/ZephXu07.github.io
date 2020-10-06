@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-radar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://zephxu07.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="转载自知乎大佬四篇学习分享，本人进行合并。 第一篇：Spring Security零基础入门之一 第二篇：Spring Security零基础入门之二~验证 第三篇：Spring Security零基础入门之三~使用数据库进行验证 第四篇：Spring Security零基础入门之四~鉴权 大佬的github源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringSecurity简单入门笔记">
+<meta property="og:url" content="https://zephxu07.github.io/2020/10/05/SpringSecurity%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="zephxu">
+<meta property="og:description" content="转载自知乎大佬四篇学习分享，本人进行合并。 第一篇：Spring Security零基础入门之一 第二篇：Spring Security零基础入门之二~验证 第三篇：Spring Security零基础入门之三~使用数据库进行验证 第四篇：Spring Security零基础入门之四~鉴权 大佬的github源码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity01.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity02.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity03.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity04.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity05.png">
+<meta property="og:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity06.png">
+<meta property="article:published_time" content="2020-10-05T07:50:00.000Z">
+<meta property="article:modified_time" content="2020-10-05T16:11:26.133Z">
+<meta property="article:author" content="zephxu">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="SpringSecurity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity01.png">
+
+<link rel="canonical" href="https://zephxu07.github.io/2020/10/05/SpringSecurity%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>SpringSecurity简单入门笔记 | zephxu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+	<a href="https://github.com/ZephXu07" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zephxu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://zephxu07.github.io/2020/10/05/SpringSecurity%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zephxu">
+      <meta itemprop="description" content="纯小白，知足常乐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zephxu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringSecurity简单入门笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-05 15:50:00" itemprop="dateCreated datePublished" datetime="2020-10-05T15:50:00+08:00">2020-10-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-06 00:11:26" itemprop="dateModified" datetime="2020-10-06T00:11:26+08:00">2020-10-06</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/05/SpringSecurity%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/05/SpringSecurity%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转载自知乎大佬四篇学习分享，本人进行合并。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/47224331" target="_blank" rel="noopener">第一篇：Spring Security零基础入门之一</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/47395352" target="_blank" rel="noopener">第二篇：Spring Security零基础入门之二~验证</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/47584036" target="_blank" rel="noopener">第三篇：Spring Security零基础入门之三~使用数据库进行验证</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/47873694" target="_blank" rel="noopener">第四篇：Spring Security零基础入门之四~鉴权</a></p>
+<p><a href="https://github.com/apkkids/spring_security_exam" target="_blank" rel="noopener">大佬的github源码</a></p>
+<a id="more"></a>
+
+<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h1><p>Spring Security主要包括两大功能：<strong>验证和鉴权</strong>。验证就是确认用户的身份，一般采用用户名和密码的形式；鉴权就是确认用户拥有的身份（角色、权限）能否访问受保护的资源。</p>
+<p>需要的掌握的基础知识：</p>
+<ul>
+<li>熟练掌握Java</li>
+<li>掌握了Spring Boot基础知识</li>
+<li>一点点前端知识包括html/css/javascript</li>
+<li>了解一点后端框架thymeleaf</li>
+</ul>
+<h1 id="2-入门"><a href="#2-入门" class="headerlink" title="2.入门"></a>2.入门</h1><h2 id="2-1-需求以及示例代码"><a href="#2-1-需求以及示例代码" class="headerlink" title="2.1.需求以及示例代码"></a>2.1.需求以及示例代码</h2><h3 id="2-1-1-需求"><a href="#2-1-1-需求" class="headerlink" title="2.1.1.需求"></a>2.1.1.需求</h3><ol>
+<li><p>网站分为首页、登录页、用户页面、管理员页面和报错页面；</p>
+</li>
+<li><p>使用用户名加密码登录，登录错误要报错；</p>
+</li>
+<li><p>不同的用户拥有不同的权限，不同的权限可以访问不同的网页；</p>
+</li>
+<li><p>首页和登录页不需要任何权限；</p>
+</li>
+<li><p>用户页面需要USER权限；</p>
+</li>
+<li><p>管理员页面需要ADMIN权限；</p>
+</li>
+<li><p>如果用户没有登录，则访问需要权限的页面时自动跳转登录页面。</p>
+</li>
+</ol>
+<h3 id="2-1-2示例代码"><a href="#2-1-2示例代码" class="headerlink" title="2.1.2示例代码"></a>2.1.2示例代码</h3><p>实现以上功能，除了前端页面和SpringBoot代码外，和Security相关的代码只需要一个类SecurityConfiguration（继承了WebSecurityConfigurerAdapter），类中只有不到20行代码。<a href="https://github.com/apkkids/spring_security_exam/tree/master/simple_security" target="_blank" rel="noopener">原作者源代码：simple_security子项目</a></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity01.png" alt="SrpingSecurity01"></p>
+<p>重点SecurityConfiguration类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfiguration</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 在内存中创建一个名为 "user" 的用户，密码为 "pwd"，拥有 "USER" 权限，密码使用BCryptPasswordEncoder加密</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        auth.inMemoryAuthentication().passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder())</span><br><span class="line">                .withUser(<span class="string">"user"</span>).password(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">"pwd"</span>)).roles(<span class="string">"USER"</span>);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 在内存中创建一个名为 "admin" 的用户，密码为 "pwd"，拥有 "USER" 和"ADMIN"权限</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        auth.inMemoryAuthentication().passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder())</span><br><span class="line">                .withUser(<span class="string">"admin"</span>).password(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">"pwd"</span>)).roles(<span class="string">"USER"</span>,<span class="string">"ADMIN"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 匹配 "/","/index" 路径，不需要权限即可访问</span></span><br><span class="line"><span class="comment">     * 匹配 "/user" 及其以下所有路径，都需要 "USER" 权限</span></span><br><span class="line"><span class="comment">     * 匹配 "/admin" 及其以下所有路径，都需要 "ADMIN" 权限</span></span><br><span class="line"><span class="comment">     * 登录地址为 "/login"，登录成功默认跳转到页面 "/user"</span></span><br><span class="line"><span class="comment">     * 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>,<span class="string">"/index"</span>,<span class="string">"/error"</span>).permitAll()</span><br><span class="line">                .antMatchers(<span class="string">"/user/**"</span>).hasRole(<span class="string">"USER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admin/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin().loginPage(<span class="string">"/login"</span>).defaultSuccessUrl(<span class="string">"/user"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .logout().logoutUrl(<span class="string">"/logout"</span>).logoutSuccessUrl(<span class="string">"/login"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-3-代码解释"><a href="#2-1-3-代码解释" class="headerlink" title="2.1.3.代码解释"></a>2.1.3.代码解释</h3><ol>
+<li>网站分为首页（index.html）、登录页(login.html)、用户页面(user/user.html)、管理员页面(admin/admin.html)和报错页面(error/403.html)；</li>
+<li>使用用户名加密码登录，登录错误要报错(SpringSecurity 自带，不用写代码)；</li>
+<li>不同的用户拥有不同的权限，不同的权限可以访问不同的网页（SecurityConfiguration中定义）；</li>
+<li>首页和登录页不需要任何权限（SecurityConfiguration中定义）；</li>
+<li>用户页面需要USER权限（SecurityConfiguration中定义）；</li>
+<li>管理员页面需要ADMIN权限（SecurityConfiguration中定义）；</li>
+<li>如果用户没有登录，则访问需要权限的页面时自动跳转登录页面（SecurityConfiguration中定义）。</li>
+</ol>
+<p>SecurityConfiguration类的第一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 在内存中创建一个名为 "user" 的用户，密码为 "pwd"，拥有 "USER" 权限，密码使用BCryptPasswordEncoder加密</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        auth.inMemoryAuthentication().passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder())</span><br><span class="line">                .withUser(<span class="string">"user"</span>).password(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">"pwd"</span>)).roles(<span class="string">"USER"</span>);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 在内存中创建一个名为 "admin" 的用户，密码为 "pwd"，拥有 "USER" 和"ADMIN"权限</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        auth.inMemoryAuthentication().passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder())</span><br><span class="line">                .withUser(<span class="string">"admin"</span>).password(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">"pwd"</span>)).roles(<span class="string">"USER"</span>,<span class="string">"ADMIN"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>该方法在内存中建立了两个用于验证的User对象，每当用户从网页登录时，与内存中的对象进行比较，如果用户名密码都匹配，则验证通过，否则不通过。值得注意的是，从SpringSecurity5.0以后，这种方式的密码都要使用passwordEncoder进行加密，否则就会报错。</p>
+<p>SecurityConfiguration类的第二个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 匹配 "/","/index" 路径，不需要权限即可访问</span></span><br><span class="line"><span class="comment">     * 匹配 "/user" 及其以下所有路径，都需要 "USER" 权限</span></span><br><span class="line"><span class="comment">     * 匹配 "/admin" 及其以下所有路径，都需要 "ADMIN" 权限</span></span><br><span class="line"><span class="comment">     * 登录地址为 "/login"，登录成功默认跳转到页面 "/user"</span></span><br><span class="line"><span class="comment">     * 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>,<span class="string">"/index"</span>,<span class="string">"/error"</span>).permitAll()</span><br><span class="line">                .antMatchers(<span class="string">"/user/**"</span>).hasRole(<span class="string">"USER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admin/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin().loginPage(<span class="string">"/login"</span>).defaultSuccessUrl(<span class="string">"/user"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .logout().logoutUrl(<span class="string">"/logout"</span>).logoutSuccessUrl(<span class="string">"/login"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-2-SpringSecurity原理初探"><a href="#2-2-SpringSecurity原理初探" class="headerlink" title="2.2.SpringSecurity原理初探"></a>2.2.SpringSecurity原理初探</h2><p>任何一个权限管理系统，主要都分为两个功能：验证和鉴权。验证就是确认用户的身份，一般采用用户名和密码的形式；鉴权就是确认用户拥有的身份（角色、权限）能否访问受保护的资源。这里面其实就涉及到了三个东西，用户、角色、受保护的资源。在上面的例子中，它们三者如下所示：</p>
+<p>用户：user（角色为USER）、admin（角色为USER、ADMIN）</p>
+<p>受保护的资源：user/<strong>**</strong>（需要USER角色），admin/<strong>**</strong>（需要ADMIN角色）</p>
+<p>Spring Security的功能原理如下图所示：</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity02.png" alt="SrpingSecurity02"></p>
+<h2 id="2-3-小结"><a href="#2-3-小结" class="headerlink" title="2.3.小结"></a>2.3.小结</h2><ul>
+<li>用户名、密码和角色不是应该存在数据库里面吗？</li>
+<li>验证成功后，验证信息保存在哪里？在程序中如何获取这些信息？</li>
+<li>怎么管理cookie？验证信息多久过期？</li>
+<li>真正的系统中角色和用户应该能够动态调整，鉴权规则也很复杂，这怎么定制？</li>
+<li>验证、鉴权的流程是怎么实现的？说好的filter链呢？说好的依赖注入、AOP呢？</li>
+</ul>
+<p><a href="#jump01">且看</a></p>
+<h1 id="3-验证"><a href="#3-验证" class="headerlink" title="3.验证"></a>3.<span id="jump01">验证</span></h1><p>此点讲述如何在Spring Security中进行验证功能的开发。</p>
+<h2 id="3-1-需求"><a href="#3-1-需求" class="headerlink" title="3.1.需求"></a>3.1.需求</h2><ol>
+<li>修改用户名密码的参数名称</li>
+<li>通过自定义一个AuthenticationProvider在系统中加入一个后门</li>
+<li>将验证身份信息展示到前端</li>
+</ol>
+<h2 id="3-2-示例代码"><a href="#3-2-示例代码" class="headerlink" title="3.2.示例代码"></a>3.2.示例代码</h2><p><a href="https://github.com/apkkids/spring_security_exam/tree/master/normal_security" target="_blank" rel="noopener">原作者源代码：normal_security子项目</a></p>
+<p>主要结构不变，添加了BackdoorAuthenticationProvider类：自定义验证类，可以用作backdoor。其他变化则是类方法添加了更多的功能。</p>
+<p>BackdoorAuthenticationProvider类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义验证类，可以用作backdoor，例如输入：alex/任意密码就可以通过验证</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BackdoorAuthenticationProvider</span> <span class="keyword">implements</span> <span class="title">AuthenticationProvider</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Authentication <span class="title">authenticate</span><span class="params">(Authentication authentication)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">        String name = authentication.getName();</span><br><span class="line">        String password = authentication.getCredentials().toString();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//利用alex用户名登录，不管密码是什么都可以，伪装成admin用户</span></span><br><span class="line">        <span class="keyword">if</span> (name.equals(<span class="string">"alex"</span>)) &#123;</span><br><span class="line">            Collection&lt;GrantedAuthority&gt; authorityCollection = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            authorityCollection.add(<span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_ADMIN"</span>));</span><br><span class="line">            authorityCollection.add(<span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_USER"</span>));</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> UsernamePasswordAuthenticationToken(</span><br><span class="line">                    <span class="string">"admin"</span>, password, authorityCollection);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; authentication)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> authentication.equals(</span><br><span class="line">                UsernamePasswordAuthenticationToken<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SecurityConfiguration类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfiguration</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    BackdoorAuthenticationProvider backdoorAuthenticationProvider;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 在内存中创建一个名为 "user" 的用户，密码为 "pwd"，拥有 "USER" 权限，密码使用BCryptPasswordEncoder加密</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        auth.inMemoryAuthentication().passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder())</span><br><span class="line">                .withUser(<span class="string">"user"</span>).password(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">"pwd"</span>)).roles(<span class="string">"USER"</span>);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 在内存中创建一个名为 "admin" 的用户，密码为 "pwd"，拥有 "USER" 和"ADMIN"权限</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        auth.inMemoryAuthentication().passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder())</span><br><span class="line">                .withUser(<span class="string">"admin"</span>).password(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">"pwd"</span>)).roles(<span class="string">"USER"</span>,<span class="string">"ADMIN"</span>);</span><br><span class="line">        <span class="comment">//将自定义验证类注册进去</span></span><br><span class="line">        auth.authenticationProvider(backdoorAuthenticationProvider);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 匹配 "/","/index" 路径，不需要权限即可访问</span></span><br><span class="line"><span class="comment">     * 匹配 "/user" 及其以下所有路径，都需要 "USER" 权限</span></span><br><span class="line"><span class="comment">     * 匹配 "/admin" 及其以下所有路径，都需要 "ADMIN" 权限</span></span><br><span class="line"><span class="comment">     * 登录地址为 "/login"，登录成功默认跳转到页面 "/user"</span></span><br><span class="line"><span class="comment">     * 退出登录的地址为 "/logout"，退出成功后跳转到页面 "/login"</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">"/"</span>,<span class="string">"/index"</span>,<span class="string">"/error"</span>).permitAll()</span><br><span class="line">                .antMatchers(<span class="string">"/user/**"</span>).hasRole(<span class="string">"USER"</span>)</span><br><span class="line">                .antMatchers(<span class="string">"/admin/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .formLogin().loginPage(<span class="string">"/login"</span>).defaultSuccessUrl(<span class="string">"/user"</span>)</span><br><span class="line">                <span class="comment">//1.自定义参数名称，与login.html中的参数对应</span></span><br><span class="line">                .usernameParameter(<span class="string">"myusername"</span>).passwordParameter(<span class="string">"mypassword"</span>)</span><br><span class="line">                .and()</span><br><span class="line">                .logout().logoutUrl(<span class="string">"/logout"</span>).logoutSuccessUrl(<span class="string">"/login"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>HomeController类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 主页和登录页面映射</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(&#123;<span class="string">"/"</span>, <span class="string">"/index"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">( Model model)</span></span>&#123;</span><br><span class="line">        <span class="comment">//从SecurityContextHolder中得到Authentication对象，进而获取权限列表，传到前端</span></span><br><span class="line">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        Collection&lt;GrantedAuthority&gt; authorityCollection = (Collection&lt;GrantedAuthority&gt;) auth.getAuthorities();</span><br><span class="line">        model.addAttribute(<span class="string">"authorities"</span>, authorityCollection.toString());</span><br><span class="line">        model.addAttribute(<span class="string">"username"</span>, SecurityContextHolder.getContext().getAuthentication().getName());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UserController类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义用户相关网址映射的Controller</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">user</span><span class="params">(@AuthenticationPrincipal Principal principal, Model model)</span></span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"username"</span>, principal.getName());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从SecurityContextHolder中得到Authentication对象，进而获取权限列表，传到前端</span></span><br><span class="line">        Authentication  auth = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        Collection&lt;GrantedAuthority&gt; authorityCollection = (Collection&lt;GrantedAuthority&gt;) auth.getAuthorities();</span><br><span class="line">        model.addAttribute(<span class="string">"authorities"</span>, authorityCollection.toString());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"user/user"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/admin"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">admin</span><span class="params">(@AuthenticationPrincipal Principal principal, Model model)</span></span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"username"</span>, principal.getName());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从SecurityContextHolder中得到Authentication对象，进而获取权限列表，传到前端</span></span><br><span class="line">        Authentication  auth = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        Collection&lt;GrantedAuthority&gt; authorityCollection = (Collection&lt;GrantedAuthority&gt;) auth.getAuthorities();</span><br><span class="line">        model.addAttribute(<span class="string">"authorities"</span>, authorityCollection.toString());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"admin/admin"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-3-原理图"><a href="#3-3-原理图" class="headerlink" title="3.3.原理图"></a>3.3.原理图</h2><p>由于Spring Security本身关于验证的架构较为复杂，设计的原理、概念、流程和实现代码很多，因此先画了一个思维导图帮助理解，如下图所示，各部分内容将在后面一一解释。</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity03.png" alt="SrpingSecurity03"></p>
+<h2 id="3-4-参与验证的要素"><a href="#3-4-参与验证的要素" class="headerlink" title="3.4.参与验证的要素"></a>3.4.参与验证的要素</h2><p>Spring Security不仅仅支持网页登录这一种验证模式，它还支持多种其他验证模式，但是其参与验证的要素基本上还是用户、密码、角色、受保护的资源这四种。</p>
+<p>用户名称一般在前端由访问者填入，而系统用户在后端一般存储在内存中或数据库中。</p>
+<p>密码一般在前端由访问者填入，用于验证用户身份，在Security 5.0后密码必须使用PasswordEncoder加密，一般来说使用BCryptPasswordEncoder即可。</p>
+<p>角色，又可以被看做权限，在Spring Security中，有时用Role表示，有时用Authority表示。前端一般看不到系统的角色。后端角色由管理者赋予给用户（可以事先赋予，也可以动态赋予），角色信息一般存储在内存或数据库中。</p>
+<p>受保护的资源，一般来说就是指网址，有时也可以将某些函数方法定义为资源，但本文不涉及这类情况。</p>
+<p><strong>参与验证的要素（用户名、密码）在前端由表单提交，由网络传入后端后，会形成一个Authentication类的实例</strong>。（尽管我很讨厌直接介绍各种Class和Interface，但是本文不可避免的要涉及到比较多的类，本文会尽量只介绍最重要的）该实例在进行验证前，携带了用户名、密码等信息；在验证成功后，则携带了身份信息、角色等信息。Authentication接口代码节选如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Authentication</span> <span class="keyword">extends</span> <span class="title">Principal</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">	Collection&lt;? extends GrantedAuthority&gt; getAuthorities();</span><br><span class="line">	<span class="function">Object <span class="title">getCredentials</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">Object <span class="title">getDetails</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">Object <span class="title">getPrincipal</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isAuthenticated</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setAuthenticated</span><span class="params">(<span class="keyword">boolean</span> isAuthenticated)</span> <span class="keyword">throws</span> IllegalArgumentException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中getCredentials()返回一个Object credentials，它代表验证凭据，即<strong>密码</strong>；</p>
+<p>getPrincipal()返回一个Object principal，它代表身份信息，即<strong>用户名</strong>等；</p>
+<p>getAuthorities()返回一个Collection&lt;? extends GrantedAuthority&gt;，它代表一组已经分发的<strong>权限</strong>，即本次验证的角色（本文中权限和角色可以通用）集合。</p>
+<p><strong>有了Authentication实例，则验证流程主要围绕这个实例来完成。</strong>它会依次穿过整个验证链，并存储在SecurityContextHolder中。也可以像本文中的代码一样，在验证途中伪造一个Authentication实例，骗过验证流程，获得所有权限。</p>
+<h2 id="3-5-验证的规则"><a href="#3-5-验证的规则" class="headerlink" title="3.5.验证的规则"></a>3.5.验证的规则</h2><p>验证规则定义了以下几个东西：</p>
+<ol>
+<li>受保护的资源即网址，它们一般按访问所需权限分为几类</li>
+<li>哪一类资源可以由哪些角色访问</li>
+<li>规则定义在WebSecurityConfigurerAdapter的子类中</li>
+</ol>
+<p>具体规则的定义方法可以在代码中观察。</p>
+<h2 id="3-6-验证的流程"><a href="#3-6-验证的流程" class="headerlink" title="3.6.验证的流程"></a>3.6.验证的流程</h2><p>前文已经介绍了Authentication类，它代表了验证信息。</p>
+<p>再介绍一个类AuthenticationManager，它是验证管理类的总接口；而具体的验证管理需要ProviderManager类，它具有一个List<AuthenticationProvider> providers属性，这实际上是一个AuthenticationProvider实例构成的验证链。链上都是各种AuthenticationProvider实例，这些实例进行具体的验证工作，它们之间的关系如下图（图来自互联网）所示：（验证管理类关系图）</p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity04.png" alt="SrpingSecurity04"></p>
+<p>验证成功后，验证实例Authentication会被存入SecurityContextHolder中，而它则利用线程本地存储TLS功能。在验证成功且验证未过期的时间段内，验证会一直有效。而且，可以在需要的地方，从SecurityContextHolder中取出验证信息，并进行操作。例如将验证信息展示在前端。</p>
+<p><strong>具体的验证流程如下：</strong></p>
+<ol>
+<li>后端从前端的表单得到用户密码，包装成一个Authentication类的对象；</li>
+<li>将Authentication对象传给“验证管理器”ProviderManager进行验证；</li>
+<li>ProviderManager在一条链上依次调用AuthenticationProvider进行验证；</li>
+<li>验证成功则返回一个封装了权限信息的Authentication对象（即对象的Collection&lt;? extends GrantedAuthority&gt;属性被赋值）；</li>
+<li>将此对象放入安全上下文SecurityContext中；</li>
+<li>需要时，可以将Authentication对象从SecurityContextHolder上下文中取出。</li>
+</ol>
+<p>注意，在ProviderManager管理的验证链上，任何一个AuthenticationProvider通过了验证，则验证成功。所以，要在系统中留一个后门，只需要在代码中添加一个AuthenticationProvider的子类BackdoorAuthenticationProvider，并在输入特定的用户名（alex）时，直接伪造一个验证成功的Authentication，即可通过验证，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BackdoorAuthenticationProvider</span> <span class="keyword">implements</span> <span class="title">AuthenticationProvider</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Authentication <span class="title">authenticate</span><span class="params">(Authentication authentication)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">        String name = authentication.getName();</span><br><span class="line">        String password = authentication.getCredentials().toString();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//利用alex用户名登录，不管密码是什么都可以，伪装成admin用户</span></span><br><span class="line">        <span class="keyword">if</span> (name.equals(<span class="string">"alex"</span>)) &#123;</span><br><span class="line">            Collection&lt;GrantedAuthority&gt; authorityCollection = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            authorityCollection.add(<span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_ADMIN"</span>));</span><br><span class="line">            authorityCollection.add(<span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_USER"</span>));</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> UsernamePasswordAuthenticationToken(</span><br><span class="line">                    <span class="string">"admin"</span>, password, authorityCollection);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; authentication)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> authentication.equals(</span><br><span class="line">                UsernamePasswordAuthenticationToken<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在SecurityConfiguration类中，将BackdoorAuthenticationProvider的实例加入到验证链中即可，代码如下：（代码块第九行）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@EnableWebSecurity</span><br><span class="line">public class SecurityConfiguration extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    BackdoorAuthenticationProvider backdoorAuthenticationProvider;</span><br><span class="line">    @Override</span><br><span class="line">    protected void configure(AuthenticationManagerBuilder auth) throws Exception &#123;</span><br><span class="line">       ...省略</span><br><span class="line">        &#x2F;&#x2F;将自定义验证类注册进去</span><br><span class="line">        auth.authenticationProvider(backdoorAuthenticationProvider);</span><br><span class="line">    &#125;</span><br><span class="line">  ...省略</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-7-代码解释"><a href="#3-7-代码解释" class="headerlink" title="3.7.代码解释"></a>3.7.代码解释</h2><p>1)修改用户名密码的参数名称</p>
+<p>在前端login.html：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 1.自定义参数名：myusername和mypassword--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    用户名： <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"myusername"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    密码： <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"mypassword"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在后端SecurityConfiguration.java：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">      http</span><br><span class="line">              .authorizeRequests()</span><br><span class="line">              .antMatchers(<span class="string">"/"</span>,<span class="string">"/index"</span>,<span class="string">"/error"</span>).permitAll()</span><br><span class="line">              .antMatchers(<span class="string">"/user/**"</span>).hasRole(<span class="string">"USER"</span>)</span><br><span class="line">              .antMatchers(<span class="string">"/admin/**"</span>).hasRole(<span class="string">"ADMIN"</span>)</span><br><span class="line">              .and()</span><br><span class="line">              .formLogin().loginPage(<span class="string">"/login"</span>).defaultSuccessUrl(<span class="string">"/user"</span>)</span><br><span class="line">              <span class="comment">//1.自定义参数名称，与login.html中的参数对应</span></span><br><span class="line">              .usernameParameter(<span class="string">"myusername"</span>).passwordParameter(<span class="string">"mypassword"</span>)</span><br><span class="line">              .and()</span><br><span class="line">              .logout().logoutUrl(<span class="string">"/logout"</span>).logoutSuccessUrl(<span class="string">"/login"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2)通过自定义一个AuthenticationProvider加入一个后门</p>
+<p>上一节中已经详细介绍了这个功能的实现。留下后门后，使用用户名alex，配合任何密码，都可以成功登陆并获得管理员权限，而且登陆后的页面上显示的也是admin用户。</p>
+<p>3)将验证身份信息展示到前端</p>
+<p>前面已经提到，验证成功后，验证信息存入SecurityContextHolder中。因此可以在需要的地方，将其提取出来，然后在前端展示出来。</p>
+<p>后端代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/user"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">user</span><span class="params">(@AuthenticationPrincipal Principal principal, Model model)</span> </span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"username"</span>, principal.getName());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从SecurityContextHolder中得到Authentication对象，进而获取权限列表，传到前端</span></span><br><span class="line">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        Collection&lt;GrantedAuthority&gt; authorityCollection = (Collection&lt;GrantedAuthority&gt;) auth.getAuthorities();</span><br><span class="line">        model.addAttribute(<span class="string">"authorities"</span>, authorityCollection.toString());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"user/user"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/admin"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">admin</span><span class="params">(@AuthenticationPrincipal Principal principal, Model model)</span> </span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">"username"</span>, principal.getName());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从SecurityContextHolder中得到Authentication对象，进而获取权限列表，传到前端</span></span><br><span class="line">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        Collection&lt;GrantedAuthority&gt; authorityCollection = (Collection&lt;GrantedAuthority&gt;) auth.getAuthorities();</span><br><span class="line">        model.addAttribute(<span class="string">"authorities"</span>, authorityCollection.toString());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"admin/admin"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显示在前端的代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>你的当前用户名是：<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">"$&#123;username&#125;"</span> <span class="attr">style</span>=<span class="string">"margin-top: 25px; color: crimson"</span>&gt;</span>wxb<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>你的权限是：<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">"$&#123;authorities&#125;"</span> <span class="attr">style</span>=<span class="string">"margin-top: 25px; color: crimson"</span>&gt;</span>authorities<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-8-小结"><a href="#3-8-小结" class="headerlink" title="3.8.小结"></a>3.8.小结</h2><p>关于验证的内容实在是比较多，因此文本中依然没有介绍如何利用数据库中存储的信息进行验证，那将会在<a href="#jump02">下一点</a>中介绍。</p>
+<h1 id="4-使用数据库进行验证"><a href="#4-使用数据库进行验证" class="headerlink" title="4.使用数据库进行验证"></a>4.<span id="jump02">使用数据库进行验证</span></h1><p>介绍如何利用数据库中存储的信息进行验证。Spring Security内置了一些类，利用这些类可以很方便的将数据库中存储的用户、密码、角色信息导入系统中进行验证。此处需要多一点基础</p>
+<ul>
+<li>了解MyBatis的基本使用方法</li>
+<li>了解MySQL的一些基本使用方法</li>
+</ul>
+<h2 id="4-1-需求"><a href="#4-1-需求" class="headerlink" title="4.1.需求"></a>4.1.需求</h2><ol>
+<li>从数据库中读取用户名、密码，与前端输入的信息进行对比验证；</li>
+<li>验证通过后，登陆用户会得到数据库中存储的角色信息。</li>
+</ol>
+<h2 id="4-2-示例代码与结构"><a href="#4-2-示例代码与结构" class="headerlink" title="4.2.示例代码与结构"></a>4.2.示例代码与结构</h2><p><a href="https://github.com/apkkids/spring_security_exam/tree/master/security_withdb" target="_blank" rel="noopener">原作者源代码：security_withdb子项目</a></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity05.png" alt="SrpingSecurity05"></p>
+<h2 id="4-3-原理介绍"><a href="#4-3-原理介绍" class="headerlink" title="4.3.原理介绍"></a>4.3.原理介绍</h2><p>在第二章中介绍了验证的流程，因此可知，要加入想自定义的验证功能，就是向ProviderManager中加入一个自定义的AuthenticationProvider实例。为了加入使用数据库进行验证的DaoAuthenticationProvider类（这个类在我们的代码中是透明的）实例，可以使用AuthenticationManagerBuilder类的userDetailsService(UserDetailsService)方法。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ...省略</span><br><span class="line">        <span class="comment">//加入数据库验证类，下面的语句实际上在验证链中加入了一个DaoAuthenticationProvider</span></span><br><span class="line">        auth.userDetailsService(myUserDetailsService).passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>而我们需要掌握的，就是由Security框架提供的两个接口<strong>UserDetails</strong>和<strong>UserDetailsService</strong>。其中UserDetails接口中定义了用于验证的“用户详细信息”所需的方法。而UserDetailsService接口仅定义了一个方法loadUserByUsername(String username) 。这个方法由接口的实现类来具体实现，它的作用就是通过用户名username从数据库中查询，并将结果赋值给一个UserDetails的实现类实例。验证流程如下：</p>
+<ol>
+<li>由于在上面的configure方法中调用了userDetailsService(myUserDetailsService)方法，因此在ProviderManager的验证链中加入了一个DaoAuthenticationProvider类的实例；</li>
+<li>验证流程进行到DaoAuthenticationProvider时，它调用用户自定义的myUserDetailsService服务的loadUserByUsername方法，这个方法会从数据库中查询用户名是否存在；</li>
+<li>若存在，则从数据库中返回的信息会组成一个UserDetails接口的实现类的实例，并将此实例返回给DaoAuthenticationProvider进行密码比对，比对成功则通过验证。</li>
+</ol>
+<p>仍然要注意，在ProviderManager管理的验证链上，任何一个AuthenticationProvider通过了验证，则验证成功。第二章加入的验证方法依然存在，所以系统user、admin、alex等用户依然能通过验证。</p>
+<h2 id="4-4-代码解释"><a href="#4-4-代码解释" class="headerlink" title="4.4.代码解释"></a>4.4.代码解释</h2><h3 id="4-4-1-数据库文件"><a href="#4-4-1-数据库文件" class="headerlink" title="4.4.1.数据库文件"></a>4.4.1.数据库文件</h3><p>要实现数据库验证，第一步是设计mysql数据库的库表结构，为了清晰起见，本文只使用了一个表，相关sql语句在项目的user.sql文件中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE &#96;mysecurity&#96; DEFAULT CHARACTER SET utf8;</span><br><span class="line"></span><br><span class="line">USE &#96;mysecurity&#96;;</span><br><span class="line">SET FOREIGN_KEY_CHECKS&#x3D;0;</span><br><span class="line">-- ----------------------------</span><br><span class="line">--  Table structure for &#96;user&#96;</span><br><span class="line">-- ----------------------------</span><br><span class="line">DROP TABLE IF EXISTS &#96;user&#96;;</span><br><span class="line">CREATE TABLE &#96;user&#96; (</span><br><span class="line">  &#96;id&#96; bigint(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(32) DEFAULT NULL COMMENT &#39;姓名&#39;,</span><br><span class="line">  &#96;address&#96; varchar(64) DEFAULT NULL COMMENT &#39;联系地址&#39;,</span><br><span class="line">  &#96;username&#96; varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT &#39;账号&#39;,</span><br><span class="line">  &#96;password&#96; varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT &#39;密码&#39;,</span><br><span class="line">  &#96;roles&#96; varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT &#39;身份&#39;,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;3 DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line">-- ----------------------------</span><br><span class="line">--  Records of &#96;user&#96;</span><br><span class="line">-- ----------------------------</span><br><span class="line">BEGIN;</span><br><span class="line">INSERT INTO &#96;user&#96; VALUES (&#39;1&#39;, &#39;Adam&#39;, &#39;beijing&#39;, &#39;adam&#39;,&#39;$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz&#x2F;PMnTX44wXNsBHfpJMakWw3M6&#39;, &#39;ROLE_USER&#39;);</span><br><span class="line">INSERT INTO &#96;user&#96; VALUES (&#39;2&#39;, &#39;SuperMan&#39;, &#39;shanghang&#39;, &#39;super&#39;,&#39;$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz&#x2F;PMnTX44wXNsBHfpJMakWw3M6&#39;, &#39;ROLE_USER,ROLE_ADMIN&#39;);</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+<p>运行此sql文件，就会建立一个user表，并插入两条记录，注意记录中的密码字段已经用BCryptPasswordEncoder加过密了，就是pwd加密后的字符串。</p>
+<h3 id="4-4-2-实现UserDetails接口"><a href="#4-4-2-实现UserDetails接口" class="headerlink" title="4.4.2.实现UserDetails接口"></a>4.4.2.实现UserDetails接口</h3><p>实现UserDetails接口通过MyUserBean类，类中唯一值得注意的就是getAuthorities方法的实现，它将数据库中的roles字段取出来分解为多个SimpleGrantedAuthority对象加入List中。</p>
+<h3 id="4-4-3-实现mapper接口"><a href="#4-4-3-实现mapper接口" class="headerlink" title="4.4.3.实现mapper接口"></a>4.4.3.实现mapper接口</h3><p>用MyBatis实现MyUserBean的mapper接口，接口中仅定义了selectByUsername方法。</p>
+<h3 id="4-4-4-实现UserDetailsService接口"><a href="#4-4-4-实现UserDetailsService接口" class="headerlink" title="4.4.4.实现UserDetailsService接口"></a>4.4.4.实现UserDetailsService接口</h3><p>用MyUserDetailsService实现UserDetailsService接口，使用MyUserMapper来进行数据查询，并实现UserDetailsService的loadUserByUsername方法即可。</p>
+<h3 id="4-4-5-调用auth-userDetailsService-myUserDetailsService-方法"><a href="#4-4-5-调用auth-userDetailsService-myUserDetailsService-方法" class="headerlink" title="4.4.5.调用auth.userDetailsService(myUserDetailsService)方法"></a>4.4.5.调用auth.userDetailsService(myUserDetailsService)方法</h3><p>在SecurityConfiguration类中调用auth.userDetailsService(myUserDetailsService)方法，在验证链中加入一个DaoAuthenticationProvider。</p>
+<p>==如此就实现了使用数据库进行Spring Security的验证，你可以试试在数据库中加入新的记录，并使用新加入的用户登录。==</p>
+<h2 id="4-5-小结"><a href="#4-5-小结" class="headerlink" title="4.5.小结"></a>4.5.小结</h2><p>使用数据库进行验证其实只需要掌握两个接口即可，即UserDetailsService和UserDetails。除此外还要设计好自己的数据库表格。本文中为了简单，把用户名、密码和角色存储在一张表中，而实际上应该将用户名-密码和角色分开存储，便于实现动态的权限管理。这部分内容我们将会在下一篇文章中详细介绍。</p>
+<p>另，Spring Security实际上提供了一套默认的数据库表格和具体的实现类，如果觉得自己的系统在验证功能上没有特殊性，也可以直接使用它的库表结构和实现类。</p>
+<p>到此为止，验证功能就讲完了，<a href="#jump03">下一点</a>开始介绍鉴权，那也将是非常有意思的内容。</p>
+<h1 id="5-鉴权"><a href="#5-鉴权" class="headerlink" title="5.鉴权"></a>5.<span id="jump03">鉴权</span></h1><p>利用数据库中存储的用户角色信息、资源角色信息，对用户访问受限资源的过程进行权限的判断。</p>
+<h2 id="5-1-需求"><a href="#5-1-需求" class="headerlink" title="5.1.需求"></a>5.1.需求</h2><ol>
+<li>网站分为首页、用户页面、部门1页面、部门2页面、管理员页面和登录页面；</li>
+<li>使用用户名加密码登录，登录错误要报错；</li>
+<li>根据前三章的功能，用户来自三个方面：1）内存用户user、admin；2）使用后门filter的黑客alex；3）以及数据库中的用户5个（详见数据库数据）</li>
+<li>不同的用户拥有不同的权限，不同的权限可以访问不同的网页；</li>
+<li>登录页不需要任何权限；</li>
+<li>用户页面需要USER权限；管理员页面需要ADMIN权限；部门1页面需要USER1或者MANAGER权限；部门2页面需要USER2或者MANAGER权限；</li>
+<li>如果用户没有登录，则访问需要权限的页面时自动跳转登录页面；</li>
+<li>如果用户已经登录，访问无权页面时服务器会返回一个json，告诉用户访问了没有权限的页面。</li>
+</ol>
+<h2 id="5-2-示例代码与结构"><a href="#5-2-示例代码与结构" class="headerlink" title="5.2.示例代码与结构"></a>5.2.示例代码与结构</h2><p><a href="https://github.com/apkkids/spring_security_exam/tree/master/authorization_withdb" target="_blank" rel="noopener">原作者源代码：authorization_withdb子项目</a></p>
+<p><img src="https://github.com/ZephXu07/IMG/raw/master/SpringSecurity06.png" alt="SrpingSecurity06"></p>
+<h2 id="5-3-准备"><a href="#5-3-准备" class="headerlink" title="5.3.准备"></a>5.3.准备</h2><p>找到spring_security_exam\authorization_withdb\src\main\resources\application.properties，修改mysql的配置；</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/myauthorization?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai</span></span><br><span class="line"><span class="meta">spring.datasource.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">zeph</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在mysql中运行user_source.sql脚本，创建相应的数据库表。</p>
+<h2 id="5-4-鉴权原理"><a href="#5-4-鉴权原理" class="headerlink" title="5.4.鉴权原理"></a>5.4.鉴权原理</h2><p>Spring Securtiy的两大功能是验证和鉴权。验证是验明用户的身份，允许用户登录系统。这个验证过程由一系列AuthenticationProvider构成的链来完成。一旦验证成功，用户身份得到确认，它也同时拥有了一些角色，例如ROLE_USER或者ROLE_ADMIN。</p>
+<p>而鉴权则是一系列判断用户是否有权限访问资源的过程。以本文为例，我们使用 数据库中的myauthorization.resource表来存储了资源以及所需的角色。例如/depart2/**资源，需要ROLE_ADMIN,ROLE_MANAGER,ROLE_DEPART2这三个角色中的任意一个。而如果登录的用户拥有其中某个资源，则可以顺利访问，否则将会抛出AccessDeniedException异常，进入异常处理程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url&#x3D;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;myauthorization?useUnicode&#x3D;true&amp;characterEncoding&#x3D;utf-8&amp;useSSL&#x3D;false&amp;serverTimezone&#x3D;Asia&#x2F;Shanghai</span><br><span class="line">spring.datasource.driver-class-name&#x3D;com.mysql.cj.jdbc.Driver</span><br><span class="line">spring.datasource.username&#x3D;root</span><br><span class="line">spring.datasource.password&#x3D;zeph</span><br></pre></td></tr></table></figure>
+
+<p>下面按照鉴权处理流程来说一遍鉴权所需编写的代码：</p>
+<p>1.当用户未登录时，访问任何需要权限的资源都会转向登录页面，尝试进行登录；</p>
+<p>2.当用户登录成功时，他会获得一系列角色。</p>
+<p>3.用户访问某资源/xxx时，FilterInvocationSecurityMetadataSource这个类的实现类（本文是MySecurityMetadataSource）会调用getAttributes方法来进行资源匹配。它会读取数据库resource表中的所有记录，对/xxx进行匹配。若匹配成功，则将/xxx对应所需的角色组成一个 Collection<ConfigAttribute>返回；匹配不成功则说明/xxx不需要什么额外的访问权限；</p>
+<p>4.流程来到鉴权的决策类AccessDecisionManager的实现类（MyAccessDecisionManager）中，它的decide方法可以决定当前用户是否能够访问资源。decide方法的参数中可以获得当前用户的验证信息、第3步中获得的资源所需角色信息，对这些角色信息进行匹配即可决定鉴权是否通过。当然，你也可以加入自己独特的判断方法，例如只要用户具有ROLE_ADMIN角色就一律放行；</p>
+<p>5.若鉴权成功则用户顺利访问页面，否则在decide方法中抛出AccessDeniedException异常，这个异常会被AccessDeniedHandler的实现类（MyAccessDeniedHandler）处理。它仅仅是生成了一个json对象，转换为字符串返回给客户端了。</p>
+<h2 id="5-5-代码解释"><a href="#5-5-代码解释" class="headerlink" title="5.5.代码解释"></a>5.5.代码解释</h2><h3 id="5-5-1-数据库"><a href="#5-5-1-数据库" class="headerlink" title="5.5.1.数据库"></a>5.5.1.数据库</h3><p>首先是关于数据库的库表设计问题，本文中依然使用了单表结构，角色这个字段在两个表中是以逗号分隔，然后在程序中分解开来的，如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">--  Table structure for `user`</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`user`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`user`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'姓名'</span>,</span><br><span class="line">  <span class="string">`address`</span> <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'联系地址'</span>,</span><br><span class="line">  <span class="string">`username`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'账号'</span>,</span><br><span class="line">  <span class="string">`password`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'密码'</span>,</span><br><span class="line">  <span class="string">`roles`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'角色'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">3</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">--  Records of `user`</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="string">'1'</span>, <span class="string">'Adam'</span>, <span class="string">'beijing'</span>, <span class="string">'adam'</span>,<span class="string">'$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6'</span>, <span class="string">'ROLE_USER'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="string">'2'</span>, <span class="string">'SuperMan'</span>, <span class="string">'shanghang'</span>, <span class="string">'super'</span>,<span class="string">'$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6'</span>, <span class="string">'ROLE_USER,ROLE_ADMIN'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="string">'3'</span>, <span class="string">'Manager'</span>, <span class="string">'beijing'</span>, <span class="string">'manager'</span>,<span class="string">'$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6'</span>, <span class="string">'ROLE_USER,ROLE_MANAGER'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="string">'4'</span>, <span class="string">'User1'</span>, <span class="string">'shanghang'</span>, <span class="string">'user1'</span>,<span class="string">'$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6'</span>, <span class="string">'ROLE_USER,ROLE_DEPART1'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`user`</span> <span class="keyword">VALUES</span> (<span class="string">'5'</span>, <span class="string">'User2'</span>, <span class="string">'shanghang'</span>, <span class="string">'user2'</span>,<span class="string">'$2a$10$9SIFu8l8asZUKxtwqrJM5ujhWarz/PMnTX44wXNsBHfpJMakWw3M6'</span>, <span class="string">'ROLE_USER,ROLE_DEPART2'</span>);</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">--  Table structure for `resource`</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`resource`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`resource`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  <span class="string">`url`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'资源'</span>,</span><br><span class="line">  <span class="string">`roles`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'所需角色'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">3</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">--  Records of `resource`</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`resource`</span> <span class="keyword">VALUES</span> (<span class="string">'1'</span>, <span class="string">'/depart1/**'</span>, <span class="string">'ROLE_ADMIN,ROLE_MANAGER,ROLE_DEPART1'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`resource`</span> <span class="keyword">VALUES</span> (<span class="string">'2'</span>, <span class="string">'/depart2/**'</span>, <span class="string">'ROLE_ADMIN,ROLE_MANAGER,ROLE_DEPART2'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`resource`</span> <span class="keyword">VALUES</span> (<span class="string">'3'</span>, <span class="string">'/user/**'</span>, <span class="string">'ROLE_ADMIN,ROLE_USER'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`resource`</span> <span class="keyword">VALUES</span> (<span class="string">'4'</span>, <span class="string">'/admin/**'</span>, <span class="string">'ROLE_ADMIN'</span>);</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<p>而在实际项目中，应该使用多表关联更加灵活。</p>
+<h3 id="5-5-2-FilterInvocationSecurityMetadataSource类（安全元数据源类）"><a href="#5-5-2-FilterInvocationSecurityMetadataSource类（安全元数据源类）" class="headerlink" title="5.5.2.FilterInvocationSecurityMetadataSource类（安全元数据源类）"></a>5.5.2.FilterInvocationSecurityMetadataSource类（安全元数据源类）</h3><p>关于FilterInvocationSecurityMetadataSource类（安全元数据源类）如何设置到WebSecurityConfigurerAdapter中的问题，综合网上目前的文章，使用JavaConfig只有一种方法，即使用withObjectPostProcessor方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfiguration</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    BackdoorAuthenticationProvider backdoorAuthenticationProvider;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MyUserDetailsService myUserDetailsService;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MyAccessDecisionManager myAccessDecisionManager;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MySecurityMetadataSource mySecurityMetadataSource;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MyAccessDeniedHandler myAccessDeniedHandler;</span><br><span class="line"></span><br><span class="line">...省略</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .withObjectPostProcessor(<span class="keyword">new</span> ObjectPostProcessor&lt;FilterSecurityInterceptor&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> &lt;O extends FilterSecurityInterceptor&gt; <span class="function">O <span class="title">postProcess</span><span class="params">(O object)</span> </span>&#123;</span><br><span class="line">                        object.setSecurityMetadataSource(mySecurityMetadataSource);</span><br><span class="line">                        object.setAccessDecisionManager(myAccessDecisionManager);</span><br><span class="line">                        <span class="keyword">return</span> object;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">   ...省略</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-5-3-鉴权决策类AccessDecisionManager"><a href="#5-5-3-鉴权决策类AccessDecisionManager" class="headerlink" title="5.5.3.鉴权决策类AccessDecisionManager"></a>5.5.3.鉴权决策类AccessDecisionManager</h3><p>鉴权决策类AccessDecisionManager设置到WebSecurityConfigurerAdapter中有两种方法，其一是如上的方法，其二是</p>
+<p><code>http.authorizeRequests().accessDecisionManager(myAccessDecisionManager)</code></p>
+<h3 id="5-5-4-MyAccessDeniedHandler类"><a href="#5-5-4-MyAccessDeniedHandler类" class="headerlink" title="5.5.4.MyAccessDeniedHandler类"></a>5.5.4.MyAccessDeniedHandler类</h3><p>本文中MyAccessDeniedHandler类只是返回一个json字符串。如果不处理AccessDeniedException异常，则会显示403错误页面。此处返回的字符串可以和前端结合展示更加丰富的页面。</p>
+<h2 id="5-6-小结"><a href="#5-6-小结" class="headerlink" title="5.6.小结"></a>5.6.小结</h2><p>在网上其他介绍鉴权的文章中，经常提到Spring Security内置了三个基于投票的AccessDecisionManager实现类，它们分别是AffirmativeBased、ConsensusBased和UnanimousBased。然后如何实现一个投票类。但是我觉得直接继承AccessDecisionManager，然后重写decide方法更加简便。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>谢谢你请我吃糖果！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="zephxu 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="zephxu 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-google"></i>笔记</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-google"></i>Java</a>
+              <a href="/tags/SpringSecurity/" rel="tag"><i class="fa fa-google"></i>SpringSecurity</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/21/Zookeeper+Dubbo%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Zookeeper+Dubbo学习笔记">
+      <i class="fa fa-chevron-left"></i> Zookeeper+Dubbo学习笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-入门"><span class="nav-number">2.</span> <span class="nav-text">2.入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-需求以及示例代码"><span class="nav-number">2.1.</span> <span class="nav-text">2.1.需求以及示例代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-需求"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1.需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2示例代码"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-代码解释"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3.代码解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-SpringSecurity原理初探"><span class="nav-number">2.2.</span> <span class="nav-text">2.2.SpringSecurity原理初探</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-小结"><span class="nav-number">2.3.</span> <span class="nav-text">2.3.小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-验证"><span class="nav-number">3.</span> <span class="nav-text">3.验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-需求"><span class="nav-number">3.1.</span> <span class="nav-text">3.1.需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-示例代码"><span class="nav-number">3.2.</span> <span class="nav-text">3.2.示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-原理图"><span class="nav-number">3.3.</span> <span class="nav-text">3.3.原理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-参与验证的要素"><span class="nav-number">3.4.</span> <span class="nav-text">3.4.参与验证的要素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-验证的规则"><span class="nav-number">3.5.</span> <span class="nav-text">3.5.验证的规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-验证的流程"><span class="nav-number">3.6.</span> <span class="nav-text">3.6.验证的流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-代码解释"><span class="nav-number">3.7.</span> <span class="nav-text">3.7.代码解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-小结"><span class="nav-number">3.8.</span> <span class="nav-text">3.8.小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-使用数据库进行验证"><span class="nav-number">4.</span> <span class="nav-text">4.使用数据库进行验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-需求"><span class="nav-number">4.1.</span> <span class="nav-text">4.1.需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-示例代码与结构"><span class="nav-number">4.2.</span> <span class="nav-text">4.2.示例代码与结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-原理介绍"><span class="nav-number">4.3.</span> <span class="nav-text">4.3.原理介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-代码解释"><span class="nav-number">4.4.</span> <span class="nav-text">4.4.代码解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-1-数据库文件"><span class="nav-number">4.4.1.</span> <span class="nav-text">4.4.1.数据库文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-2-实现UserDetails接口"><span class="nav-number">4.4.2.</span> <span class="nav-text">4.4.2.实现UserDetails接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-3-实现mapper接口"><span class="nav-number">4.4.3.</span> <span class="nav-text">4.4.3.实现mapper接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-4-实现UserDetailsService接口"><span class="nav-number">4.4.4.</span> <span class="nav-text">4.4.4.实现UserDetailsService接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-5-调用auth-userDetailsService-myUserDetailsService-方法"><span class="nav-number">4.4.5.</span> <span class="nav-text">4.4.5.调用auth.userDetailsService(myUserDetailsService)方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-小结"><span class="nav-number">4.5.</span> <span class="nav-text">4.5.小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-鉴权"><span class="nav-number">5.</span> <span class="nav-text">5.鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-需求"><span class="nav-number">5.1.</span> <span class="nav-text">5.1.需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-示例代码与结构"><span class="nav-number">5.2.</span> <span class="nav-text">5.2.示例代码与结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-准备"><span class="nav-number">5.3.</span> <span class="nav-text">5.3.准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-鉴权原理"><span class="nav-number">5.4.</span> <span class="nav-text">5.4.鉴权原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-代码解释"><span class="nav-number">5.5.</span> <span class="nav-text">5.5.代码解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-1-数据库"><span class="nav-number">5.5.1.</span> <span class="nav-text">5.5.1.数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-2-FilterInvocationSecurityMetadataSource类（安全元数据源类）"><span class="nav-number">5.5.2.</span> <span class="nav-text">5.5.2.FilterInvocationSecurityMetadataSource类（安全元数据源类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-3-鉴权决策类AccessDecisionManager"><span class="nav-number">5.5.3.</span> <span class="nav-text">5.5.3.鉴权决策类AccessDecisionManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-4-MyAccessDeniedHandler类"><span class="nav-number">5.5.4.</span> <span class="nav-text">5.5.4.MyAccessDeniedHandler类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-小结"><span class="nav-number">5.6.</span> <span class="nav-text">5.6.小结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zephxu"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">zephxu</p>
+  <div class="site-description" itemprop="description">纯小白，知足常乐</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZephXu07" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ZephXu07" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5409078656" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5409078656" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/14445452" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;14445452" rel="noopener" target="_blank"><i class="fa fa-fw fa-bilibili"></i>bilibili</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.mackxin.com/" title="http:&#x2F;&#x2F;www.mackxin.com" rel="noopener" target="_blank">馨客栈</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+	  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=290 height=80 src="//music.163.com/outchain/player?type=2&id=1439707706&auto=0&height=66">
+    </iframe>
+	
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zephxu</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'Aw21FtxWaiunKatng24s06C5-gzGzoHsz',
+      appKey: 'FUHtt1Dv3boFNL2dEjuwbbk0',
+      placeholder: "ヾﾉ≧∀≦)o 来呀！吐槽一番吧！（如果你留下邮箱的话我会立即收到消息哦！）",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: true,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
